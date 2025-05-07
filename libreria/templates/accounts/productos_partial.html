@@ -134,55 +134,7 @@
 </style>
 
 {% for producto in productos %}
-<div class="products-grid">
-  <div class="product-card">
-      {% if producto.imagen %}
-        <img src="{{ producto.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre_producto }}">
-      {% else %}
-        <div class="card-img-top text-center p-3">No hay imagen disponible</div>
-      {% endif %}
-      {{ imagen.nombre }}
-        <div class="d-grid gap-2">
-          <button class="open-modal-btn" onclick="abrirModal()">Editar</button>
-
-          <!-- Modal editar-->
-          <div id="editarModal" class="modal">
-            <div class="modal-content">
-              <span class="close-modal" onclick="cerrarModal()">&times;</span>
-
-              <h2>Editar Producto</h2>
-
-              <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-              </form>
-
-              <br>
-              <a href="{% url 'productos2' %}" class="btn btn-secondary">Volver</a>
-            </div>
-          </div>
-
-          <script>
-//-----------------------scrips de editar producto -----------------------
-            function abrirModal() {
-              document.getElementById("editarModal").style.display = "block";
-            }
-        
-            function cerrarModal() {
-              document.getElementById("editarModal").style.display = "none";
-            }
-        
-            window.onclick = function(event) {
-              const modal = document.getElementById("editarModal");
-              if (event.target === modal) {
-                cerrarModal();
-              }
-            }
-          </script>
-
-          <button class="btn btn-danger" onclick="confirmarEliminacion()">Eliminar</button>
-          
+          <button class="btn-eliminar" onclick="mostrarModalEliminar(this)" data-product-id="ID_DEL_PRODUCTO">Eliminar</button>
           <script>
 //------------------------------ scrips de eliminar producto ------------------------------
           function confirmarEliminacion() {
