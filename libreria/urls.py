@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register_view, login_view, dashboard_view, logout_view , register_cliente_view, login_cliente_view
+from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view
 from . import views
 
 urlpatterns = [
@@ -43,7 +43,8 @@ urlpatterns = [
     path('quitar_publicidad/<int:productoId>/', views.quitar_publicidad, name='quitar_publicidad'),
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
     path('productos2/', views.productos2, name='productos2'), # URL PARA LA VISTA DE PRODUCTOS EN EL PANEL DE CONTROL PARA PUBLICAR UN PRODUCTO
-    path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),  # URL para la vista JSON
+    path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),
+    path('crear_producto/', crear_producto, name='crear_producto'),# URL para la vista JSON
 
     # URLS  DE LAS VISTAS DE ADMINISTRACION DE FACTURAS
     path('Factura/', views.factura, name='factura'),
