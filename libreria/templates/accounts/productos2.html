@@ -406,6 +406,15 @@ margin-bottom: 25px;
                           <textarea name="descripcion" cols="40" rows="10" required id="id_descripcion"></textarea>
                         </p>
                         <p>
+                          <label for="id_tipoproducto">Tipo de Producto:</label>
+                          <select name="tipoproducto" id="id_tipoproducto" required>
+                            <option value="frutas">Frutas</option>
+                            <option value="verduras">Verduras</option>
+                            <option value="tuberculos">Tubérculos</option>
+                            <option value="hortalizas">Hortalizas</option>
+                          </select>
+                        </p>
+                        <p>
                           <label for="id_origen">Origen:</label>
                           <input type="text" name="origen" maxlength="100" required id="id_origen">
                         </p>
@@ -421,10 +430,11 @@ margin-bottom: 25px;
                           <label for="id_precio">Precio:</label>
                           <input type="number" name="precio" step="0.01" required id="id_precio">
                         </p>
-                        <p>
-                          <label for="id_publicado">Publicado:</label>
+                        <p style="display: flex; align-items: center; gap: 8px;">
+                          <label for="id_publicado" style="margin: 0;">Publicado:</label>
                           <input type="checkbox" name="publicado" id="id_publicado">
                         </p>
+
                         <p>
                           <label for="id_medida">Medida:</label>
                           <input type="text" name="medida" maxlength="50" required id="id_medida">

@@ -58,10 +58,11 @@
       background-color: #4551c8;
     }
     a.btn-secondary {
+      background-color: #6c757d;
       transition: background-color 0.3s;
     }
     a.btn-secondary:hover {
-      background-color: #6c757d;
+      background-color: #596066;
     }
     
     
@@ -73,7 +74,12 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    
+    .checkbox{
+      width: 170px;
+    }
   </style>
+
 </head>
 <body>
   <div class="container mt-5">
@@ -117,10 +123,10 @@
         <label for="id_precio">Precio:</label>
         <input type="number" name="precio" step="0.01" required id="id_precio">
       </p>
-      <p>
-        <label for="id_publicado">Publicado:</label>
-        <input type="checkbox" name="publicado" id="id_publicado">
-      </p>
+      <div id="checkbox">
+        <label for="id_publicado" style="margin: 0;">Publicado:</label>
+        <input type="checkbox" name="publicado" id="id_publicado" style="width: 170px;">
+      </div>
       <p>
         <label for="id_medida">Medida:</label>
         <input type="text" name="medida" maxlength="50" required id="id_medida">
