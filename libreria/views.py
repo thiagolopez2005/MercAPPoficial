@@ -251,7 +251,7 @@ def eliminar_producto(request, producto_id):
     if request.method == "POST":
         producto.delete()
         return redirect('productos2')
-    return render(request, 'accounts/confirmar_eliminar.html', {'producto': producto})
+    return render(request, 'accounts/productos_partial.html', {'producto': producto})
 
 def subir_imagen(request):
     if request.method == "POST":
@@ -674,3 +674,13 @@ def cambia_con(request, token):
         return redirect("login")
     
     return render(request, 'accounts/cambia_contraseña.html')
+
+def crear_producto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('productos2')
+        else:
+            return JsonResponse({'error': form.errors}, status=400)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
