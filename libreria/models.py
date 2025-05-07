@@ -34,13 +34,13 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
     )
 
     nombre = models.CharField(
-        max_length=10,
+        max_length=250,
         blank=False,
         null=False,
         )
     
     apellido = models.CharField(
-        max_length=10,
+        max_length=250,
         blank=False,
         null=False,)
     
@@ -101,13 +101,13 @@ class CustomCliente(AbstractUser):
     )
 
     nombre = models.CharField(
-        max_length=10,
+        max_length=250,
         blank=False,
         null=False,
         )
     
     apellido = models.CharField(
-        max_length=10,
+        max_length=250,
         blank=False,
         null=False,)
 
@@ -152,3 +152,4 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+    

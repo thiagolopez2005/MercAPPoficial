@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from libreria.backends import CustomClienteBackend
 from django.http import JsonResponse
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser 
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Proveedor
@@ -25,10 +25,28 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
+@login_required
+def editar_perfil(request):
+    user = request.user  # Usuario autenticado
+    if request.method == 'POST':
+        # Actualizar los datos del usuario
+        user.nombre = request.POST.get('first_name', user.nombre)
+        user.apellido = request.POST.get('last_name', user.apellido)
+        user.email = request.POST.get('email', user.email)
+        user.telefono = request.POST.get('telefono', user.telefono)
+        user.save()  # Guarda los cambios en la base de datos
 
+        # Agregar un mensaje de éxito
+        messages.success(request, 'CAMBIOS GUARDADOS')
 
-# -------- REGISTRO PARA EL EMPLEADO Y ADMINISTRADOR------
+        # Redirigir al dashboard
+        return redirect('dashboard')  # Asegúrate de que 'dashboard' sea el nombre de la URL del dashboard
+    return render(request, 'accounts/editar_perfin.html', {'user': user})
+# -------- REGISTRO PARA EL EMPLEADO Y ADMINISTRADOR-------
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

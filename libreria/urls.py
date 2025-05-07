@@ -18,6 +18,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('register_cliente/', register_cliente_view, name='register_cliente'),
     path('accounts/registro/', register_view, name='register'),
+    path('editarperfil/', views.editar_perfil, name='editarperfil'),
     
     # URLS DE LAS VISTAS DE ADMINISTRACION Y EMPLEADOS
     

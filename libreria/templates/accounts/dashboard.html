@@ -14,9 +14,9 @@
         <aside class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                    <img src="{% static 'imagenes/Agricultor.png' %}"alt="Perfil Usuario">
                 </div>
-                <p>{{ request.user.username }}</p>
+                <p>{{ request.user.nombre }}</p>
                 <p>Administrador</p>
             </div>
             <nav class="menu">
@@ -58,7 +58,7 @@
                     <i class="material-icons">notifications</i>
                     <i class="material-icons">power_settings_new</i>
                     <span>{{ request.user.Nombre }}</span>
-                    <img src="{% static 'images/Empleado.png' %}"alt="Perfil Usuario">
+                    <img src="{% static 'imagenes/Empleado.png' %}"alt="Perfil Usuario">
                 </div>
             </header>
 
@@ -155,7 +155,7 @@
                                       <tbody>
                                         {% for cuenta in cuentas %}
                                         <tr>
-                                            <td>{{ cuenta.username }}</td>
+                                            <td>{{ cuenta.nombre }}{{ cuenta.apellido }}</td>
                                             <td>{{ cuenta.cec }}</td>
                                             <td>{{ cuenta.email }}</td>
                                             <td>{{ cuenta.role }}</td>
