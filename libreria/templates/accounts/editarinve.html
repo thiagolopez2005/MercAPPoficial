@@ -68,7 +68,7 @@
           }
 
           a.btn-secondary:hover {
-            background-color: #6c757d;
+            background-color: #51585e;
           }
           
           
@@ -110,21 +110,23 @@
       
           <!-- Campo para el nombre del producto -->
           <div class="mb-3">
-              <label for="id_nombre" class="form-label">Nombre del Producto</label>
+              <label for="id_nombre" class="form-label">Nombre del Producto:</label>
               <input type="text" name="nombre" id="id_nombre" class="form-control" value="{{ form.nombre.value|default_if_none:'' }}" required>
           </div>
 
           <!-- Campo para la descripción -->
           <div class="mb-3">
-              <label for="id_descripcion" class="form-label">Descripción</label>
+              <label for="id_descripcion" class="form-label">Descripción:</label>
               <textarea name="descripcion" id="id_descripcion" class="form-control" rows="4" required>{{ form.descripcion.value|default_if_none:'' }}</textarea>
           </div>
 
           <!-- Campo para el estado de publicación -->
-          <div class="mb-3 form-check">
-            <label for="id_publicado" class="form-check-label">Publicado</label>
-            <input type="checkbox" name="publicado" id="id_publicado" class="form-check-input" {% if form.publicado.value %}checked{% endif %}>
+          <div class="mb-3 d-flex align-items-center justify-content-between">
+            <label for="id_publicado" class="form-check-label mb-0">Publicado:</label>
+            <input type="checkbox" name="publicado" id="id_publicado" class="form-check-input"style="margin-right: 440px; margin-bottom: 4px;"{% if form.publicado.value %}checked{% endif %}>
         </div>
+        
+        
 
            <!-- Campo para el tipo de producto -->
            <div class="mb-3">
@@ -139,31 +141,31 @@
 
           <!-- Campo para el origen -->
           <div class="mb-3">
-            <label for="id_origen" class="form-label">Origen</label>
+            <label for="id_origen" class="form-label">Origen:</label>
             <input type="text" name="origen" id="id_origen" class="form-control" maxlength="100" value="{{ form.origen.value|default_if_none:'' }}" required>
         </div>
 
         <!-- Campo para la unidad -->
         <div class="mb-3">
-          <label for="id_unidad" class="form-label">Unidad</label>
+          <label for="id_unidad" class="form-label">Unidad:</label>
           <input type="text" name="unidad" id="id_unidad" class="form-control" maxlength="50" value="{{ form.unidad.value|default_if_none:'' }}" required>
       </div>
 
       <!-- Campo para el stock -->
       <div class="mb-3">
-        <label for="id_stock" class="form-label">Stock</label>
+        <label for="id_stock" class="form-label">Stock:</label>
         <input type="number" name="stock" id="id_stock" class="form-control" value="{{ form.stock.value|default_if_none:'' }}" required>
     </div>
 
      <!-- Campo para el precio -->
      <div class="mb-3">
-      <label for="id_precio" class="form-label">Precio</label>
+      <label for="id_precio" class="form-label">Precio:</label>
       <input type="number" name="precio" id="id_precio" class="form-control" step="0.01" value="{{ form.precio.value|default_if_none:'' }}" required>
   </div>
 
    <!-- Campo para la medida -->
    <div class="mb-3">
-    <label for="id_medida" class="form-label">Medida</label>
+    <label for="id_medida" class="form-label">Medida:</label>
     <input type="text" name="medida" id="id_medida" class="form-control" maxlength="50" value="{{ form.medida.value|default_if_none:'' }}" required>
 </div>
       
