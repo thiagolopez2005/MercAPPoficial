@@ -39,6 +39,7 @@ urlpatterns = [
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),
     path('editar_producto/<int:producto_id>/', views.editar_producto, name='editar_producto'),
     path('eliminar/<int:producto_id>/', views.eliminar_producto, name='confirmar_eliminar'),
+    path('productos_partial/<int:producto_id>/', views.eliminar_producto, name='productos_partial'),
     path('subir_imagen/', views.subir_imagen, name='subir_imagen'),
     path('quitar_publicidad/<int:productoId>/', views.quitar_publicidad, name='quitar_publicidad'),
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
@@ -60,7 +61,7 @@ urlpatterns = [
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
     
     # urls para el invetatio
-    path('editar_inventario/<int:productoId>', views.editar_inven, name='editarinve'),
+    path('editar_inventario/<int:producto_id>/', views.editar_inven, name='editarinve'),
     
     
     # URLS PARA LAS COPIAS DE SEGUIDAD

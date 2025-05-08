@@ -172,7 +172,7 @@
 
   .product-actions {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       margin-top: 10px;
   }
 
@@ -200,7 +200,7 @@
   }
 
   .products-header {
-margin-bottom: 25px;
+      margin-bottom: 25px;
   }
 
   .search-actions {
@@ -237,7 +237,7 @@ margin-bottom: 25px;
     border-radius: 8px;
   }
 
-      .modal {
+  .modal-imagen {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -248,78 +248,107 @@ margin-bottom: 25px;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.6);
   }
-
-  .modal-content {
+  
+  .modal-imagen .modal-content {
     background-color: #fff;
     margin: 5% auto;
     padding: 30px;
     border-radius: 10px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
-
-  .close-modal {
+  
+  .modal-imagen h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #28a745;
+  }
+  
+  .modal-imagen form p {
+    margin-bottom: 15px;
+  }
+  
+  .modal-imagen input,
+  .modal-imagen textarea,
+  .modal-imagen select {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .modal-imagen input:focus,
+  .modal-imagen textarea:focus,
+  .modal-imagen select:focus {
+    border-color: #28a745;
+    outline: none;
+  }
+  
+  .modal-imagen .btn-primary,
+  .modal-imagen .btn-secondary {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .modal-imagen .btn-primary {
+    background-color: #28a745;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .modal-imagen .btn-primary:hover {
+    background-color: #218838;
+  }
+  
+  .modal-imagen .btn-secondary {
+    background-color: #6c757d;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .modal-imagen .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  .modal-imagen .close-modal {
     float: right;
     font-size: 20px;
     font-weight: bold;
     color: #aaa;
     cursor: pointer;
   }
-
-  .close-modal:hover {
+  
+  .modal-imagen .close-modal:hover {
     color: #000;
   }
-
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #28a745;
-  }
-
-  form p {
-    margin-bottom: 15px;
-  }
-
-  input, textarea, select {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-  }
-
-  input:focus, textarea:focus, select:focus {
-    border-color: #28a745;
-    outline: none;
-  }
-
-  button.btn-success {
-    background-color: #28a745;
-    color: white;
+  
+  .btn-eliminar_1{
+    padding: 10px 16px;
+    border-radius: 8px;
     border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    color: white;
+    margin-left: 10px;
+    transition: background-color 0.3s;
   }
-
-  button.btn-success:hover {
-    background-color: #218838;
-  }
-
-  .btn-secondary {
-      background: rgba(255, 255, 255, 0.11);
-      border: none;
-      margin-top: 10px;
-  }
-
-  .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.5);
-  }
-
-  .product-actions {
-    justify-content: center;
-  }
-
 
 </style>
 <body>
@@ -386,11 +415,10 @@ margin-bottom: 25px;
                   <button class="open-modal-btn" onclick="abrirModalImagen()">Subir Nueva Imagen</button>
                   <a href="{% url 'Productos' %}" class="btn btn-info">Ver Publicados</a>
 
-                  <div id="modalSubirNuevaImagen" class="modal">
+                  <div id="modalSubirNuevaImagen" class="modal-imagen">
                     <div class="modal-content">
                       <span class="close-modal" onclick="cerrarModalImagen()">&times;</span>
                       <h2>Subir Nueva Imagen</h2>
-                  
                       <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <p>
@@ -430,11 +458,10 @@ margin-bottom: 25px;
                           <label for="id_precio">Precio:</label>
                           <input type="number" name="precio" step="0.01" required id="id_precio">
                         </p>
-                        <p style="display: flex; align-items: center; gap: 8px;">
+                        <p style="display: flex; align-items: flex-start; gap: 4px;">
                           <label for="id_publicado" style="margin: 0;">Publicado:</label>
-                          <input type="checkbox" name="publicado" id="id_publicado">
+                          <input type="checkbox" name="publicado" id="id_publicado" style="margin-top: 7px;margin-right: 500px;">
                         </p>
-
                         <p>
                           <label for="id_medida">Medida:</label>
                           <input type="text" name="medida" maxlength="50" required id="id_medida">
@@ -448,6 +475,7 @@ margin-bottom: 25px;
                       </form>
                     </div>
                   </div>
+                  
 
                     <script>
                       function abrirModalImagen() {
@@ -494,10 +522,9 @@ margin-bottom: 25px;
               <h2>Frutas</h2>
               <div class="products-grid">
                 {% for productos in frutas %}
-                
                   <div class="product-card">
                     {% if productos.imagen %}
-                            <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ productos.nombre_producto }}">
+                      <img src="{{ productos.imagen.url }}" class="product-image-container" alt="{{ productos.nombre_producto }}">
                     {% else %}
                       <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                     {% endif %}
@@ -506,8 +533,22 @@ margin-bottom: 25px;
                     <p>Precio: ${{ productos.precio }}</p>
                     <div class="d-grid gap-2">
                       <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                      <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
-                      {% if not producto.publicado %}
+                      <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
+
+                      <!-- Modal de Confirmación -->
+                      <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
+                        <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+                          <h2>¿Estás seguro de eliminar este producto?</h2>
+                          <form method="POST" action="{% url 'productos_partial' productos.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
+                            <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
+                          </form>
+                        </div>
+                      </div>
+                      
+
+                      {% if not productos.publicado %}
                         <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                       {% else %}
                         <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
@@ -534,7 +575,19 @@ margin-bottom: 25px;
                     <p>Precio: ${{ productos.precio }}</p>
                     <div class="d-grid gap-2">
                       <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                      <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
+                      <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
+
+        <!-- Modal de Confirmación -->
+        <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
+          <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+            <h2>¿Estás seguro de eliminar este producto?</h2>
+            <form method="POST" action="{% url 'productos_partial' productos.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
+              <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
+            </form>
+          </div>
+        </div>
                       {% if not producto.publicado %}
                         <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                       {% else %}
@@ -562,7 +615,19 @@ margin-bottom: 25px;
                   <p>Precio: ${{ productos.precio }}</p>
                   <div class="d-grid gap-2">
                     <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                    <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
+                    <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
+
+                    <!-- Modal de Confirmación -->
+                    <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
+                      <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+                        <h2>¿Estás seguro de eliminar este producto?</h2>
+                        <form method="POST" action="{% url 'productos_partial' productos.id %}">
+                          {% csrf_token %}
+                          <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
+                          <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
+                        </form>
+                      </div>
+                    </div>
                     {% if not producto.publicado %}
                       <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                     {% else %}
@@ -590,7 +655,19 @@ margin-bottom: 25px;
                   <p>Precio: ${{ productos.precio }}</p>
                   <div class="d-grid gap-2">
                     <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                    <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
+                    <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
+
+                    <!-- Modal de Confirmación -->
+                    <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
+                      <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+                        <h2>¿Estás seguro de eliminar este producto?</h2>
+                        <form method="POST" action="{% url 'productos_partial' productos.id %}">
+                          {% csrf_token %}
+                          <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
+                          <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
+                        </form>
+                      </div>
+                    </div>
                     {% if not producto.publicado %}
                       <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                     {% else %}
@@ -608,6 +685,27 @@ margin-bottom: 25px;
 
   </div>
   </section>
+  <script>
+    function abrirModalEliminar(productoId) {
+      const modal = document.getElementById("modalEliminar-" + productoId);
+      if (modal) modal.style.display = "flex";
+    }
+  
+    function cerrarModalEliminar(productoId) {
+      const modal = document.getElementById("modalEliminar-" + productoId);
+      if (modal) modal.style.display = "none";
+    }
+  
+    window.onclick = function(event) {
+      const modales = document.querySelectorAll(".modal");
+      modales.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    };
+  </script>
+
     <script>
       
       function getCookie(name) {
