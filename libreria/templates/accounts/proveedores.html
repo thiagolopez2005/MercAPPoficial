@@ -110,12 +110,19 @@
                             <td>
                                 <a href="{% url 'editar_proveedor' proveedor.id %}">Editar</a> |
 
-                                    {% if proveedor.activo %}
-                                        <a href="{% url 'inhabilitar_proveedor' proveedor.id %}" class="btn btn-danger">Desactivar</a>
-                                    {% else %}
-                                        <a href="{% url 'habilitar_proveedor' proveedor.id %}" class="btn btn-success">Activar</a>
-                                    {% endif %}
-                                </td>
+                            <td>
+                                {% if proveedor.activo %}
+                                <form method="post" action="{% url 'inhabilitar_proveedor' proveedor.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Inhabilitar</button>
+                                </form>
+                                {% else %}
+                                <form method="post" action="{% url 'habilitar_proveedor' proveedor.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Habilitar</button>
+                                </form>
+                                {% endif %}
+                            </td>
                         </tr>
                         </tr>
                         {% empty %}
