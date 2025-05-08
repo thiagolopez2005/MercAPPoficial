@@ -24,7 +24,6 @@ from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
-from django.shortcuts import render, get_object_or_404, redirect
 
 
 # -------- REGISTRO PARA EL EMPLEADO Y ADMINISTRADOR------
