@@ -25,7 +25,7 @@ urlpatterns = [
     path('inventario/', views.inventario, name='inventario'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('empleado/', views.vista_emple, name='vista_emple'),
-
+    path('clientes/', views.listar_clientes, name='listar_clientes'),
     # URLS DE LAS VISTAS DE ADMINISTRACION DE CUENTAS DE MERCAPP
     
     # path('listar-registros/', views.listar_registros, name='listar_registros'),
@@ -55,6 +55,7 @@ urlpatterns = [
 
     # URLS DE LAS VISTAS DE ADMINISTRACION DE PROVEEDORES
     path('registrar_proveedor/', views.registrar_proveedor, name='registrar_proveedor'),
+    path('proveedor/', views.listar_proveedores, name='listar_proveedor'),
     path('inhabilitar_proveedor/<int:id>/', views.inhabilitar_proveedor, name='inhabilitar_proveedor'),
     path('habilitar_proveedor/<int:id>/', views.habilitar_proveedor, name='habilitar_proveedor'),
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),

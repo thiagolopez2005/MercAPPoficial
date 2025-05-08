@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,6 +33,14 @@
                     <li><a href="{% url 'dashboard' %}"class="active" data-page="dashboard">
                         <i class="material-icons">groups</i> 
                         <span>USUARIOS</span>
+                    </a></li>
+                    <li><a href="{% url 'register_cliente' %}"class="active" data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>clientes</span>
+                    </a></li>
+                    <li><a href="{% url 'registrar_proveedor' %}"class="active" data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>proveedores</span>
                     </a></li>
                     <li><a href="{% url 'factura' %}"class="active" data-page="factura">
                         <i class="material-icons">groups</i> 
@@ -120,6 +129,20 @@
                         </div>
                     </div>
                 </section>
+                <section class="timeline">
+                    <h2>ACTIVIDAD RECIENTE</h2>
+                    <ul class="activity-list">
+                        {% for actividad in actividades %}
+                        <li>
+                            <strong>{{ actividad.usuario_nombre }}</strong>: {{ actividad.accion }}                            <br>
+                            <small>{{ actividad.timestamp|date:"d/m/Y H:i" }}</small>
+                            <p>{{ actividad.detalle }}</p>
+                        </li>
+                        {% empty %}
+                        <li>No hay actividades recientes.</li>
+                        {% endfor %}
+                    </ul>
+                </section>
 
                 <section class="users-dashboard">
                     <div class="section-header">
@@ -149,7 +172,7 @@
                                           <th>Teléfono</th>
                                           <th>Correo de Recuperación</th>
                                           <th>Estado</th>
-                                          <th>Opciones</th>
+
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -159,6 +182,7 @@
                                             <td>{{ cuenta.cec }}</td>
                                             <td>{{ cuenta.email }}</td>
                                             <td>{{ cuenta.role }}</td>
+                                            <td>{{ cuenta.email }}</td>
                                             <td>{{ cuenta.is_active }}</td>
                                             <td>
                                                 {% if cuenta.is_active %}
@@ -167,33 +191,99 @@
                                                     No Activo
                                                 {% endif %}
                                             </td>
-                                            <td>
-                                                <td>
-                                                    <a href="{% url 'editar_cuenta' cuenta.id %}">Editar</a> |
-                                                    {% if cuenta.is_active %}
-                                                        <a href="{% url 'desactivar_cuenta' cuenta.id %}">Desactivar</a>
-                                                    {% else %}
-                                                        <a href="{% url 'activar_cuenta' cuenta.id %}">Activar</a>
-                                                    {% endif %}
-                                                    | <a href="{% url 'eliminar_cuenta' cuenta.id %}" onclick="return confirm('¿Está seguro de eliminar esta cuenta?');">Eliminar</a>
-                                                </td>
-                                            </tr>
-                                        </tr>
+          
                                         {% empty %}
                                         <tr>
                                             <td colspan="9">No hay cuentas registradas.</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
-                              
+
+
+
                         </table>
                     </div>
                 </section>
+                <div class="table-container">
 
-                <section class="timeline">
-                    <h2>ACTIVIDAD RECIENTE</h2>
-                    <!-- Aquí irá el contenido del timeline -->
-                </section>
+                    <h1>Clientes</h1>
+                    <div class="users-table-container">
+                        <table class="users-table">
+                            <thead>
+                                <div class="table-container">
+                                    <table>
+                                      <thead>
+                                        <tr>
+                                          <th>Nombre completo</th>
+                                          <th>CC</th>
+                                          <th>Correo</th>
+                                          <th>Teléfono</th>
+                                          <th>Correo de Recuperación</th>
+
+                
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for cliente in clientes %}
+                                        <tr>
+                                            <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+                                            <td>{{ cliente.CC }}</td>
+                                            <td>{{ cliente.email }}</td>
+                                            <td>{{ cliente.telefono }}</td>
+                                            <td>{{ cliente.email }}</td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="5">No hay clientes registrados.</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                
+                <h1>proveedores</h1>
+    <div class="users-table-container">
+        <table class="users-table">
+            <thead>
+                <div class="table-container">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Nombre completo</th>
+                          <th>Correo</th>
+                          <th>Teléfono</th>
+                          <th>Correo de Recuperación</th>
+                          <th>Estado</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for proveedor in proveedor %}
+                        <tr>
+                            <td>{{ proveedor.nombre }}  {{ proveedor.apellido }}</td>
+                            <td>{{ proveedor.correo }}</td>
+                            <td>{{ proveedor.telefono }}</td>
+                            <td>{{ proveedor.correo }}</td>
+                            <td>
+                                {% if proveedor.activo %}
+                                    <span class="badge bg-success">Activo</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Inactivo</span>
+                                {% endif %}
+                            </td>
+                            <td>
+
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No hay proveedores registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
         </main>
     </div>

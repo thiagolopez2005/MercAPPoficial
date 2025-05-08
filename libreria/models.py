@@ -153,3 +153,19 @@ class Proveedor(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
     
+# --------backend de registro de actividad---
+
+from django.conf import settings  # Importa settings para usar AUTH_USER_MODEL
+from django.utils.timezone import now
+
+class RegistroActividad(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    accion = models.CharField(max_length=255)
+    detalle = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return f"{self.timestamp.strftime('%Y-%m-%d %H:%M:%S')} - {self.usuario.nombre if self.usuario else 'Sistema'} - {self.accion}"

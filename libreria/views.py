@@ -40,8 +40,6 @@ def editar_perfil(request):
         user.telefono = request.POST.get('telefono', user.telefono)
         user.save()  # Guarda los cambios en la base de datos
 
-        # Agregar un mensaje de éxito
-        messages.success(request, 'CAMBIOS GUARDADOS')
 
         # Redirigir al dashboard
         return redirect('dashboard')  # Asegúrate de que 'dashboard' sea el nombre de la URL del dashboard
@@ -61,15 +59,24 @@ def register_view(request):
 
 #------------- registro de cliente -----------
 from .forms import CustomClienteCreationForm
+from .models import RegistroActividad
 
 def register_cliente_view(request):
     if request.method == 'POST':
         form = CustomClienteCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)  # No guardes el usuario aún
-            user.username = form.cleaned_data['cec']  # Asigna el valor de 'cec' al campo 'username'
-            user.save() 
+            user.username = form.cleaned_data['CC']  # Asigna el valor de 'CC' al campo 'username'
+            user.save()  # Guarda el usuario
             form.save()
+
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,  # Usuario que realiza el registro
+                accion="Registro de cliente",
+                detalle=f"Se registró un nuevo cliente: {user.username}"
+            )
+
             return redirect('login')  # Redirige al login después de registrar
     else:
         form = CustomClienteCreationForm()
@@ -133,11 +140,25 @@ def logout_view(request):
 # ---------------------------VISTA PARA EL PANEL DEL ADMINISTRADOR-----------------------------
 @login_required
 def dashboard_view(request):
-    # Obtén todos los usuarios registrados
+    actividades = RegistroActividad.objects.order_by('-timestamp')[:10]
+    for actividad in actividades:
+        if actividad.usuario:
+            actividad.usuario_nombre = actividad.usuario.nombre  # Usar el atributo 'nombre'
+        else:
+            actividad.usuario_nombre = "Sistema"
+
     productos_count = Producto.objects.count()
     cuentas = CustomUser.objects.all()
-    print(cuentas)
-    return render(request, 'accounts/dashboard.html', {'cuentas': cuentas, 'productos_count': productos_count})
+    clientes = CustomCliente.objects.all()
+    proveedores = Proveedor.objects.all()
+
+    return render(request, 'accounts/dashboard.html', {
+        'cuentas': cuentas,
+        'productos_count': productos_count,
+        'clientes': clientes,
+        'proveedor': proveedores,
+        'actividades': actividades
+    })
 # ---------------------------VISTA PARA EL PANEL DEL EMPLEADO-----------------------------
 # AQUI EL EMPLEADO PUEDE VER LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO
 @login_required
@@ -194,37 +215,28 @@ def productos(request):
 
 # --------------------- Bakend del productos.hmtl ---------------------
 
-def agregar_producto(request):
+from .models import RegistroActividad
+
+def register_cliente_view(request):
     if request.method == 'POST':
-        imagen = request.FILES.get('imagen')
-        nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        origen = request.POST.get('origen')
-        unidad = request.POST.get('unidad')
-        precio = request.POST.get('precio')
-        if imagen and descripcion and origen and unidad and precio and  nombre:
-            producto = Producto.objects.create(
-                imagen=imagen,
-                nombre=nombre,
-                descripcion=descripcion,
-                origen=origen,
-                unidad=unidad,
-                precio=precio,
+        form = CustomClienteCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)  # No guardes el usuario aún
+            user.username = form.cleaned_data['CC']  # Asigna el valor de 'CC' al campo 'username'
+            user.save()  # Guarda el usuario
+            form.save()
+
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,  # Usuario que realiza el registro
+                accion="Registro de cliente",
+                detalle=f"Se registró un nuevo cliente: {user.username}"
             )
-            return JsonResponse({               
-                'imagen_url': producto.imagen.url,
-                'id': producto.id,
-                'nombre': producto.nombre,
-                'descripcion': producto.descripcion,
-                'origen': producto.origen,
-                'unidad': producto.unidad,
-                'precio': str(producto.precio),
-            })
-        else:
-            return JsonResponse({'error': 'Todos los campos son obligatorios'}, status=400)
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
-
+            return redirect('login')  # Redirige al login después de registrar
+    else:
+        form = CustomClienteCreationForm()
+    return render(request, 'accounts/registro_cliente.html', {'form': form})
 # ------------------ VISTAS DE CADA HTML ----------------------
 
 def home(request):
@@ -247,6 +259,45 @@ def carrito(request):
     return render(request, 'accounts/carrito.html')
 
 # ----------- VISTAS PARA LA PUBLICACION DE UN PRODUCTO 
+
+from .models import RegistroActividad
+
+def agregar_producto(request):
+    if request.method == 'POST':
+        imagen = request.FILES.get('imagen')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        origen = request.POST.get('origen')
+        unidad = request.POST.get('unidad')
+        precio = request.POST.get('precio')
+        if imagen and descripcion and origen and unidad and precio and nombre:
+            producto = Producto.objects.create(
+                imagen=imagen,
+                nombre=nombre,
+                descripcion=descripcion,
+                origen=origen,
+                unidad=unidad,
+                precio=precio,
+            )
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,
+                accion="Registro de producto",
+                detalle=f"Se agregó un nuevo producto: {producto.nombre}"
+            )
+            return JsonResponse({
+                'imagen_url': producto.imagen.url,
+                'id': producto.id,
+                'nombre': producto.nombre,
+                'descripcion': producto.descripcion,
+                'origen': producto.origen,
+                'unidad': producto.unidad,
+                'precio': str(producto.precio),
+            })
+        else:
+            return JsonResponse({'error': 'Todos los campos son obligatorios'}, status=400)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
 def index(request):
     return render(request, 'accounts/Principal.html')
 
@@ -347,30 +398,41 @@ def eliminar_cuenta(request, id):
 # REGISTRO DE LOS PROVEEDORES EN EL BACKEND
 # -------------------------------------------
 
+def listar_proveedores(request):
+    proveedores = Proveedor.objects.all()
+    return render(request, 'accounts/proveedores.html', {'proveedor': proveedores})
+# -------------------------------------------
+from .models import RegistroActividad
+
 @login_required
 def registrar_proveedor(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('dashboard')  # Redirige a la lista de proveedores
+            proveedor = form.save()
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,
+                accion="Registro de proveedor",
+                detalle=f"Se registró un nuevo proveedor: {proveedor.nombre} {proveedor.apellido}"
+            )
+            return redirect('listar_proveedor')
     else:
         form = ProveedorForm()
     return render(request, 'accounts/registrar_proveedores.html', {'form': form})
-
 @login_required
 def inhabilitar_proveedor(request, id):
     proveedor = get_object_or_404(Proveedor, id=id)
     proveedor.activo = False
     proveedor.save()
-    return redirect('dashboard')
+    return redirect('listar_proveedor')
 
 @login_required
 def habilitar_proveedor(request, id):
     proveedor = get_object_or_404(Proveedor, id=id)
     proveedor.activo = True
     proveedor.save()
-    return redirect('dashboard')
+    return redirect('listar_proveedor')
 
 @login_required
 def editar_proveedor(request, id):
@@ -379,11 +441,21 @@ def editar_proveedor(request, id):
         form = ProveedorForm(request.POST, instance=proveedor)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')  # Redirige al dashboard después de guardar
+            return redirect('listar_proveedor')  # Redirige al dashboard después de guardar
     else:
         form = ProveedorForm(instance=proveedor)
     return render(request, 'accounts/editar_proveedor.html', {'form': form, 'proveedor': proveedor})
 
+# ----------------------------------------
+# vista tabla de los datos del cliente
+# ----------------------------------------
+from .models import CustomCliente
+
+@login_required
+def listar_clientes(request):
+    # Recupera todos los clientes registrados
+    clientes = CustomCliente.objects.all()
+    return render(request, 'accounts/clientes.html', {'clientes': clientes})
 # -------------------------------------------
 # REGISTRO DE LOS RECIBOSDE LOS PRODUCTOS EN EL BACKEND
 # --------------------------------------------
@@ -580,32 +652,7 @@ def restaurar_copia_seguridad(request,backup_id):
     return redirect('copias_seguridad')
 
 
-    # if request.method == 'GET':
-    #     try:
-    #         # Lista los archivos de respaldo
-    #         backups = os.listdir(BACKUP_DIR)
-    #         backup_file = backups[int(backup_id)]
-    #         backup_path = os.path.join(BACKUP_DIR, backup_file)
 
-    #         # Verifica si el archivo existe
-    #         if not os.path.exists(backup_path):
-    #             return HttpResponse("El archivo de respaldo no existe.", status=404)
-
-    #         # Comando para restaurar la base de datos
-    #         mysql_executable = r"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"
-    #         command = f"\"{mysql_executable}\" -u root -p[] mercapp < \"{backup_path}\""
-    #         result = subprocess.run(command, shell=True, capture_output=True, text=True)
-
-    #         # Manejo de errores en el comando
-    #         if result.returncode != 0:
-    #             print(f"Error al restaurar la base de datos: {result.stderr}")
-    #             return HttpResponse(f"Error al restaurar la base de datos: {result.stderr}", status=500)
-
-    #         return redirect('copias_seguridad')
-    #     except (IndexError, FileNotFoundError):
-    #         raise Http404("Copia de seguridad no encontrada.")
-    # else:
-    #     return HttpResponse("Método no permitido", status=405)
  
 # ---------------------------------
 # VISTA PARA LA RECUPERACION DE CONTRASEÑA
