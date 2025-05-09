@@ -25,6 +25,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 
+
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -775,3 +777,7 @@ def crear_producto(request):
         else:
             return JsonResponse({'error': form.errors}, status=400)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+#Vista de terminos y condiciones
+def terminos(request):
+    return render(request, 'accounts/terminos_condiciones.html')

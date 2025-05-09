@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view
+from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view,terminos
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
@@ -75,5 +76,8 @@ urlpatterns = [
     
     path('cambia_contraseña/<str:token>/', views.cambia_con, name='cambia_con'), #vista para cambiar contraseña con token, en name se le pasa el token para contsruir la url
     path('recuperar_contraseña/', views.recu_contra, name="recu_contra"), #vista para recuperar contraseña
+
+    #URLS DE TERMINOS Y CONDICIONES
+    path('terminos_condiciones/', terminos, name='terminos_condiciones'),
 
 ]
