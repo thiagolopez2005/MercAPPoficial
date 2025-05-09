@@ -26,6 +26,7 @@ from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 
 
+
 # -------- REGISTRO PARA EL EMPLEADO Y ADMINISTRADOR------
 def register_view(request):
     if request.method == 'POST':
@@ -682,3 +683,7 @@ def crear_producto(request):
         else:
             return JsonResponse({'error': form.errors}, status=400)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+#Vista de terminos y condiciones
+def terminos(request):
+    return render(request, 'accounts/terminos_condiciones.html')
