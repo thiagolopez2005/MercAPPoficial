@@ -134,7 +134,8 @@
                     <ul class="activity-list">
                         {% for actividad in actividades %}
                         <li>
-                            <strong>{{ actividad.usuario_nombre }}</strong>: {{ actividad.accion }}                            <br>
+                            <strong>{{ actividad.usuario_nombre }}</strong>: {{ actividad.accion }}
+                            <br>
                             <small>{{ actividad.timestamp|date:"d/m/Y H:i" }}</small>
                             <p>{{ actividad.detalle }}</p>
                         </li>
@@ -274,6 +275,7 @@
                                 {% endif %}
                             </td>
                             <td>
+                                
 
                         </tr>
                         {% empty %}

@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view
+from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view,terminos
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
@@ -40,6 +41,7 @@ urlpatterns = [
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),
     path('editar_producto/<int:producto_id>/', views.editar_producto, name='editar_producto'),
     path('eliminar/<int:producto_id>/', views.eliminar_producto, name='confirmar_eliminar'),
+    path('productos_partial/<int:producto_id>/', views.eliminar_producto, name='productos_partial'),
     path('subir_imagen/', views.subir_imagen, name='subir_imagen'),
     path('quitar_publicidad/<int:productoId>/', views.quitar_publicidad, name='quitar_publicidad'),
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
@@ -62,7 +64,7 @@ urlpatterns = [
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
     
     # urls para el invetatio
-    path('editar_inventario/<int:productoId>', views.editar_inven, name='editarinve'),
+    path('editar_inventario/<int:producto_id>/', views.editar_inven, name='editarinve'),
     
     
     # URLS PARA LAS COPIAS DE SEGUIDAD
@@ -74,5 +76,8 @@ urlpatterns = [
     
     path('cambia_contraseña/<str:token>/', views.cambia_con, name='cambia_con'), #vista para cambiar contraseña con token, en name se le pasa el token para contsruir la url
     path('recuperar_contraseña/', views.recu_contra, name="recu_contra"), #vista para recuperar contraseña
+
+    #URLS DE TERMINOS Y CONDICIONES
+    path('terminos_condiciones/', terminos, name='terminos_condiciones'),
 
 ]

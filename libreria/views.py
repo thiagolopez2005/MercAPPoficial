@@ -25,6 +25,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 
+
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -69,13 +71,6 @@ def register_cliente_view(request):
             user.username = form.cleaned_data['CC']  # Asigna el valor de 'CC' al campo 'username'
             user.save()  # Guarda el usuario
             form.save()
-
-            # Registrar la actividad
-            RegistroActividad.objects.create(
-                usuario=request.user,  # Usuario que realiza el registro
-                accion="Registro de cliente",
-                detalle=f"Se registró un nuevo cliente: {user.username}"
-            )
 
             return redirect('login')  # Redirige al login después de registrar
     else:
@@ -140,7 +135,7 @@ def logout_view(request):
 # ---------------------------VISTA PARA EL PANEL DEL ADMINISTRADOR-----------------------------
 @login_required
 def dashboard_view(request):
-    actividades = RegistroActividad.objects.order_by('-timestamp')[:10]
+    actividades = RegistroActividad.objects.order_by('-timestamp')[:10]  # Últimas 10 actividades
     for actividad in actividades:
         if actividad.usuario:
             actividad.usuario_nombre = actividad.usuario.nombre  # Usar el atributo 'nombre'
@@ -179,11 +174,19 @@ def obtener_productos_json(request):
 # -----------------Entrega los datos de los prodcutos subidos al backend---------------
 # AQUI SE MUESTRAN LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO, SE PUEDE EDITAR Y ELIMINAR
 # LOS PRODUCTOS, SE PUEDE PUBLICAR O QUITAR LA PUBLICACION DE LOS PRODUCTOS
+from .models import RegistroActividad
+
 def productos2(request):
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            producto = form.save()  # Guarda el producto y obtiene la instancia
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,  # Usuario que realiza el registro
+                accion="Registro de producto",
+                detalle=f"Se agregó un nuevo producto: {producto.nombre}"
+            )
             return redirect('productos2')
     else:
         form = ProductoForm()
@@ -205,7 +208,6 @@ def productos2(request):
     }
 
     return render(request, 'accounts/productos2.html', context)
-
 
 def productos(request):
     imagenes_publicadas = Producto.objects.filter(publicado=True)
@@ -322,12 +324,20 @@ def eliminar_producto(request, producto_id):
         return redirect('productos2')
     return render(request, 'accounts/productos_partial.html', {'producto': producto})
 
+from .models import RegistroActividad
+
 def subir_imagen(request):
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('productos2')
+            producto = form.save()  # Guarda el producto y obtiene la instancia
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,  # Usuario que realiza el registro
+                accion="Registro de producto",
+                detalle=f"Se agregó un nuevo producto: {producto.nombre}"
+            )
+            return redirect('productos2')  # Redirige a la vista de productos2
     else:
         form = ProductoForm()
     return render(request, 'accounts/subir_imagen.html', {'form': form})
@@ -387,13 +397,17 @@ def desactivar_cuenta(request, id):
     return redirect('listar_registros')
 
 def eliminar_cuenta(request, id):
-    """
-    Elimina la cuenta del usuario de forma definitiva.
-    """
     cuenta = get_object_or_404(CustomUser, id=id)
-    cuenta.delete()
-    return redirect('dashboard')
-
+    if request.method == "POST":
+        # Registrar la actividad antes de eliminar
+        RegistroActividad.objects.create(
+            usuario=request.user,
+            accion="Eliminación de cuenta",
+            detalle=f"Se eliminó la cuenta del usuario: {cuenta.nombre} {cuenta.apellido}"
+        )
+        cuenta.delete()
+        return redirect('dashboard')
+    return render(request, 'accounts/confirmar_eliminar_cuenta.html', {'cuenta': cuenta})
 # -------------------------------------------
 # REGISTRO DE LOS PROVEEDORES EN EL BACKEND
 # -------------------------------------------
@@ -420,11 +434,19 @@ def registrar_proveedor(request):
     else:
         form = ProveedorForm()
     return render(request, 'accounts/registrar_proveedores.html', {'form': form})
+
+
 @login_required
 def inhabilitar_proveedor(request, id):
     proveedor = get_object_or_404(Proveedor, id=id)
     proveedor.activo = False
     proveedor.save()
+    # Registrar la actividad
+    RegistroActividad.objects.create(
+        usuario=request.user,
+        accion="Inhabilitación de proveedor",
+        detalle=f"Se inhabilitó al proveedor: {proveedor.nombre} {proveedor.apellido}"
+    )
     return redirect('listar_proveedor')
 
 @login_required
@@ -432,7 +454,13 @@ def habilitar_proveedor(request, id):
     proveedor = get_object_or_404(Proveedor, id=id)
     proveedor.activo = True
     proveedor.save()
-    return redirect('listar_proveedor')
+    # Registrar la actividad
+    RegistroActividad.objects.create(
+        usuario=request.user,
+        accion="Habilitación de proveedor",
+        detalle=f"Se habilitó al proveedor: {proveedor.nombre} {proveedor.apellido}"
+    )
+    return redirect('listar_proveedores')
 
 @login_required
 def editar_proveedor(request, id):
@@ -749,3 +777,7 @@ def crear_producto(request):
         else:
             return JsonResponse({'error': form.errors}, status=400)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+#Vista de terminos y condiciones
+def terminos(request):
+    return render(request, 'accounts/terminos_condiciones.html')
