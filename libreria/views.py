@@ -768,7 +768,6 @@ def cambia_con(request, token):
     
     return render(request, 'accounts/cambia_contraseña.html')
 
-<<<<<<< HEAD
 def crear_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -782,7 +781,6 @@ def crear_producto(request):
 #Vista de terminos y condiciones
 def terminos(request):
     return render(request, 'accounts/terminos_condiciones.html')
-=======
 
 # agregra al carrito
 
@@ -852,4 +850,3 @@ def agregar_al_carrito(request, producto_id):
     order_product.save()
 
     return redirect('Carrito')
->>>>>>> backend

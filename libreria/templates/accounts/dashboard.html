@@ -1,11 +1,12 @@
 {% load static %}
 {% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - MercApp</title>
+    <title>Panel de Usuarios - MercApp</title>
 	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -15,277 +16,261 @@
         <aside class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="{% static 'imagenes/Agricultor.png' %}"alt="Perfil Usuario">
+                    <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
                 </div>
-                <p>{{ request.user.nombre }}</p>
+                <h3>{{ request.user.nombre }}</h3>
                 <p>Administrador</p>
             </div>
             <nav class="menu">
                 <ul>
-                    <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
+                    <li><a href="{% url 'productos2' %}" data-page="productos">
                         <i class="material-icons">inventory_2</i> 
                         <span>PRODUCTOS</span>
                     </a></li>
-                    <li><a href="{% url 'inventario' %}"class="active" data-page="inventario">
+                    <li><a href="{% url 'inventario' %}" data-page="inventario">
                         <i class="material-icons">inventory</i> 
                         <span>INVENTARIO</span>
                     </a></li>
-                    <li><a href="{% url 'dashboard' %}"class="active" data-page="dashboard">
+                    <li><a href="{% url 'dashboard' %}" class="active" data-page="dashboard">
                         <i class="material-icons">groups</i> 
                         <span>USUARIOS</span>
                     </a></li>
-                    <li><a href="{% url 'register_cliente' %}"class="active" data-page="dashboard">
-                        <i class="material-icons">groups</i> 
-                        <span>clientes</span>
-                    </a></li>
-                    <li><a href="{% url 'registrar_proveedor' %}"class="active" data-page="dashboard">
-                        <i class="material-icons">groups</i> 
-                        <span>proveedores</span>
-                    </a></li>
-                    <li><a href="{% url 'factura' %}"class="active" data-page="factura">
-                        <i class="material-icons">groups</i> 
+                    <li><a href="{% url 'factura' %}" data-page="recibos">
+                        <i class="material-icons">receipt</i> 
                         <span>RECIBOS</span>
                     </a></li>
-
                     <li><a href="#" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
                         <span>ESTADO DE COMPRA</span>
                     </a></li>
-                    <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
-                        <i class="material-icons">payment</i> 
-                        <span>COPIAS DE SEGURIDAD</span>
-                    </a></li>
                 </ul>
             </nav>
         </aside>
+<style>
+    /* Encabezado de la tabla */
+.table-header {
+    background-color: #28a745; /* Verde */
+    color: white; /* Letras blancas */
+    text-align: center;
+    font-weight: bold;
+}
 
+/* Filas de la tabla */
+.table tbody tr {
+    height: 50px; /* Mayor separación entre filas */
+}
+
+/* Celdas de la tabla */
+.table td, .table th {
+    padding: 15px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto */
+}
+
+/* Bordes de la tabla */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Alternar colores en las filas */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Color claro */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #ffffff; /* Blanco */
+}
+
+/* Estilo para los badges de estado */
+.badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+}
+
+.badge.bg-success {
+    background-color: #28a745; /* Verde */
+}
+
+.badge.bg-danger {
+    background-color: #dc3545; /* Rojo */
+}
+
+/* Centrar texto en la fila vacía */
+.text-center {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d; /* Gris */
+}
+</style>
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
-                <h1>Panel de Control</h1>
+                <h1>Gestión de Usuarios</h1>
                 <div class="user-menu">
                     <i class="material-icons">notifications</i>
                     <i class="material-icons">power_settings_new</i>
-                    <span>{{ request.user.Nombre }}</span>
-                    <img src="{% static 'imagenes/Empleado.png' %}"alt="Perfil Usuario">
                 </div>
             </header>
+            
+            <!-- Contenido específico del Dashboard de Usuarios -->
+            <div class="dashboard-content">
+                <center><h1>Panel de Administración de Usuarios</h1></center>
+                
+                <!-- Aquí iría el contenido específico para la gestión de usuarios -->
+                <!-- Por ejemplo, una tabla de usuarios, formularios para crear/editar usuarios, etc. -->
 
-            <!-- Contenido Principal -->
-            <div id="main-content-area">
-                <section class="dashboard-tiles">
-                    <h2>RESUMEN</h2>
-                    <div class="tiles-grid">
-                        <!-- Productos Tile -->
-                        <div class="tile" onclick="window.location.href='productos.html'">
-                            <div class="tile-content">
-                                <div class="tile-icon">
-                                    <i class="material-icons">inventory_2</i>
-                                </div>
-                                <div class="tile-info">
-                                    <h3>{{ productos_count }}</h3>
-                                    <p>Productos</p>
-                                </div>
-                            </div>
+                    <section class="timeline">
+                        <h2>ACTIVIDAD RECIENTE</h2>
+                        <div class="table-container">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Acción</th>
+                                        <th>Detalle</th>
+                                        <th>Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for actividad in actividades %}
+                                    <tr>
+                                        <td>{{ actividad.usuario_nombre }}</td>
+                                        <td>{{ actividad.accion }}</td>
+                                        <td>{{ actividad.detalle }}</td>
+                                        <td>{{ actividad.timestamp|date:"d/m/Y H:i" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">No hay actividades recientes.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
+                    </section>
 
-                        <!-- Empleados Tile -->
-                        <div class="tile">
-                            <div class="tile-content">
-                                <div class="tile-icon">
-                                    <i class="material-icons">groups</i>
-                                </div>
-                                <div class="tile-info">
-                                    <h3>0</h3>
-                                    <p>Usuarios</p>
-                                </div>
-                            </div>
+                    <section class="users-dashboard">
+                        <div class="section-header">
+                            <h2>USUARIOS REGISTRADOS</h2>
                         </div>
-
-                        <!-- Recibos Tile -->
-                        <div class="tile">
-                            <div class="tile-content">
-                                <div class="tile-icon">
-                                    <i class="material-icons">receipt</i>
-                                </div>
-                                <div class="tile-info">
-                                    <h3>0</h3>
-                                    <p>Recibos</p>
-                                </div>
-                            </div>
+                    
+                        <div class="users-table-container">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th>Nombre Completo</th>
+                                        <th>CC</th>
+                                        <th>Correo</th>
+                                        <th>Teléfono</th>
+                                        <th>Correo de Recuperación</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cuenta in cuentas %}
+                                    <tr>
+                                        <td>{{ cuenta.nombre }} {{ cuenta.apellido }}</td>
+                                        <td>{{ cuenta.cec }}</td>
+                                        <td>{{ cuenta.email }}</td>
+                                        <td>{{ cuenta.role }}</td>
+                                        <td>{{ cuenta.email }}</td>
+                                        <td>
+                                            {% if cuenta.is_active %}
+                                                <span class="badge bg-success">Activo</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">No Activo</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No hay cuentas registradas.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
-
-                        <!-- Estado de Compra Tile -->
-                        <div class="tile">
-                            <div class="tile-content">
-                                <div class="tile-icon">
-                                    <i class="material-icons">payment</i>
-                                </div>
-                                <div class="tile-info">
-                                    <h3>0</h3>
-                                    <p>Compras Pendientes</p>
-                                </div>
-                            </div>
+                    </section>   
+                <section class="users-dashboard">
+                    <div class="table-container">
+                        <h1>Clientes</h1>
+                        <div class="users-table-container">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th>Nombre Completo</th>
+                                        <th>CC</th>
+                                        <th>Correo</th>
+                                        <th>Teléfono</th>
+                                        <th>Correo de Recuperación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cliente in clientes %}
+                                    <tr>
+                                        <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+                                        <td>{{ cliente.CC }}</td>
+                                        <td>{{ cliente.email }}</td>
+                                        <td>{{ cliente.telefono }}</td>
+                                        <td>{{ cliente.email }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay clientes registrados.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </section>
-                <section class="timeline">
-                    <h2>ACTIVIDAD RECIENTE</h2>
-                    <ul class="activity-list">
-                        {% for actividad in actividades %}
-                        <li>
-                            <strong>{{ actividad.usuario_nombre }}</strong>: {{ actividad.accion }}
-                            <br>
-                            <small>{{ actividad.timestamp|date:"d/m/Y H:i" }}</small>
-                            <p>{{ actividad.detalle }}</p>
-                        </li>
-                        {% empty %}
-                        <li>No hay actividades recientes.</li>
-                        {% endfor %}
-                    </ul>
                 </section>
 
                 <section class="users-dashboard">
                     <div class="section-header">
-                        <h2>USUARIOS REGISTRADOS</h2>
-                        <div class="header-actions">
-                            <div class="search-box">
-                                <i class="material-icons">search</i>
-                                <input type="text" placeholder="Buscar usuario...">
-                            </div>
-                            <button class="add-user-btn">
-                                <i class="material-icons">person_add</i>
-                                Nuevo Usuario
-                            </button>
-                        </div>
+                        <h2>PROVEEDORES REGISTRADOS</h2>
                     </div>
-
+                
                     <div class="users-table-container">
-                        <table class="users-table">
-                            <thead>
-                                <div class="table-container">
-                                    <table>
-                                      <thead>
-                                        <tr>
-                                          <th>Nombres completo</th>
-                                          <th>CC</th>
-                                          <th>Correo</th>
-                                          <th>Teléfono</th>
-                                          <th>Correo de Recuperación</th>
-                                          <th>Estado</th>
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-header">
+                                                <tr>
+                                                <th>Nombre completo</th>
+                                                <th>Correo</th>
+                                                <th>Teléfono</th>
+                                                <th>Correo de Recuperación</th>
+                                                <th>Estado</th>
 
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {% for cuenta in cuentas %}
-                                        <tr>
-                                            <td>{{ cuenta.nombre }}{{ cuenta.apellido }}</td>
-                                            <td>{{ cuenta.cec }}</td>
-                                            <td>{{ cuenta.email }}</td>
-                                            <td>{{ cuenta.role }}</td>
-                                            <td>{{ cuenta.email }}</td>
-                                            <td>{{ cuenta.is_active }}</td>
-                                            <td>
-                                                {% if cuenta.is_active %}
-                                                    Activo
-                                                {% else %}
-                                                    No Activo
-                                                {% endif %}
-                                            </td>
-          
-                                        {% empty %}
-                                        <tr>
-                                            <td colspan="9">No hay cuentas registradas.</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for proveedor in proveedor %}
+                                                <tr>
+                                                    <td>{{ proveedor.nombre }}  {{ proveedor.apellido }}</td>
+                                                    <td>{{ proveedor.correo }}</td>
+                                                    <td>{{ proveedor.telefono }}</td>
+                                                    <td>{{ proveedor.correo }}</td>
+                                                    <td>
+                                                        {% if proveedor.activo %}
+                                                            <span class="badge bg-success">Activo</span>
+                                                        {% else %}
+                                                            <span class="badge bg-danger">Inactivo</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        
 
-
-
-                        </table>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="5">No hay proveedores registrados.</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
                     </div>
-                </section>
-                <div class="table-container">
-
-                    <h1>Clientes</h1>
-                    <div class="users-table-container">
-                        <table class="users-table">
-                            <thead>
-                                <div class="table-container">
-                                    <table>
-                                      <thead>
-                                        <tr>
-                                          <th>Nombre completo</th>
-                                          <th>CC</th>
-                                          <th>Correo</th>
-                                          <th>Teléfono</th>
-                                          <th>Correo de Recuperación</th>
-
-                
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {% for cliente in clientes %}
-                                        <tr>
-                                            <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
-                                            <td>{{ cliente.CC }}</td>
-                                            <td>{{ cliente.email }}</td>
-                                            <td>{{ cliente.telefono }}</td>
-                                            <td>{{ cliente.email }}</td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        {% empty %}
-                                        <tr>
-                                            <td colspan="5">No hay clientes registrados.</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-
-                
-                <h1>proveedores</h1>
-    <div class="users-table-container">
-        <table class="users-table">
-            <thead>
-                <div class="table-container">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Nombre completo</th>
-                          <th>Correo</th>
-                          <th>Teléfono</th>
-                          <th>Correo de Recuperación</th>
-                          <th>Estado</th>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for proveedor in proveedor %}
-                        <tr>
-                            <td>{{ proveedor.nombre }}  {{ proveedor.apellido }}</td>
-                            <td>{{ proveedor.correo }}</td>
-                            <td>{{ proveedor.telefono }}</td>
-                            <td>{{ proveedor.correo }}</td>
-                            <td>
-                                {% if proveedor.activo %}
-                                    <span class="badge bg-success">Activo</span>
-                                {% else %}
-                                    <span class="badge bg-danger">Inactivo</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                
-
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="5">No hay proveedores registrados.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
+                <section>                        
             </div>
         </main>
     </div>
