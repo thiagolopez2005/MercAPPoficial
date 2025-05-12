@@ -169,3 +169,27 @@ class RegistroActividad(models.Model):
 
     def __str__(self):
         return f"{self.timestamp.strftime('%Y-%m-%d %H:%M:%S')} - {self.usuario.nombre if self.usuario else 'Sistema'} - {self.accion}"
+    
+# --AGREGAR PRODUCTO EN EL CARRITO
+from django.contrib.auth.models import User
+
+from django.conf import settings
+
+from django.conf import settings
+from django.db import models
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def get_total_price(self):
+        return sum(item.get_total_price() for item in self.orderproduct_set.all())
+    
+class OrderProduct(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def get_total_price(self):
+        return self.product.precio * self.quantity

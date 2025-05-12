@@ -72,48 +72,47 @@
             </div>
         </div>
     </nav> 
-    <!-- Contenido principal - Sección de Productos -->
-    <div class="container products-container"> 
-    <main class="container mt-4">
-        {% block contenido %}
-
-        <!-- Sección de Imágenes Publicadas -->
+    <div class="container products-container">
+        <main class="container mt-4">
+            {% block contenido %}
+    
+            <!-- Sección de Imágenes Publicadas -->
             <div class="row">
                 {% for imagen in imagenes_publicadas %}
-                <div class="col-lg-4 col-md-6">
-                    <div class="product-box">
+                <div class="col-lg-4 col-md-6 mb-4"> <!-- 3 columnas por fila -->
+                    <div class="card h-100 product-box">
                         {% if imagen.imagen %}
-                        <img src="{{ imagen.imagen.url }}" class="product-image" alt="{{ imagen.nombre_producto }}">
+                        <img src="{{ imagen.imagen.url }}" class="card-img-top product-image" alt="{{ imagen.nombre }}">
                         {% else %}
                         <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                         {% endif %}
-                                <h4 class="product-title">{{ imagen.nombre }}</h4><br>
-                                <strong class="product-origin">{{ imagen.origen }}</strong> <br>
-                                <strong>Descripción:</strong> {{ imagen.descripcion }} <br>
-                                <strong class="product-unit">Unidad:  </strong>{{ imagen.unidad }}<br>
-                                <strong class="product-price">Precio:  </strong> <h4> ${{ imagen.precio }} C0P</h4><br>
-                                <div class="quantity-control">
-                                    <div class="quantity-btn minus-btn">-</div>
-                                    <input type="number" min="0" value="0" class="quantity-input">
-                                    <div class="quantity-btn plus-btn">+</div>
+                        <div class="card-body">
+                            <h4 class="card-title product-title">{{ imagen.nombre }}</h4>
+                            <p class="card-text"><strong>Descripción:</strong> {{ imagen.descripcion }}</p>
+                            <p class="card-text"><strong>Unidad:</strong> {{ imagen.unidad }}</p>
+                            <p class="card-text"><strong>Precio:</strong> ${{ imagen.precio }} COP</p>
+                            <form method="POST" action="{% url 'agregar_al_carrito' imagen.id %}" class="add-to-cart-form">
+                                {% csrf_token %}
+                                <div class="quantity-control d-flex align-items-center">
+                                    <button type="button" class="btn btn-outline-secondary quantity-btn minus-btn">-</button>
+                                    <input type="number" name="cantidad" min="1" value="1" class="form-control text-center quantity-input mx-2" style="width: 60px;">
+                                    <button type="button" class="btn btn-outline-secondary quantity-btn plus-btn">+</button>
                                 </div>
-                                <button class="btn btn-agregar btn-block">Agregar al carrito</button>
-
+                                <button type="submit" class="btn btn-success btn-block mt-3">Agregar al carrito</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                {% empty %}
-                <div class="col-12">
-                    <p>No hay imágenes publicadas.</p>
                 </div>
                 {% endfor %}
             </div>
+    
             <div class="mt-4">
                 <a href="{% url 'productos2' %}" class="btn btn-primary">Volver a Gestión de Imágenes</a>
             </div>
-
-
-        {% endblock %}
-    </main>
+    
+            {% endblock %}
+        </main>
+    </div>
 
 </div>
 

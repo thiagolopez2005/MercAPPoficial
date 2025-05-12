@@ -257,8 +257,8 @@ def Nosotros(request):
 def Servicios(request):
     return render(request, 'accounts/Servicios.html')
 
-def carrito(request):
-    return render(request, 'accounts/carrito.html')
+
+
 
 # ----------- VISTAS PARA LA PUBLICACION DE UN PRODUCTO 
 
@@ -768,6 +768,7 @@ def cambia_con(request, token):
     
     return render(request, 'accounts/cambia_contraseña.html')
 
+<<<<<<< HEAD
 def crear_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -781,3 +782,74 @@ def crear_producto(request):
 #Vista de terminos y condiciones
 def terminos(request):
     return render(request, 'accounts/terminos_condiciones.html')
+=======
+
+# agregra al carrito
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Order
+
+from decimal import Decimal
+
+def carrito(request):
+    # Obtén el pedido activo del usuario
+    order = Order.objects.filter(user=request.user).first()
+
+    # Si no hay un pedido activo, crea uno vacío
+    if not order:
+        order = Order.objects.create(user=request.user)
+
+    # Calcula el total, IVA y total con IVA
+    total = order.get_total_price()
+    iva = total * Decimal('0.19')  # Convierte 0.19 a Decimal
+    total_con_iva = total + iva
+
+    # Renderiza el HTML del carrito con los cálculos
+    return render(request, 'accounts/Carrito.html', {
+        'order': order,
+        'total': total,
+        'iva': iva,
+        'total_con_iva': total_con_iva
+    })
+
+
+
+
+@login_required
+def actualizar_cantidad(request, order_product_id):
+    order_product = get_object_or_404(OrderProduct, id=order_product_id)
+    nueva_cantidad = int(request.POST.get('cantidad', 1))
+    if nueva_cantidad > 0:
+        order_product.quantity = nueva_cantidad
+        order_product.save()
+    return redirect('carrito')
+
+from .models import Producto, Order, OrderProduct
+
+@login_required
+@login_required
+def agregar_al_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    cantidad = request.POST.get('cantidad', 1)  # Obtén la cantidad del formulario, por defecto 1
+
+    try:
+        cantidad = int(cantidad)
+        if cantidad < 1:
+            cantidad = 1  # Asegúrate de que la cantidad sea al menos 1
+    except ValueError:
+        cantidad = 1  # Si no es un número válido, establece la cantidad en 1
+
+    # Obtén o crea un pedido activo para el usuario
+    order, created = Order.objects.get_or_create(user=request.user)
+
+    # Verifica si el producto ya está en el carrito
+    order_product, created = OrderProduct.objects.get_or_create(order=order, product=producto)
+    if not created:
+        order_product.quantity += cantidad  # Si ya existe, incrementa la cantidad
+    else:
+        order_product.quantity = cantidad  # Si no existe, establece la cantidad inicial
+    order_product.save()
+
+    return redirect('Carrito')
+>>>>>>> backend

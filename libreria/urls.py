@@ -64,7 +64,14 @@ urlpatterns = [
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
     
     # urls para el invetatio
+<<<<<<< HEAD
     path('editar_inventario/<int:producto_id>/', views.editar_inven, name='editarinve'),
+=======
+    path('editar_inventario/<int:productoId>', views.editar_inven, name='editarinve'),
+    path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+    path('actualizar_cantidad/<int:order_product_id>/', views.actualizar_cantidad, name='actualizar_cantidad'),
+    path('carrito/', views.carrito, name='carrito'),
+>>>>>>> backend
     
     
     # URLS PARA LAS COPIAS DE SEGUIDAD

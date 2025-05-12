@@ -64,3 +64,14 @@ class ProveedorForm(forms.ModelForm):
         super(ProveedorForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-control'})
+
+
+# carrito de compras
+from django.forms import ModelForm
+from .models import OrderProduct
+
+
+class OrderProductForm(ModelForm):
+    class Meta:
+        model = OrderProduct
+        fields = ["product"]
