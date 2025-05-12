@@ -1,121 +1,424 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Contraseña</title>
-  </head>
-  <body>
-    <style>
-      /* Fondo con imagen de frutas */
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background: url("{% static 'images/Recolectores.jpeg' %}") no-repeat center center fixed;
-        background-size: cover;
-        color: #fff;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
+  
+  <title>Recuperar Contraseña</title>
+  <style>
+    @font-face {
+      font-family: 'CustomFont';
+      src: local('Segoe UI'), local('Tahoma'), local('Arial'), sans-serif;
+    }
+    
+    :root {
+      --primary-color: #4eae3a;
+      --primary-light: #4eae3a;
+      --primary-dark: #4eae3a;
+      --accent-color: #ff6d00;
+      --gradient-start: #4eae3a;
+      --gradient-end: #4eae3a;
+      --text-dark: #1a1a2e;
+      --text-light: #ffffff;
+      --text-muted: #6c757d;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'CustomFont', sans-serif;
+      background: 
+                  url("{% static 'images/moras.jpeg' %}") no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .content-wrapper {
+      width: 100%;
+      max-width: 480px;
+      perspective: 1000px;
+    }
+    
+    .reset-form {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-dark);
+      padding: 40px 35px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      width: 100%;
+      text-align: center;
+      transform-style: preserve-3d;
+      animation: flipIn 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .reset-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    }
+    
+    @keyframes flipIn {
+      from { opacity: 0; transform: rotateX(-10deg); }
+      to { opacity: 1; transform: rotateX(0); }
+    }
+    
+    .form-header {
+      margin-bottom: 30px;
+    }
+    
+    .form-icon {
+      display: block;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 15px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 36px;
+      position: relative;
+      animation: pulse 2s infinite;
+    }
+    
+    .form-icon::before {
+      content: "🔑";
+      font-size: 36px;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .reset-form h2 {
+      color: var(--primary-dark);
+      margin-bottom: 15px;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .reset-form p {
+      margin-bottom: 30px;
+      line-height: 1.6;
+      font-size: 1rem;
+      color: var(--text-muted);
+      padding: 0 10px;
+    }
+    
+    .alert {
+      background-color: #fff8e1;
+      color: #ff8f00;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin-bottom: 25px;
+      border-radius: 4px;
+      text-align: left;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      animation: slideIn 0.5s ease;
+    }
+    
+    .alert::before {
+      content: "⚠️";
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .form-group::before {
+      content: "✉️";
+      position: absolute;
+      left: 15px;
+      top: 14px;
+      color: var(--text-muted);
+      transition: var(--transition);
+      font-size: 16px;
+      z-index: 1;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border: 2px solid #e0e0e0;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+      background-color: #f7f7f7;
+      position: relative;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(0, 200, 83, 0.15);
+      background-color: #ffffff;
+    }
+    
+    .form-group input:focus ~ .form-group::before {
+      color: var(--primary-color);
+    }
+    
+    button[type="submit"] {
+      background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+      color: var(--text-light);
+      border: none;
+      padding: 15px 24px;
+      border-radius: var(--border-radius);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    button[type="submit"]::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      transition: 0.5s;
+    }
+    
+    button[type="submit"]:hover {
+      transform: translateY(-3px);
+
+    }
+    
+    button[type="submit"]:hover::before {
+      left: 100%;
+    }
+    
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 25px;
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: var(--transition);
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .back-link::before {
+      content: "←";
+      margin-right: 5px;
+    }
+    
+    .back-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 50%;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+    
+    .back-link:hover {
+      color: var(--primary-color);
+    }
+    
+    .back-link:hover::after {
+      width: 100%;
+      left: 0;
+    }
+    
+    /* Animación de brillo para el botón */
+    @keyframes shine {
+      0% {
+        background-position: -100px;
+      }
+      20% {
+        background-position: 200px;
+      }
+      100% {
+        background-position: 200px;
+      }
+    }
+    
+    /* Animación para el formulario */
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+      }
+      50% {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+      }
+      100% {
+        transform: translateY(0px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+      }
+    }
+    
+    /* Efecto de ondas en el botón */
+    .wave-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .wave-btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .wave-btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(40, 40);
+      }
+    }
+    
+    /* Efecto de borde brillante en el formulario */
+    .glow-border {
+      position: relative;
+    }
+    
+    .glow-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--primary-color));
+      z-index: -1;
+      border-radius: calc(var(--border-radius) + 2px);
+      animation: glow 3s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .reset-form:hover .glow-border::before {
+      opacity: 1;
+    }
+    
+    @keyframes glow {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .reset-form {
+        padding: 30px 25px;
       }
       
-      .content-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-size: cover;
-        padding: 20px;
+      .reset-form h2 {
+        font-size: 1.8rem;
       }
-
-/* Formulario */
-.reset-form {
-  background: #fff;
-  color: #333;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300%;
-  max-width: 600px;
-  text-align: center;
-}
-
-/* Título */
-.reset-form h2 {
-  color: #008000; /* Verde */
-  margin-bottom: 20px;
-}
-
-/* Mensajes de alerta */
-.alert {
-  background-color: #ffcc00;
-  color: #333;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* Campos del formulario */
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-/* Botón de envío */
-.btn-submit {
-  background-color: #008000; /* Verde */
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-submit:hover {
-  background-color: #005f00; /* Verde oscuro */
-}
-
-/* Enlace para volver */
-.back-link {
-  display: block;
-  margin-top: 15px;
-  color: #008000; /* Verde */
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-    </style>
-
-    <div class="content-wrapper">
-      <form class="reset-form" method="POST">
-        {% csrf_token %}
+      
+      .form-group input {
+        padding: 12px 20px 12px 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <form class="reset-form glow-border" method="POST">
+      {% csrf_token %}
+      
+      <div class="form-header">
+        <div class="form-icon"></div>
         <h2>Recuperar Contraseña</h2>
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-warning">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-        <p>Introduce tus datos y te enviaremos un enlace para restablecer tu contraseña.</p>
-        
-        <div class="form-group">
-          <input type="email" name="email" placeholder="Correo electrónico" required>
-        </div>
-        <button type="submit">cambia tu contraseña</button>
-        <a href="{% url 'login' %}" class="back-link">Volver al inicio de sesión</a>
-      </form>
-    </div>
-  </body>
+      </div>
+      
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      
+      <p>Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+      
+      <div class="form-group">
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+      </div>
+      
+      <button type="submit" class="wave-btn">Cambiar mi contraseña</button>
+      <a href="{% url 'login' %}" class="back-link">
+        Volver al inicio de sesión
+      </a>
+    </form>
+  </div>
+</body>
 </html>
