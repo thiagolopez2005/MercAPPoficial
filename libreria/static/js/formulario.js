@@ -1,27 +1,18 @@
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Mostrando pantalla de loader...");
-  
-    // Asegúrate de que el loader se muestre inicialmente
-    const loaderScreen = document.getElementById("loader-screen");
-    const mainContent = document.getElementById("main-content");
-  
-    // Simula el tiempo de carga
-    window.addEventListener("load", function () {
-        setTimeout(() => {
-            // Oculta el loader y muestra el contenido principal
-            loaderScreen.style.display = "none";
-            mainContent.style.display = "block";
-            console.log("Transición completada: contenido principal visible.");
-        }, 2000); // Ajusta el tiempo según lo que necesites
-    });
-  
+ // Esperar a que el documento esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    // Simular carga durante 1.5 segundos
+    setTimeout(function() {
+        document.getElementById('loader-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    }, 1500);
+
     // Configurar los botones para mostrar/ocultar contraseña
-    setupPasswordToggle('contraseña', 'togglePassword');
-    setupPasswordToggle('confirmarcontraseña', 'toggleConfirmPassword');
-  });
-  
-  // Función para configurar los botones de mostrar/ocultar contraseña
-  function setupPasswordToggle(passwordInputId, toggleIconId) {
+    setupPasswordToggle('id_password1', 'togglePassword');
+    setupPasswordToggle('id_password2', 'toggleConfirmPassword');
+});
+
+// Función para configurar los botones de mostrar/ocultar contraseña
+function setupPasswordToggle(passwordInputId, toggleIconId) {
     const passwordInput = document.getElementById(passwordInputId);
     const toggleIcon = document.getElementById(toggleIconId);
     
@@ -40,8 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 toggleIcon.title = 'Mostrar contraseña';
             }
         });
+    } else {
+        console.warn(`Elementos no encontrados: input=${passwordInputId}, toggle=${toggleIconId}`);
     }
-  }
+}
   
   /*
   window.addEventListener("beforeunload", function () {
