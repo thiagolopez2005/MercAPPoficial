@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +11,8 @@
       line-height: 1.6;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-image: url("{% static 'images/terminos.jpeg' %}");
+      background-size: no-repeat;;
     }
     .container {
       max-width: 900px;
