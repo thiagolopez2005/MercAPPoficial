@@ -1,12 +1,78 @@
 {% load static %}
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - MercApp</title>
+    <title>Panel de Inventario - MercApp</title>
 	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+          <div class="profile">
+              <div class="profile-image">
+                  <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
+              </div>
+              <h3>{{ request.user.nombre }}</h3>
+              <p>Administrador</p>
+          </div>
+          <nav class="menu">
+              <ul>
+                  <li><a href="{% url 'dashboard' %}"  data-page="dashboard">
+                      <i class="material-icons">groups</i> 
+                      <span>PRINCIPAL</span>
+                  </a></li>
+                  <li><a href="{% url 'productos2' %}" data-page="productos">
+                      <i class="material-icons">inventory_2</i> 
+                      <span>PRODUCTOS</span>
+                  </a></li>
+                  <li><a href="{% url 'inventario' %}" data-page="inventario">
+                      <i class="material-icons">inventory</i> 
+                      <span>INVENTARIO</span>
+                  </a></li>
+                  <li><a href="#"  data-page="dashboard">
+                      <i class="material-icons">groups</i> 
+                      <span>USUARIOS</span>
+                  </a></li>
+                  <li><a href="#"  data-page="dashboard">
+                      <i class="material-icons">groups</i> 
+                      <span>CLIENTES</span>
+                  </a></li>
+                  <li><a href="{% url 'listar_proveedor' %}" data-page="dashboard">
+                      <i class="material-icons">groups</i> 
+                      <span>PROVEEDORES</span>
+                  </a></li>
+                  <li><a href="#"  data-page="dashboard">
+                      <i class="material-icons">groups</i> 
+                      <span>TRABAJADORES</span>
+                  </a></li>
+                  <li><a href="{% url 'factura' %}" data-page="recibos">
+                      <i class="material-icons">receipt</i> 
+                      <span>RECIBOS</span>
+                  </a></li>
+                  <li><a href="#" data-page="estado-compra">
+                      <i class="material-icons">payment</i> 
+                      <span>ESTADO DE COMPRA</span>
+                  </a></li>
+                  <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
+                      <i class="material-icons">payment</i> 
+                      <span>COPIAS SEGUIDAD</span>
+                  </a></li>
+              </ul>
+          </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="main-content">
+          <header class="top-bar">
+              <h1>Gestión productos</h1>
+              <div class="user-menu">
+                  <i class="material-icons">notifications</i>
+                  <i class="material-icons">power_settings_new</i>
+              </div>
+          </header>
 </head>
 <style>
   body {
@@ -351,53 +417,8 @@
   }
 
 </style>
-<body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="profile">
-                <div class="profile-image">
-                    <img src="assets/default-avatar.png" alt="Perfil Admin">
-                </div>
-                <h3>{{ request.user.username }}</h3>
-                <p>Administrador</p>
-            </div>
-            <nav class="menu">
-              <ul>
-                  <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
-                      <i class="material-icons">inventory_2</i> 
-                      <span>PRODUCTOS</span>
-                  </a></li>
-                  <li><a href="{% url 'inventario' %}" data-page="inventario">
-                      <i class="material-icons">inventory</i> 
-                      <span>INVENTARIO</span>
-                  </a></li>
-                  <li><a href="{% url 'dashboard' %}" data-page="dashboard">
-                      <i class="material-icons">groups</i> 
-                      <span>USUARIOS</span>
-                  </a></li>
-                  <li><a href="#" data-page="recibos">
-                      <i class="material-icons">receipt</i> 
-                      <span>RECIBOS</span>
-                  </a></li>
-                  <li><a href="#" data-page="estado-compra">
-                      <i class="material-icons">payment</i> 
-                      <span>ESTADO DE COMPRA</span>
-                  </a></li>
-              </ul>
-          </nav>
-      </aside>
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="top-bar">
-                <h1>Gestión de Productos</h1>
-                <div class="user-menu">
-                    <i class="material-icons">notifications</i>
-                    <i class="material-icons">power_settings_new</i>
-                    <span>{{ request.user.username }}</span>
-                    <img src="assets/default-avatar.png" alt="Perfil Usuario">
-                </div>
-            </header>
+
+  
 
             <!-- Contenido de Productos -->
             <div class="products-header">

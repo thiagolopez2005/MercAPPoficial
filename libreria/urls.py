@@ -27,6 +27,8 @@ urlpatterns = [
     path('dashboard/', dashboard_view, name='dashboard'),
     path('empleado/', views.vista_emple, name='vista_emple'),
     path('clientes/', views.listar_clientes, name='listar_clientes'),
+    path('trabajadores/', views.trabajadores, name='trabajadores'),
+    
     # URLS DE LAS VISTAS DE ADMINISTRACION DE CUENTAS DE MERCAPP
     
     # path('listar-registros/', views.listar_registros, name='listar_registros'),
