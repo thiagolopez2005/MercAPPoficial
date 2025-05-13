@@ -99,23 +99,9 @@
                 <p>¿olvidaste tu contraseña?<br><a id="forgotLinkAdmin" href="{% url 'recu_contra' %}">Ingresa en el siguiente enlace<br></a></p>
             </div>
         </div>
-        
-
-        <div class="parteiniciar forgot-form" id="forgotForm" display ="none">
-            <h2>Recuperar Contraseña</h2>
-            <form method="POST" action="{% url 'recu_contra' %}">
-                {% csrf_token %}
-                <input type="email" name="email" placeholder="Correo electrónico" required>
-                <input class="Iniciar" type="submit" value="Enviar enlace de recuperación">
-                <input class="Regreso" id="regresarForgot" type="button" value="Volver a inicio de sesión">
-                <div id="Mensaje">
-                    Te enviaremos un enlace para restablecer tu contraseña
-                </div>
-            </form>
-        </div>
       </div>
        
-      <div id="imagen" class="Derecha"</div>
+      <div id="imagen" class="Derecha"></div>
 
     </div>
 
