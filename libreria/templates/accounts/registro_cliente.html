@@ -21,6 +21,14 @@
         <form method="post">
             {% csrf_token %}
             <p>
+                <label for="id_nombre">Nombre completo:</label>
+                {{ form.nombre }}
+            </p>
+            <p>
+                <label for="id_apellido">apellido completo:</label>
+                {{ form.apellido }}
+            </p>
+            <p>
                 <label for="id_cec">CC:</label>
                 {{ form.CC }}
             </p>

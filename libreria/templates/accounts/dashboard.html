@@ -1,12 +1,11 @@
 {% load static %}
 {% load custom_filters %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Usuarios - MercApp</title>
+    <title>Panel de Inventario - MercApp</title>
 	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -23,6 +22,10 @@
             </div>
             <nav class="menu">
                 <ul>
+                    <li><a href="{% url 'dashboard' %}"  data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>PRINCIPAL</span>
+                    </a></li>
                     <li><a href="{% url 'productos2' %}" data-page="productos">
                         <i class="material-icons">inventory_2</i> 
                         <span>PRODUCTOS</span>
@@ -31,9 +34,21 @@
                         <i class="material-icons">inventory</i> 
                         <span>INVENTARIO</span>
                     </a></li>
-                    <li><a href="{% url 'dashboard' %}" class="active" data-page="dashboard">
+                    <li><a href="#"  data-page="dashboard">
                         <i class="material-icons">groups</i> 
                         <span>USUARIOS</span>
+                    </a></li>
+                    <li><a href="{% url 'listar_clientes' %}"  data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>CLIENTES</span>
+                    </a></li>
+                    <li><a href="{% url 'listar_proveedor' %}" data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>PROVEEDORES</span>
+                    </a></li>
+                    <li><a href="{% url 'trabajadores' %}"  data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>TRABAJADORES</span>
                     </a></li>
                     <li><a href="{% url 'factura' %}" data-page="recibos">
                         <i class="material-icons">receipt</i> 
@@ -42,6 +57,10 @@
                     <li><a href="#" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
                         <span>ESTADO DE COMPRA</span>
+                    </a></li>
+                    <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
+                        <i class="material-icons">payment</i> 
+                        <span>COPIAS SEGUIDAD</span>
                     </a></li>
                 </ul>
             </nav>
@@ -264,7 +283,7 @@
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
-                                                    <td colspan="5">No hay proveedores registrados.</td>
+                                                    <td colspan="5" class="text-center">No hay clientes registrados.</td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>

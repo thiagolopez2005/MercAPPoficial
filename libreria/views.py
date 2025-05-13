@@ -362,9 +362,9 @@ def quitar_publicidad(request, productoId):
 
 # ----------------- VISTAS PARA LA ADMINISTRACION DE CUENTAS ------------------
 # AQUI SE MUESTRAN LOS USUARIOS REGISTRADOS EN EL SISTEMA, SE PUEDEN EDITAR, ACTIVAR, DESACTIVAR Y ELIMINAR
-# def usuarios(request):
-#     cuentas = CustomUser.objects.all()
-#     return render(request, 'accounts/usuarios.html', {'cuentas': cuentas})
+def trabajadores(request):
+    cuentas = CustomUser.objects.all()
+    return render(request, 'accounts/Trabajadores.html', {'cuentas': cuentas})
 
 def editar_cuenta(request, id):
     # Obtén el usuario correspondiente al ID
@@ -385,7 +385,7 @@ def activar_cuenta(request, id):
     cuenta = get_object_or_404(CustomUser, id=id)
     cuenta.is_active = True
     cuenta.save()
-    return redirect('listar_registros')
+    return redirect('trabajadores')
 
 def desactivar_cuenta(request, id):
     """
@@ -414,8 +414,8 @@ def eliminar_cuenta(request, id):
 
 def listar_proveedores(request):
     proveedores = Proveedor.objects.all()
-    return render(request, 'accounts/proveedores.html', {'proveedor': proveedores})
-# -------------------------------------------
+    return render(request, 'accounts/proveedores.html', {'proveedores': proveedores})
+
 from .models import RegistroActividad
 
 @login_required
@@ -460,7 +460,7 @@ def habilitar_proveedor(request, id):
         accion="Habilitación de proveedor",
         detalle=f"Se habilitó al proveedor: {proveedor.nombre} {proveedor.apellido}"
     )
-    return redirect('listar_proveedores')
+    return redirect('listar_proveedor')  # Asegúrate de que el nombre coincide con el definido en urls.py
 
 @login_required
 def editar_proveedor(request, id):
@@ -825,7 +825,7 @@ def actualizar_cantidad(request, order_product_id):
 
 from .models import Producto, Order, OrderProduct
 
-@login_required
+
 @login_required
 def agregar_al_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
