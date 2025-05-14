@@ -83,6 +83,29 @@
             to { opacity: 1; }
           }
 
+<<<<<<< HEAD
+=======
+          .btn-volver {
+            background-color: #dc3545; /* rojo */
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            width: 100;
+            text-align: center;
+            margin-top: 10px;
+          }
+
+          .btn-volver:hover {
+            background-color: #c82333;
+          }
+
+
+>>>>>>> d22d3674e5fdd8276d6eebc010f49399ea710d93
     </style>
 <body>
     <div class="profile-edit-container">
@@ -105,8 +128,15 @@
                 <label for="telefono">Teléfono:</label>
                 <input type="text" id="telefono" name="telefono" value="{{ user.telefono }}" placeholder="Ingresa tu teléfono" required>
             </div>
+<<<<<<< HEAD
             <button type="submit" class="btn-submit">Guardar Cambios</button>
             <a href="{% url 'Principal' %}" class="btn btn-secondary">Volver</a>
+=======
+            <div class="button-group">
+              <button type="submit" class="btn-submit">Guardar Cambios</button>
+              <a href="{% url 'Principal' %}" class="btn-volver">Volver</a>
+            </div>
+>>>>>>> d22d3674e5fdd8276d6eebc010f49399ea710d93
         </form>
     </div>
 </body>
