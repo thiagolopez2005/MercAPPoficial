@@ -1,41 +1,43 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperación de Contraseña</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <img src="{% static 'diseños/imagenes/logo.PNG' %}" alt="logo" class="logo">
-        <h1>Recuperación de Contraseña</h1>
-      </div>
-      
-      <div class="content">
-        <p>Bienvendio {{ request.user.username }},</p>
-        
-        <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en <strong>{{ site_name }}</strong>.</p>
-        
-        <p>Para establecer una nueva contraseña, haz clic en el siguiente <b> enlace</b>:</p>
-        <p class="link-text">{{ reset_url }}</p>
+<head>
+  <meta charset="UTF-8">
+  <title>Recuperación de Contraseña</title>
+</head>
+<body style="font-family: 'Roboto', sans-serif; background-color: #f0fdf4; margin: 0; padding: 0; color: #333;">
 
-        <p>O copia y pega el siguiente enlace en tu navegador:</p>
-        
-        <div class="note">
-          <p><strong>Nota:</strong> Este enlace será válido por 1 hora. Si no solicitaste un cambio de contraseña, puedes ignorar este mensaje.</p>
-        </div>
-        
-        <p>Si tienes problemas o preguntas, no dudes en contactarnos.</p>
-        
-        <p>Saludos,<br>El equipo de {{ site_name }}</p>
+  <div style="max-width: 600px; margin: 40px auto; background-color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden;">
+    
+    <div style="background-color: #28a745; color: white; padding: 20px; text-align: center;">
+      <h1 style="margin: 0; font-size: 24px;">Recuperación de Contraseña</h1>
+    </div>
+    
+    <div style="padding: 30px 25px; font-size: 16px; line-height: 1.6;">
+      <p>Bienvenido <strong>{{ request.user.username }}</strong>,</p>
+      
+      <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en <strong>{{ site_name }}</strong>.</p>
+      
+      <p>Para establecer una nueva contraseña, haz clic en el siguiente <b>enlace</b>:</p>
+      
+      <p style="background-color: #e9f8ed; border-left: 4px solid #28a745; padding: 10px; margin: 15px 0; font-size: 15px; color: #155724;">{{ reset_url }}</p>
+
+      <p>O copia y pega el siguiente enlace en tu navegador:</p>
+
+      <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 20px 0; font-size: 15px; color: #856404;">
+        <p><strong>Nota:</strong> Este enlace será válido por 1 hora. Si no solicitaste un cambio de contraseña, puedes ignorar este mensaje.</p>
       </div>
       
-      <div class="footer">
-        <p>&copy; 2025 {{ site_name }}. Todos los derechos reservados.</p>
-        <p>Este es un correo electrónico automático, por favor no respondas a este mensaje.</p>
-      </div>
+      <p>Si tienes problemas o preguntas, no dudes en contactarnos.</p>
+      
+      <p>Saludos,<br>El equipo de {{ site_name }}</p>
     </div>
-  </body>
+    
+    <div style="background-color: #f1f1f1; padding: 20px; text-align: center; font-size: 13px; color: #555; border-top: 1px solid #ddd;">
+      <p>&copy; 2025 {{ site_name }}. Todos los derechos reservados.</p>
+      <p>Este es un correo electrónico automático, por favor no respondas a este mensaje.</p>
+    </div>
+
+  </div>
+
+</body>
 </html>

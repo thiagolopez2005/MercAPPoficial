@@ -4,90 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Proveedor</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-image: url(/static/css/Imagenes/Maracucao.png);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
 
+          
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #28a745;
+            animation: slideDown 1s ease-out;
+        }
+
+        form {
+            animation: fadeIn 1s ease-out;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        input, textarea, select {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #5563DE;
+            outline: none;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            max-width: 250px;
+            margin: 5px auto;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+        }
+
+        .btn-primary:hover {
+            background-color: #007a1d;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5f5f5f;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; } 
+        }
+
+        .button-row {
+          justify-content: center;
+          gap: 10px;
+          margin-top: 20px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+          width: auto;
+          max-width: none;     
+          display: inline-block;
+        }
+
+    </style>
 </head>
-<style>
-        
-    body {
-        font-family: 'Arial', sans-serif;
-        color: #333;
-        padding: 20px;
-        background-image: url(/static/css/Imagenes/Maracucao.png);
-      }
-
-      .container {
-        max-width: 600px;
-        margin: 40px auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      }
-      
-      h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #525252;
-        animation: slideDown 1s ease-out;
-      }
-      
-      form {
-        animation: fadeIn 1s ease-out;
-      }
-      
-      form p {
-        margin-bottom: 15px;
-      }
-
-      input, textarea, select {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        width: 100%;
-        transition: border 0.3s;
-      }
-
-      input:focus, textarea:focus, select:focus {
-        border-color: #5563DE;
-        outline: none;
-      }
-      
-      
-      button.btn-success {
-        transition: background-color 0.3s;
-      }
-
-      button.btn-success:hover {
-        background-color: #515fff;
-      }
-
-      a.btn-secondary {
-        transition: background-color 0.3s;
-        background-color: #6c757d;
-      }
-
-      a.btn-secondary:hover {
-        background-color: #6c757d;
-      }
-      
-      
-      @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-</style>
 <body>
-    <div class="container mt-4">
+    <div class="container">
         <h1>Editar Proveedor</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancelar</a>
+            <div class="button-row" style="text-align: center;">
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+              <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+
         </form>
     </div>
 </body>

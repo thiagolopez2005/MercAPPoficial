@@ -11,37 +11,68 @@
       background-color: #f0f2f5;
       padding: 20px;
       background-image: url(/static/css/Imagenes/Maracucao.png);
+      background-repeat: repeat; /* se mantiene como en tu imagen */
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
     }
+
     .container {
       max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
       background: #fff;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-sizing: border-box;
     }
+
     h1 {
       text-align: center;
       margin-bottom: 20px;
+      color:  #28a745;
     }
+
     form p {
       margin-bottom: 10px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+
     form input, form select {
       width: 100%;
       padding: 8px;
       margin-bottom: 10px;
+      box-sizing: border-box;
     }
+
     button {
       background-color: #28a745;
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 11px 20px;
       cursor: pointer;
       border-radius: 5px;
     }
+
     button:hover {
       background-color: #007a1d;
     }
+
+    .btn-cancelar {
+      background-color: rgb(155, 155, 155);
+      color: #fff;
+      text-decoration: none;
+      padding: 9.5px 20px;
+      border-radius: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .btn-cancelar:hover {
+      background-color:  rgb(122, 122, 122);
+    }
+    
   </style>
 </head>
 <body>
@@ -50,11 +81,11 @@
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Guardar Cambios</button>
+      <div style="margin-top: 10px; text-align: center;">
+        <button type="submit">Guardar Cambios</button>
+        <a href="{% url 'dashboard' %}" class="btn-cancelar">Cancelar</a>
+      </div>
     </form>
-    <div style="margin-top: 10px;">
-      <a href="{% url 'dashboard' %}">Regresar a Lista de Cuentas</a>
-    </div>
   </div>
 </body>
 </html>

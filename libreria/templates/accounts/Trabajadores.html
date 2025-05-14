@@ -76,7 +76,7 @@
             <section class="users-dashboard">
                 <div class="section-header d-flex justify-content-between align-items-center">
                     <h2>ADMINISTRADORES Y EMPLEADOS REGISTRADOS</h2>
-                    <a href="{% url 'register' %}" class="btn btn-success">Nuevo Trabajador</a>
+                    <a href="{% url 'register' %}" class="btn btn-success" style="text-decoration: none;">Nuevo Trabajador</a>
                 </div>
                 <div class="search-bar mt-3">
                     <input type="text" id="search-input" class="form-control" placeholder="Buscar proveedor por nombre...">
@@ -111,20 +111,21 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <div class="action-buttons d-flex justify-content-start align-items-center">
-                                        <a href="{% url 'editar_cuenta' cuenta.id %}" class="btn btn-link text-warning p-0">Editar</a>
+                                    <div class="action-buttons" style="display: flex; align-items: center; gap: 10px;">
+                                        <a href="{% url 'editar_cuenta' cuenta.id %}" class="btn btn-success" style="text-decoration: none; color: white;">Editar</a>
                                         <span class="mx-2">|</span>
-                                        {% if proveedor.activo %}
-                                        <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}" class="d-inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-link text-danger p-0">Inhabilitar</button>
+                                        {% if cuenta.is_active %}
+                                        <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success">Inhabilitar</button>
                                         </form>
                                         {% else %}
-                                        <form method="post" action="{% url 'activar_cuenta' cuenta.id %}" class="d-inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-link text-success p-0">Habilitar</button>
+                                        <form method="post" action="{% url 'activar_cuenta' cuenta.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success">Habilitar</button>
                                         </form>
                                         {% endif %}
+                                    </div>
                                 </td>
                             </tr>
                             {% empty %}
