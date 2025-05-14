@@ -22,43 +22,43 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{% url 'dashboard' %}"  data-page="dashboard">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>PRINCIPAL</span>
                     </a></li>
                     <li><a href="{% url 'productos2' %}" data-page="productos">
-                        <i class="material-icons">inventory_2</i> 
+                        <i class="material-icons">inventory_2</i>
                         <span>PRODUCTOS</span>
                     </a></li>
                     <li><a href="{% url 'inventario' %}" data-page="inventario">
-                        <i class="material-icons">inventory</i> 
+                        <i class="material-icons">inventory</i>
                         <span>INVENTARIO</span>
                     </a></li>
                     <li><a href="#"  data-page="dashboard">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>USUARIOS</span>
                     </a></li>
                     <li><a href="{% url 'listar_clientes' %}"  data-page="dashboard">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>CLIENTES</span>
                     </a></li>
                     <li><a href="{% url 'listar_proveedor' %}" data-page="dashboard">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>PROVEEDORES</span>
                     </a></li>
                     <li><a href="{% url 'trabajadores' %}"  data-page="dashboard">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>TRABAJADORES</span>
                     </a></li>
                     <li><a href="{% url 'factura' %}" data-page="recibos">
-                        <i class="material-icons">receipt</i> 
+                        <i class="material-icons">receipt</i>
                         <span>RECIBOS</span>
                     </a></li>
                     <li><a href="#" data-page="estado-compra">
-                        <i class="material-icons">payment</i> 
+                        <i class="material-icons">payment</i>
                         <span>ESTADO DE COMPRA</span>
                     </a></li>
                     <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
-                        <i class="material-icons">payment</i> 
+                        <i class="material-icons">payment</i>
                         <span>COPIAS SEGUIDAD</span>
                     </a></li>
                 </ul>
@@ -76,7 +76,7 @@
             <section class="users-dashboard">
                 <div class="section-header d-flex justify-content-between align-items-center">
                     <h2>ADMINISTRADORES Y EMPLEADOS REGISTRADOS</h2>
-                    <a href="{% url 'register' %}" class="btn btn-success">Nuevo Trabajador</a>
+                    <a href="{% url 'register' %}" class="btn btn-success" style="text-decoration: none;">Nuevo Trabajador</a>
                 </div>
                 <div class="search-bar mt-3">
                     <input type="text" id="search-input" class="form-control" placeholder="Buscar proveedor por nombre...">
@@ -112,12 +112,12 @@
                                 </td>
                                 <td>
                                     <div class="action-buttons d-flex justify-content-start align-items-center">
-                                        <a href="{% url 'editar_cuenta' cuenta.id %}" class="btn btn-link text-warning p-0">Editar</a>
+                                        <a href="{% url 'editar_cuenta' cuenta.id %}" class="btn btn-link text-warning p-0" style="text-decoration: none;">Editar</a>
                                         <span class="mx-2">|</span>
                                         {% if proveedor.activo %}
                                         <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}" class="d-inline">
                                             {% csrf_token %}
-                                            <button type="submit" class="btn btn-link text-danger p-0">Inhabilitar</button>
+                                            <button type="submit" class="btn btn-link text-danger p-0" style="text-decoration: none;">Inhabilitar</button>
                                         </form>
                                         {% else %}
                                         <form method="post" action="{% url 'activar_cuenta' cuenta.id %}" class="d-inline">
