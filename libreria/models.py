@@ -78,38 +78,18 @@ class Producto(models.Model):
         return self.nombre
 
 # --------------------- Bakend creacion de cliente   ---------------------
-
-
 class CustomCliente(AbstractUser):  
     ROLE_CHOICES = (
         ('user', 'Usuario'),
     )
     roleCliente = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
     email = models.EmailField(unique=True)
-    USERNAME_FIELD = 'CC'
+    USERNAME_FIELD = 'CC'  # Campo utilizado para la autenticación
     REQUIRED_FIELDS = ['username']  
-    telefono = models.CharField(
-        max_length=10,
-        blank=True,
-        null=True,
-    )
-    CC = models.CharField(
-        max_length=10,
-        blank=False,
-        null=False,
-        unique=True
-    )
-
-    nombre = models.CharField(
-        max_length=250,
-        blank=False,
-        null=False,
-        )
-    
-    apellido = models.CharField(
-        max_length=250,
-        blank=False,
-        null=False,)
+    telefono = models.CharField(max_length=10, blank=True, null=True)
+    CC = models.CharField(max_length=10, blank=False, null=False, unique=True)
+    nombre = models.CharField(max_length=250, blank=False, null=False)
+    apellido = models.CharField(max_length=250, blank=False, null=False)
 
     # Agregar related_name para evitar conflictos
     groups = models.ManyToManyField(
@@ -172,19 +152,22 @@ class RegistroActividad(models.Model):
     
 # --AGREGAR PRODUCTO EN EL CARRITO
 from django.contrib.auth.models import User
-
 from django.conf import settings
-
 from django.conf import settings
 from django.db import models
 
+
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey('CustomCliente', on_delete=models.CASCADE)  # Cambiado a CustomCliente
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)  # Indica si la orden está activa
 
     def get_total_price(self):
         return sum(item.get_total_price() for item in self.orderproduct_set.all())
+
+    def __str__(self):
+        return f"Orden #{self.id} - Usuario: {self.user.CC} - Activa: {self.is_active}"
     
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -193,3 +176,18 @@ class OrderProduct(models.Model):
 
     def get_total_price(self):
         return self.product.precio * self.quantity
+    
+# ------ BAKEND PARA EL REGISTRO DE LA VALIDACION DE COMPRAS // COMPRAS // PAGOS
+from django.db import models
+from django.conf import settings
+
+class ResumenCompra(models.Model):
+    cliente = models.ForeignKey('CustomCliente', on_delete=models.CASCADE)  # Cambiado a CustomCliente
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    iva = models.DecimalField(max_digits=10, decimal_places=2)
+    total_con_iva = models.DecimalField(max_digits=10, decimal_places=2)
+    fecha_compra = models.DateTimeField(auto_now_add=True)
+    orderproduct_set = models.ManyToManyField(OrderProduct)  # Relación con OrderProduct
+
+    def __str__(self):
+        return f'Compra de {self.cliente.CC} - {self.fecha_compra}'
