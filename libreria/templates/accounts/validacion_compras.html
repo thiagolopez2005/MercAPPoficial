@@ -1,0 +1,33 @@
+<div class="container mt-5">
+    <h2>Validación de Compras</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="table-header">
+            <tr>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>IVA</th>
+                <th>Total con IVA</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compra in compras %}
+            <tr>
+                <td>{{ compra.cliente.nombre }} {{ compra.cliente.apellido }}</td>
+                <td>${{ compra.total }}</td>
+                <td>${{ compra.iva }}</td>
+                <td>${{ compra.total_con_iva }}</td>
+                <td>{{ compra.fecha_compra|date:"d/m/Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'detalle_compra' compra.id %}" class="btn btn-primary btn-sm">Ver Resumen</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No hay compras registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

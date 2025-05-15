@@ -61,9 +61,9 @@ def register_view(request):
 
 #------------- registro de cliente -----------
 from .forms import CustomClienteCreationForm
-from .models import RegistroActividad
 
-def register_cliente_view(request):
+
+def register_cliente(request):
     if request.method == 'POST':
         form = CustomClienteCreationForm(request.POST)
         if form.is_valid():
@@ -104,16 +104,14 @@ def login_view(request):
 # -------------------login del cliente-------------
 # AQUI EL CLIENTE SE LOGEA, SE CREO UN ARCHIVO LLAMDA BACKENDS.PY PARA VALIDAR QUE EL USUARIO ESTA REGISTRADO
 # EN LA BASE DE DATOS Y QUE SU ROL ES CLIENTE, SI NO LO ES NO SE LE PERMITE EL ACCESO
-
 def login_cliente_view(request):
     error_message = ''
     if request.method == 'POST':
         CC = request.POST.get('CC')  # Campo para el cliente
         password = request.POST.get('password')
-        
-        backend = CustomClienteBackend()
+
         # Autenticar al cliente
-        user = authenticate(request, nombre=CC, password=password)
+        user = authenticate(request, username=CC, password=password)
 
         if user is not None:
             # Verificar si el usuario es un cliente
@@ -238,7 +236,7 @@ def register_cliente_view(request):
             return redirect('login')  # Redirige al login después de registrar
     else:
         form = CustomClienteCreationForm()
-    return render(request, 'accounts/registro_cliente.html', {'form': form})
+    return render(request, 'accounts/registro_cliente1.html', {'form': form})
 # ------------------ VISTAS DE CADA HTML ----------------------
 
 def home(request):
@@ -787,23 +785,22 @@ def terminos(request):
 
 from django.shortcuts import render, get_object_or_404
 from .models import Order
-
 from decimal import Decimal
 
+@login_required
 def carrito(request):
-    # Obtén el pedido activo del usuario
-    order = Order.objects.filter(user=request.user).first()
+    # Obtén la orden activa del usuario
+    order = Order.objects.filter(user=request.user, is_active=True).first()
 
-    # Si no hay un pedido activo, crea uno vacío
+    # Si no hay una orden activa, crea una nueva
     if not order:
         order = Order.objects.create(user=request.user)
 
     # Calcula el total, IVA y total con IVA
     total = order.get_total_price()
-    iva = total * Decimal('0.19')  # Convierte 0.19 a Decimal
+    iva = total * Decimal('0.19')
     total_con_iva = total + iva
 
-    # Renderiza el HTML del carrito con los cálculos
     return render(request, 'accounts/Carrito.html', {
         'order': order,
         'total': total,
@@ -816,37 +813,122 @@ def carrito(request):
 
 @login_required
 def actualizar_cantidad(request, order_product_id):
-    order_product = get_object_or_404(OrderProduct, id=order_product_id)
-    nueva_cantidad = int(request.POST.get('cantidad', 1))
-    if nueva_cantidad > 0:
-        order_product.quantity = nueva_cantidad
-        order_product.save()
+    print(f"order_product_id: {order_product_id}")  # Debugging statement
+    try:
+        order_product = get_object_or_404(OrderProduct, id=order_product_id)
+        nueva_cantidad = int(request.POST.get('cantidad', 1))
+        if nueva_cantidad > 0:
+            order_product.quantity = nueva_cantidad
+            order_product.save()
+    except Http404:
+        print(f"OrderProduct with id {order_product_id} not found.")  # Debugging statement
+        messages.error(request, "Producto no encontrado en el carrito.")
     return redirect('carrito')
 
 from .models import Producto, Order, OrderProduct
 
 
 @login_required
+@login_required
 def agregar_al_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
-    cantidad = request.POST.get('cantidad', 1)  # Obtén la cantidad del formulario, por defecto 1
+    cantidad = request.POST.get('cantidad', 1)
 
     try:
         cantidad = int(cantidad)
         if cantidad < 1:
-            cantidad = 1  # Asegúrate de que la cantidad sea al menos 1
+            cantidad = 1
     except ValueError:
-        cantidad = 1  # Si no es un número válido, establece la cantidad en 1
+        cantidad = 1
 
-    # Obtén o crea un pedido activo para el usuario
-    order, created = Order.objects.get_or_create(user=request.user)
+    # Obtén o crea una orden activa para el usuario
+    order, created = Order.objects.get_or_create(user=request.user, is_active=True)
 
     # Verifica si el producto ya está en el carrito
     order_product, created = OrderProduct.objects.get_or_create(order=order, product=producto)
     if not created:
-        order_product.quantity += cantidad  # Si ya existe, incrementa la cantidad
+        order_product.quantity += cantidad  # Incrementa la cantidad si ya existe
     else:
-        order_product.quantity = cantidad  # Si no existe, establece la cantidad inicial
+        order_product.quantity = cantidad  # Establece la cantidad inicial
     order_product.save()
 
     return redirect('Carrito')
+
+# --------------------------------------------------
+# VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
+# --------------------------------------------
+from .models import ResumenCompra, Order, OrderProduct
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from decimal import Decimal
+
+@login_required
+def finalizar_compra(request):
+    order = Order.objects.filter(user=request.user, is_active=True).first()
+
+    if not order:
+        messages.error(request, "No hay productos en el carrito.")
+        return redirect('carrito')
+
+    total = order.get_total_price()
+    iva = total * Decimal('0.19')
+    total_con_iva = total + iva
+
+    # Guardar el resumen de la compra
+    compra = ResumenCompra.objects.create(
+        cliente=request.user,
+        total=total,
+        iva=iva,
+        total_con_iva=total_con_iva
+    )
+
+    # Asociar los productos al resumen de compra
+    for order_product in order.orderproduct_set.all():
+        compra.orderproduct_set.add(order_product)
+
+    # Marcar la orden como inactiva
+    order.is_active = False
+    order.save()
+
+    messages.success(request, "Compra finalizada con éxito.")
+    return redirect('validacion_compras')
+
+
+from .models import ResumenCompra, OrderProduct, Order
+from .models import ResumenCompra, OrderProduct
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+
+@login_required
+
+def detalle_compra(request, compra_id):
+
+    compra = get_object_or_404(ResumenCompra, id=compra_id)
+    order_products = compra.orderproduct_set.all()  # Obtén los productos asociados
+    return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+
+from .models import ResumenCompra
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def generar_pdf(request, compra_id):
+    compra = get_object_or_404(ResumenCompra, id=compra_id)
+    template = get_template('accounts/pdf_resumen.html')
+    context = {'compra': compra, 'orderproduct_set': compra.orderproduct_set.all()}  # Pass orderproduct_set to the context
+    html = template.render(context)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="resumen_compra_{compra.id}.pdf"'
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response
+
+from .models import ResumenCompra
+
+@login_required
+def validacion_compras(request):
+    compras = ResumenCompra.objects.all()
+    return render(request, 'accounts/validacion_compras.html', {'compras': compras})
