@@ -191,6 +191,13 @@
                     <li>No hay copias de seguridad disponibles.</li>
                 {% endfor %}
             </ul>
+            {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>

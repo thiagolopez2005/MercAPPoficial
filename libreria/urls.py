@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view,terminos,register_cliente
-from django.views.generic import TemplateView
+from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view,register_cliente
 from . import views
 
 urlpatterns = [
@@ -92,5 +91,6 @@ urlpatterns = [
     path('validacion_compras/', views.validacion_compras, name='validacion_compras'),
     path('detalle_compra/<int:compra_id>/', views.detalle_compra, name='detalle_compra'),
     path('generar_pdf/<int:compra_id>/', views.generar_pdf, name='generar_pdf'),
+    path('error_403/', views.error_403, name='error_403'),
 
 ]
