@@ -29,7 +29,7 @@ from decimal import Decimal
 from .models import Producto, Order, OrderProduct,ResumenCompra, CustomCliente,RegistroActividad
 from django.http import HttpResponse
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 from libreria.decorators import admin_required
 from libreria.decorators import verificar_rol_requerido
 
