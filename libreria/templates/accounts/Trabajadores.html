@@ -111,7 +111,6 @@
                                     {% endif %}
                                 </td>
                                 <td>
-<<<<<<< HEAD
                                     <div class="action-buttons" style="display: flex; align-items: center; gap: 10px;">
                                         <a href="{% url 'editar_cuenta' cuenta.id %}" class="btn btn-success" style="text-decoration: none; color: white;">Editar</a>
                                         <span class="mx-2">|</span>
@@ -119,15 +118,6 @@
                                         <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-success">Inhabilitar</button>
-=======
-                                    <div class="action-buttons d-flex justify-content-start align-items-center">
-                                        <a href="{% url 'editar_cuenta' cuenta.id %}" class="btn btn-link text-warning p-0" style="text-decoration: none;">Editar</a>
-                                        <span class="mx-2">|</span>
-                                        {% if proveedor.activo %}
-                                        <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}" class="d-inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-link text-danger p-0" style="text-decoration: none;">Inhabilitar</button>
->>>>>>> d22d3674e5fdd8276d6eebc010f49399ea710d93
                                         </form>
                                         {% else %}
                                         <form method="post" action="{% url 'activar_cuenta' cuenta.id %}">

@@ -180,11 +180,16 @@
                                     <td>{{ producto.stock }}</td>
                                     <td>{{ producto.medida }}</td>
                                     <td>
-                                        <a href="{% url 'editarinve' producto.id %}" class="btn btn-editar" style="text-decoration: none;">Editar</a>
-                                        <a href="javascript:void(0);" class="btn btn-danger" style="text-decoration: none;" onclick="abrirModalEliminar({{ producto.id }})">Eliminar</a>
+                                       <div class="action-buttons d-flex justify-content-start align-items-center" style="display: flex; align-items: center; gap: 10px;">
+                                            <a href="{% url 'editarinve' producto.id %}" class="btn btn-editar" style="text-decoration: none;">Editar</a>
+                                            <span class="mx-2">|</span>
+                                            <a href="javascript:void(0);" class="btn btn-danger" style="text-decoration: none; color: white;" onclick="abrirModalEliminar({{ producto.id }})">Eliminar</a>
+                                        </div>
                                     </td>
                                 </tr>
                 
+
+
                                 <div id="modalEliminar-{{ producto.id }}" class="modal">
                                     <div class="modal-content">
                                         <h2>¿Estás seguro de eliminar este producto del inventario?</h2>
