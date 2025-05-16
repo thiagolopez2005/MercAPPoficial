@@ -59,7 +59,7 @@
                     </a></li>
                     <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
-                        <span>COPIAS SEGUIDAD</span>
+                        <span>COPIAS SEGURIDAD</span>
                     </a></li>
                 </ul>
             </nav>
@@ -191,6 +191,13 @@
                     <li>No hay copias de seguridad disponibles.</li>
                 {% endfor %}
             </ul>
+            {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>

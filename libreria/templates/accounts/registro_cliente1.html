@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/Formulario.css' %}">
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
+    <!-- Añadido Font Awesome para los iconos de ojo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+</head>
+<body>
+    <div id="loader-screen">
+        <div class="loader"></div>
+    </div>
+    <div id="main-content">
+    <section class="form-register">
+        <h4>Registro</h4>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                <label for="id_nombre">Nombre completo:</label>
+                {{ form.nombre }}
+            </p>
+            <p>
+                <label for="id_apellido">apellido completo:</label>
+                {{ form.apellido }}
+            </p>
+            <p>
+                <label for="id_cec">CC:</label>
+                {{ form.CC }}
+            </p>
+            <p>
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </p>
+            <p>
+                <label for="id_telefono">Teléfono:</label>
+                {{ form.telefono }}
+            </p>
+            <p>
+                <label for="id_role">Rol:</label>
+                {{ form.roleCliente }}
+            </p>
+            <p class="password-container">
+                <label for="id_password1">Contraseña:</label>
+                {{ form.password1 }}
+                <i id="togglePassword" class="toggle-password fas fa-eye" title="Mostrar contraseña"></i>
+                <span>
+                    • Su contraseña no puede asemejarse tanto a su otra información personal.<br>
+                    • Su contraseña debe contener al menos 8 caracteres.<br>
+                    • Su contraseña no puede ser una clave utilizada comúnmente.<br>
+                    • Su contraseña no puede ser completamente numérica.
+                </span>
+            </p>
+            <p class="password-container">
+                <label for="id_password2">Confirmar contraseña:</label>
+                {{ form.password2 }}
+                <i id="toggleConfirmPassword" class="toggle-password fas fa-eye" title="Mostrar contraseña"></i>
+                <span>Para verificar, introduzca la misma contraseña anterior.</span>
+            </p>
+            <button type="submit">Registrarse</button>
+        </form>
+        <label class="checkbox">
+            <input id="terminosCheckbox" type="checkbox" required>
+            Estoy de acuerdo con <a href="#">Términos y condiciones</a>
+        </label>
+
+        <p><a href="{% url 'login' %}">¿Ya tengo cuenta?</a></p>
+    </section>
+    </div>
+    <script src="{% static 'js/Formulario.js' %}"></script>
+</body>
+</html>

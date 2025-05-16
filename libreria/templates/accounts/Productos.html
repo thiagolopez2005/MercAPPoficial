@@ -12,12 +12,11 @@
 	<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 	<link href="{% static 'css/all.css' %}" rel="stylesheet">
 	<link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/Footer.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Footerdos.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
 <!-- Redes sociales -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +29,8 @@
 
 </head>
 <body>
+
+<div>
     <!-- Navegacion  -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
         <div class="container">
@@ -100,6 +101,19 @@
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block mt-3">Agregar al carrito</button>
                             </form>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == "success" %}
+                                        <div class="alert alert-success" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% elif message.tags == "error" %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -113,9 +127,26 @@
             {% endblock %}
         </main>
     </div>
-
 </div>
+<style>
+    .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
 
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+</style>
 <footer class="footer">
     <div class="footer-section">
         <h4>Redes Sociales</h4>

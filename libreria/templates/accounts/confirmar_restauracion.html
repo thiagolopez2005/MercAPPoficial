@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Restauración</title>
+</head>
+<body>
+    <h1>Confirmar Restauración</h1>
+    <p>¿Estás seguro de que deseas restaurar la base de datos desde el archivo <strong>{{ backup_file }}</strong>?</p>
+    <form method="POST" action="{% url 'restaurar_copia_seguridad' backup_id %}">
+        {% csrf_token %}
+        <button type="submit">Restaurar</button>
+        <a href="{% url 'copias_seguridad' %}">Cancelar</a>
+    </form>
+</body>
+</html>

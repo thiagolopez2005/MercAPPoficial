@@ -12,7 +12,7 @@
     <link href="{% static 'css/all.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/Footer.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Footerdos.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -65,14 +65,15 @@
             <!-- Lista de productos en el carrito -->
             <div class="col-lg-8">
                 <h2>Carrito de Compras</h2>
-                <div id="cart-items">
-                    {% for item in order.orderproduct_set.all %}
-                    <div class="cart-item d-flex align-items-center mb-3 p-3 border rounded">
-                        <img src="{{ item.product.imagen.url }}" alt="{{ item.product.nombre }}" class="cart-item-image" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
-                        <div class="cart-item-details flex-grow-1">
-                            <h4>{{ item.product.nombre }}</h4>
-                            <p>{{ item.product.descripcion }}</p>
-                            <p>Precio: ${{ item.product.precio }} COP</p>
+                    <div id="cart-items">
+                        {% for item in order.orderproduct_set.all %}
+                        <div class="cart-item d-flex align-items-center mb-3 p-3 border rounded">
+                            <img src="{{ item.product.imagen.url }}" alt="{{ item.product.nombre }}" class="cart-item-image" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
+                            <div class="cart-item-details flex-grow-1">
+                                <h4>{{ item.product.nombre }}</h4>
+                                <p>{{ item.product.descripcion }}</p>
+                                <p>Precio: ${{ item.product.precio }} COP</p>
+                                <p>Cantidad: {{ item.quantity }}</p>
                             <div class="quantity-control d-flex align-items-center">
                                 <form method="POST" action="{% url 'actualizar_cantidad' item.id %}" class="d-flex align-items-center">
                                     {% csrf_token %}
@@ -93,7 +94,7 @@
                 <div class="cart-summary p-3 border rounded">
                     <h4>Resumen del Carrito</h4>
                     <ul class="list-unstyled">
-                        {% for item in order.orderproduct_set.all %}
+                        {% for item in order_products %}
                         <li class="d-flex justify-content-between">
                             <span>{{ item.product.nombre }}</span>
                             <span>${{ item.product.precio }} COP</span>
@@ -104,6 +105,7 @@
                     <h4>Total: ${{ total }} COP</h4>
                     <h4>IVA (19%): ${{ iva|floatformat:2 }} COP</h4>
                     <h4>Total con IVA: ${{ total_con_iva|floatformat:2 }} COP</h4>
+                    <a href="{% url 'finalizar_compra' %}" class="btn btn-success mt-3">Proceder al Pago</a>
                 </div>
             </div>
         </div>

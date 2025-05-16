@@ -35,10 +35,6 @@
                   </a></li>
                   <li><a href="#"  data-page="dashboard">
                       <i class="material-icons">groups</i> 
-                      <span>USUARIOS</span>
-                  </a></li>
-                  <li><a href="#"  data-page="dashboard">
-                      <i class="material-icons">groups</i> 
                       <span>CLIENTES</span>
                   </a></li>
                   <li><a href="{% url 'listar_proveedor' %}" data-page="dashboard">
@@ -59,7 +55,7 @@
                   </a></li>
                   <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
                       <i class="material-icons">payment</i> 
-                      <span>COPIAS SEGUIDAD</span>
+                      <span>COPIAS SEGURIDAD</span>
                   </a></li>
               </ul>
           </nav>
@@ -75,83 +71,6 @@
           </header>
 </head>
 <style>
-  /* body {
-      background-color: #eefaf0;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-  }
-
-  .container {
-      display: flex;
-      min-height: 100vh;
-  }
-
-  .sidebar {
-      background-color: #000;
-      color: white;
-      width: 260px;
-      padding: 20px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .sidebar .profile {
-      text-align: center;
-      margin-bottom: 20px;
-  }
-
-  .sidebar .profile img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-  }
-
-  .sidebar .menu ul {
-      list-style: none;
-      padding: 0;
-      width: 100%;
-  }
-
-  .sidebar .menu li {
-      margin: 10px 0;
-  }
-
-  .sidebar .menu a {
-      color: white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      padding: 12px 20px;
-      transition: background 0.3s;
-  }
-
-  .sidebar .menu a.active,
-  .sidebar .menu a:hover {
-      background-color: #34a853;
-      border-radius: 8px;
-  }
-
-  .main-content {
-      flex: 1;
-      padding: 20px 30px;
-      background-color: #f2fbf5;
-  }
-
-  .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 20px;
-  } */
-
-  /* .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      color: #333;
-  } */
 
   .user-menu img {
       width: 35px;
@@ -598,6 +517,7 @@
                       <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
                       <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
 
+
         <!-- Modal de Confirmación -->
         <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
           <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
@@ -849,4 +769,5 @@
   {% include 'accounts/productos_partial.html' %}
 </div>
 </body>
+
 </html> 
