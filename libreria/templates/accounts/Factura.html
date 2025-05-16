@@ -33,10 +33,6 @@
                         <i class="material-icons">inventory</i> 
                         <span>INVENTARIO</span>
                     </a></li>
-                    <li><a href="#"  data-page="dashboard">
-                        <i class="material-icons">groups</i> 
-                        <span>USUARIOS</span>
-                    </a></li>
                     <li><a href="{% url 'listar_clientes' %}"  data-page="dashboard">
                         <i class="material-icons">groups</i> 
                         <span>CLIENTES</span>
@@ -362,9 +358,9 @@
                                         <p>
                                             <strong>Estado:</strong>
                                             {% if factura.habilitada %}
-                                                <span class="estado activa">Activa</span>
+                                                <span class="estado activa">Pagado</span>
                                             {% else %}
-                                                <span class="estado inactiva">Inactiva</span>
+                                                <span class="estado inactiva">Pendiente</span>
                                             {% endif %}
                                         </p>
                                         <div class="imagen-factura">
@@ -380,10 +376,10 @@
                                             <a href="{% url 'editar_factura' factura.numero_factura %}" class="btn editar">Editar</a>
                                             {% if factura.habilitada %}
                                                 <a href="{% url 'inhabilitar_factura' factura.numero_factura %}" class="btn inhabilitar"
-                                                onclick="return confirm('¿Estás seguro de que deseas inhabilitar esta factura?')">Inhabilitar</a>
+                                                onclick="return confirm('¿Estás seguro de que deseas inhabilitar esta factura?')">Pendiente</a>
                                             {% else %}
                                                 <a href="{% url 'habilitar_factura' factura.numero_factura %}" class="btn habilitar"
-                                                onclick="return confirm('¿Estás seguro de que deseas habilitar esta factura?')">Habilitar</a>
+                                                onclick="return confirm('¿Estás seguro de que deseas habilitar esta factura?')">Pagado</a>
                                             {% endif %}
                                         </div>
                                     </div>

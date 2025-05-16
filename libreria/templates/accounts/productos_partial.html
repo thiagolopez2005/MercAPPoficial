@@ -103,21 +103,3 @@
   }
 
 </style>
-
-        {% for producto in productos %}
-
-            <!-- JavaScript para abrir y cerrar el modal -->
-            <script>
-              function abrirModal() {
-                document.getElementById('modalEliminar').style.display = 'block';
-              }
-
-              function cerrarModal() {
-                document.getElementById('modalEliminar').style.display = 'none';
-              }
-            </script>
-{% empty %}
-  <div class="col-12">
-    <p>No hay productos publicados.</p>
-  </div>
-{% endfor %}

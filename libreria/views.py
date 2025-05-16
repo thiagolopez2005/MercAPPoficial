@@ -361,6 +361,7 @@ def quitar_publicidad(request, productoId):
 
 
 # ----------------- VISTAS PARA LA ADMINISTRACION DE CUENTAS ------------------
+
 # AQUI SE MUESTRAN LOS USUARIOS REGISTRADOS EN EL SISTEMA, SE PUEDEN EDITAR, ACTIVAR, DESACTIVAR Y ELIMINAR
 def trabajadores(request):
     cuentas = CustomUser.objects.all()
@@ -484,8 +485,11 @@ def listar_clientes(request):
     # Recupera todos los clientes registrados
     clientes = CustomCliente.objects.all()
     return render(request, 'accounts/clientes.html', {'clientes': clientes})
+
+
+
 # -------------------------------------------
-# REGISTRO DE LOS RECIBOSDE LOS PRODUCTOS EN EL BACKEND
+# REGISTRO DE LOS RECIBOS DE LOS PRODUCTOS EN EL BACKEND
 # --------------------------------------------
 
 def factura(request):
