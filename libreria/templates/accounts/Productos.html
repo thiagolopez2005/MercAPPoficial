@@ -101,6 +101,19 @@
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block mt-3">Agregar al carrito</button>
                             </form>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == "success" %}
+                                        <div class="alert alert-success" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% elif message.tags == "error" %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -115,7 +128,25 @@
         </main>
     </div>
 </div>
+<style>
+    .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
 
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+</style>
 <footer class="footer">
     <div class="footer-section">
         <h4>Redes Sociales</h4>

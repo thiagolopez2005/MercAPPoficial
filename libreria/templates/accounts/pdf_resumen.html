@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen de Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Resumen de Compra</h2>
+        <p><strong>Cliente:</strong> {{ compra.cliente.nombre }} {{ compra.cliente.apellido }}</p>
+        <p><strong>Fecha de Compra:</strong> {{ compra.fecha_compra|date:"d/m/Y H:i" }}</p>
+
+        <h3>Detalles de la Compra</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in orderproduct_set.all %}
+                <tr>
+                    <td>{{ item.product.nombre }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.precio }}</td>
+                    <td>${{ item.product.precio}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Resumen de Totales</h3>
+        <p><strong>Total:</strong> ${{ compra.total }}</p>
+        <p><strong>IVA (19%):</strong> ${{ compra.iva }}</p>
+        <p><strong>Total con IVA:</strong> ${{ compra.total_con_iva }}</p>
+    </div>
+</body>
+</html>

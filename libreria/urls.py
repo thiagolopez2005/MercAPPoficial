@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view,terminos
-from django.views.generic import TemplateView
+from .views import register_view, login_view, dashboard_view,crear_producto, logout_view , register_cliente_view, login_cliente_view,register_cliente
 from . import views
 
 urlpatterns = [
@@ -17,6 +16,7 @@ urlpatterns = [
     path('login_cliente/', login_cliente_view, name='login_cliente'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('register_cliente/', register_cliente, name='register_cliente'),
     path('register_cliente/', register_cliente_view, name='register_cliente'),
     path('accounts/registro/', register_view, name='register'),
     path('editarperfil/', views.editar_perfil, name='editarperfil'),
@@ -86,6 +86,13 @@ urlpatterns = [
     path('recuperar_contraseña/', views.recu_contra, name="recu_contra"), #vista para recuperar contraseña
 
     #URLS DE TERMINOS Y CONDICIONES
-    path('terminos_condiciones/', terminos, name='terminos_condiciones'),
+    path('terminos_condiciones/', views.terminos, name='terminos_condiciones'),
+    # urls para detalle compra y valiacion de pago 
+    # ... other URL patterns ...
+    path('finalizar_compra/', views.finalizar_compra, name='finalizar_compra'),
+    path('validacion_compras/', views.validacion_compras, name='validacion_compras'),
+    path('detalle_compra/<int:compra_id>/', views.detalle_compra, name='detalle_compra'),
+    path('generar_pdf/<int:compra_id>/', views.generar_pdf, name='generar_pdf'),
+    path('error_403/', views.error_403, name='error_403'),
 
 ]

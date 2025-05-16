@@ -4,8 +4,7 @@ from .models import CustomCliente
 class CustomClienteBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
-            # Busca al cliente por el campo USERNAME_FIELD (CC)
-            cliente = CustomCliente.objects.get(CC=username)
+            cliente = CustomCliente.objects.get(username=username)
             if cliente.check_password(password):  # Verifica la contraseña
                 return cliente
         except CustomCliente.DoesNotExist:

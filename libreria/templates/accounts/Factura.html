@@ -358,9 +358,11 @@
                                         <p>
                                             <strong>Estado:</strong>
                                             {% if factura.habilitada %}
-                                                <span class="estado activa">Pagado</span>
+
+                                                <span class="estado activa"> No pago</span>
                                             {% else %}
-                                                <span class="estado inactiva">Pendiente</span>
+                                                <span class="estado inactiva"> pago</span>
+
                                             {% endif %}
                                         </p>
                                         <div class="imagen-factura">
@@ -376,10 +378,12 @@
                                             <a href="{% url 'editar_factura' factura.numero_factura %}" class="btn editar">Editar</a>
                                             {% if factura.habilitada %}
                                                 <a href="{% url 'inhabilitar_factura' factura.numero_factura %}" class="btn inhabilitar"
-                                                onclick="return confirm('¿Estás seguro de que deseas inhabilitar esta factura?')">Pendiente</a>
+
+                                                onclick="return confirm('¿Estás seguro de que deseas inhabilitar esta factura?')">No pago</a>
                                             {% else %}
                                                 <a href="{% url 'habilitar_factura' factura.numero_factura %}" class="btn habilitar"
-                                                onclick="return confirm('¿Estás seguro de que deseas habilitar esta factura?')">Pagado</a>
+                                                onclick="return confirm('¿Estás seguro de que deseas habilitar esta factura?')">Pago</a>
+
                                             {% endif %}
                                         </div>
                                     </div>

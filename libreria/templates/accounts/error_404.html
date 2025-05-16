@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404</title>
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+        <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #dc3545;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #218838;
+        }
+    </style>
+    <div class="container text-center mt-5">
+        <h1>OH!! Algo salio mal 😢</h1>
+        <p>{{ error_message }}</p>
+        <div class="mt-4">
+            <a href="{% url productos_url %}" class="btn btn-primary">Volver a Productos</a>
+            <a href="{% url login_url %}" class="btn btn-secondary">Iniciar Sesión</a>
+        </div>
+    </div>
+</body>
+</html>
