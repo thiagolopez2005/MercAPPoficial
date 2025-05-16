@@ -102,11 +102,7 @@ form p select {
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-<<<<<<< HEAD
-        <button type="submit" class="btn-registrarse" >Registrar</button>
-=======
         <button type="submit" class="btn-registrarse">Registrar</button>
->>>>>>> d22d3674e5fdd8276d6eebc010f49399ea710d93
         <a href="{% url 'dashboard' %}" class="btn-cancelar">Cancelar</a>
     </form>
 </div>
