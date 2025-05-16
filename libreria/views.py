@@ -496,6 +496,7 @@ def editar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES, instance=producto)
+
         if form.is_valid():
             print("Formulario válido. Guardando cambios...")
             form.save()
