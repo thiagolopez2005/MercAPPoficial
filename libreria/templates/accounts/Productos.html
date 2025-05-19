@@ -8,7 +8,7 @@
 	<meta name="author" content="">
 <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="pestaña">
 	<title>Productos</title>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 	<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 	<link href="{% static 'css/all.css' %}" rel="stylesheet">
 	<link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -26,7 +26,7 @@
 <link href="{% static 'css/Productos.css' %}" rel="stylesheet">
 <link href="{% static 'css/carrito.css' %}" rel="stylesheet">
 <script src="{% static 'js/productos.js' %}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -101,6 +101,51 @@
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block mt-3">Agregar al carrito</button>
                             </form>
+
+                            <script>
+                                document.querySelectorAll('.add-to-cart-form').forEach(form => {
+                                    form.addEventListener('submit', function (event) {
+                                        event.preventDefault(); // Evita el envío normal del formulario
+
+                                        const formData = new FormData(this);
+                                        const actionUrl = this.action;
+
+                                        fetch(actionUrl, {
+                                            method: 'POST',
+                                            body: formData,
+                                            headers: {
+                                                'X-Requested-With': 'XMLHttpRequest',
+                                            },
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.error) {
+                                                // Mostrar alerta de error con SweetAlert2
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Stock insuficiente',
+                                                    text: data.error,
+                                                });
+                                            } else if (data.success) {
+                                                // Mostrar alerta de éxito con SweetAlert2
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Producto agregado',
+                                                    text: data.success,
+                                                });
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error',
+                                                text: 'Ocurrió un error al agregar el producto al carrito.',
+                                            });
+                                        });
+                                    });
+                                });
+                            </script>
                             {% if messages %}
                                 {% for message in messages %}
                                     {% if message.tags == "success" %}

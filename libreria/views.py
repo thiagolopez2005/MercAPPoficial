@@ -99,8 +99,7 @@ def login_view(request):
 # LOGEO DEL CLIENTE
 # AQUI EL CLIENTE SE LOGEA, SE CREO UN ARCHIVO LLAMDA BACKENDS.PY PARA VALIDAR QUE EL USUARIO ESTA REGISTRADO ,EN LA BASE DE DATOS Y QUE SU ROL ES CLIENTE, SI NO LO ES NO SE LE PERMITE EL ACCESO
 #----------------------------------------------------
-@verificar_rol_requerido('admin')
-@admin_required(login_url="/accounts/login/")
+
 def login_cliente_view(request):
     error_message = ''
     if request.method == 'POST':
@@ -438,6 +437,7 @@ def agregar_producto(request):
         else:
             return JsonResponse({'error': 'Todos los campos son obligatorios'}, status=400)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/", error_url="/error_403/")
 def crear_producto(request):
@@ -522,8 +522,9 @@ def eliminar_producto(request, producto_id):
 def obtener_productos_json(request):
     productos = Producto.objects.all().values('nombre', 'descripcion', 'unidad', 'medida', 'stock')  # Obtiene los campos específicos
     return JsonResponse(list(productos), safe=False)
+
 @verificar_rol_requerido('admin')
-@admin_required(login_url="/accounts/login/", error_url="/error_403/")
+@admin_required(login_url="/accounts/login/")
 def editar_inven(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == "POST":
@@ -647,17 +648,25 @@ def carrito(request):
 
 @login_required(login_url="/accounts/login/")
 def actualizar_cantidad(request, order_product_id):
-    print(f"order_product_id: {order_product_id}")  # Debugging statement
     try:
         order_product = get_object_or_404(OrderProduct, id=order_product_id)
         nueva_cantidad = int(request.POST.get('cantidad', 1))
+
+        # Verificar si hay suficiente stock
+        if nueva_cantidad > order_product.product.stock:
+            return JsonResponse({'error': f"No hay suficiente stock para el producto '{order_product.product.nombre}'."}, status=400)
+
         if nueva_cantidad > 0:
             order_product.quantity = nueva_cantidad
             order_product.save()
+            return JsonResponse({'success': f"La cantidad de '{order_product.product.nombre}' se actualizó a {nueva_cantidad}."})
+        else:
+            return JsonResponse({'error': "La cantidad debe ser mayor a 0."}, status=400)
+
     except Http404:
-        print(f"OrderProduct with id {order_product_id} not found.")  # Debugging statement
-        messages.error(request, "Producto no encontrado en el carrito.")
-    return redirect('carrito')
+        return JsonResponse({'error': "Producto no encontrado en el carrito."}, status=404)
+    except ValueError:
+        return JsonResponse({'error': "Cantidad inválida."}, status=400)
 
 
 def agregar_al_carrito(request, producto_id):
@@ -681,6 +690,9 @@ def agregar_al_carrito(request, producto_id):
             cantidad = 1
     except ValueError:
         cantidad = 1
+        
+    if cantidad > producto.stock:
+        return JsonResponse({'error': f"No hay suficiente stock para el producto '{producto.nombre}'."}, status=400)
 
     # Obtén o crea una orden activa para el usuario
     order, created = Order.objects.get_or_create(user=request.user, is_active=True)
@@ -701,13 +713,22 @@ def agregar_al_carrito(request, producto_id):
 # VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
 # --------------------------------------------
 
+from django.core.mail import send_mail
+
+
 @login_required
 def finalizar_compra(request):
     order = Order.objects.filter(user=request.user, is_active=True).first()
 
-    if not order:
-        messages.error(request, "No hay productos en el carrito.")
-        return redirect('carrito')
+    if not order or not order.orderproduct_set.exists():
+        # Si el carrito está vacío, pasa un indicador al contexto
+        return render(request, 'accounts/Carrito.html', {
+            'order': order,
+            'total': 0,
+            'iva': 0,
+            'total_con_iva': 0,
+            'carrito_vacio': True  # Indicador para mostrar la alerta
+        })
 
     total = order.get_total_price()
     iva = total * Decimal('0.19')
@@ -720,16 +741,30 @@ def finalizar_compra(request):
         iva=iva,
         total_con_iva=total_con_iva
     )
-    # Asociar los productos al resumen de compra
+    
+    for order_product in order.orderproduct_set.all():
+        producto = order_product.product
+        if order_product.quantity > producto.stock:
+            messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
+            return redirect('carrito')
+
+    # Asociar los productos al resumen de compra y reducir el stock
     for order_product in order.orderproduct_set.all():
         compra.orderproduct_set.add(order_product)
+
+        # Reducir el stock del producto
+        producto = order_product.product
+        producto.stock -= order_product.quantity
+        producto.save()
 
     # Marcar la orden como inactiva
     order.is_active = False
     order.save()
 
-    messages.success(request, "Compra finalizada con éxito.")
-    return redirect('validacion_compras')
+    messages.success1(request, "Compra finalizada con éxito.")
+    # Redirigir a la vista detalle_compra con el ID de la compra
+    return redirect('detalle_compra', compra_id=compra.id)
+
 
 @login_required(login_url="/accounts/login/")
 def detalle_compra(request, compra_id):
@@ -754,6 +789,24 @@ def generar_pdf(request, compra_id):
 def validacion_compras(request):
     compras = ResumenCompra.objects.all()
     return render(request, 'accounts/validacion_compras.html', {'compras': compras})
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+# @csrf_exempt
+@login_required
+def marcar_pagada(request, compra_id):
+    compra = get_object_or_404(ResumenCompra, id=compra_id)
+    compra.pagada = True
+    compra.save()
+    return JsonResponse({'success': True, 'message': 'La compra se marcó como pagada.'})
+
+# @csrf_exempt
+@login_required
+def marcar_no_pagada(request, compra_id):
+    compra = get_object_or_404(ResumenCompra, id=compra_id)
+    compra.pagada = False
+    compra.save()
+    return JsonResponse({'success': True, 'message': 'La compra se marcó como no pagada.'})
 
 # ---------------------------------
 # VISTA PARA LA RECUPERACION DE CONTRASEÑA
