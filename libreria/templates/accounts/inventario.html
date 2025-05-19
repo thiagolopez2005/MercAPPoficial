@@ -92,7 +92,7 @@
         <aside class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
+                    <img src="{% static 'images/Admin.png' %}" alt="Perfil Admin">
                 </div>
                 <h3>{{ request.user.nombre }}</h3>
                 <p>Administrador</p>
@@ -110,10 +110,6 @@
                     <li><a href="{% url 'inventario' %}" data-page="inventario">
                         <i class="material-icons">inventory</i> 
                         <span>INVENTARIO</span>
-                    </a></li>
-                    <li><a href="#"  data-page="dashboard">
-                        <i class="material-icons">groups</i> 
-                        <span>USUARIOS</span>
                     </a></li>
                     <li><a href="{% url 'listar_clientes' %}"  data-page="dashboard">
                         <i class="material-icons">groups</i> 
@@ -137,7 +133,7 @@
                     </a></li>
                     <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
-                        <span>COPIAS SEGUIDAD</span>
+                        <span>COPIAS SEGURIDAD</span>
                     </a></li>
                 </ul>
             </nav>

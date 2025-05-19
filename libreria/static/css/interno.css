@@ -184,10 +184,11 @@ body {
 /* Timeline Section */
 .timeline {
     background-color: var(--light-bg);
-    border-radius: 10px;
+    border-radius: 25px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     border: 1px solid var(--primary-color);
+    margin-top: 3%;
 }
 
 /* Títulos */
@@ -1355,5 +1356,6 @@ button:hover,
     background-color: yellow;
 }
 
-
-
+.facturas-grid{
+    margin-bottom: 30%;
+}

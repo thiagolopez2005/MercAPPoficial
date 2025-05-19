@@ -29,7 +29,7 @@ from decimal import Decimal
 from .models import Producto, Order, OrderProduct,ResumenCompra, CustomCliente,RegistroActividad
 from django.http import HttpResponse
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 from libreria.decorators import admin_required
 from libreria.decorators import verificar_rol_requerido
 
@@ -496,6 +496,7 @@ def editar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES, instance=producto)
+
         if form.is_valid():
             print("Formulario válido. Guardando cambios...")
             form.save()
