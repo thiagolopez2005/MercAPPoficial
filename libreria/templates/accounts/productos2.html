@@ -72,20 +72,7 @@
 </head>
 <style>
 
-  .user-menu img {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-  }
 
-  .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-  }
 
   .search-bar {
     display: flex;
@@ -105,22 +92,6 @@
     flex: 1;
     font-size: 15px;
   }
-
-  .btn {
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: none;
-      text-decoration: none;
-      font-weight: 600;
-      color: white;
-      margin-left: 10px;
-      transition: background-color 0.3s;
-  }
-
-  .btn-secondary {
-      background-color: #999;
-  }
-
 
   .search-actions {
       display: flex;
@@ -454,7 +425,7 @@
 
         <!-- Modal de Confirmación -->
         <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
-          <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+          <div class="modal-content">
             <h2>¿Estás seguro de eliminar este producto?</h2>
             <form method="POST" action="{% url 'productos_partial' productos.id %}">
               {% csrf_token %}
@@ -494,7 +465,7 @@
 
                     <!-- Modal de Confirmación -->
                     <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
-                      <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+                      <div class="modal-content">
                         <h2>¿Estás seguro de eliminar este producto?</h2>
                         <form method="POST" action="{% url 'productos_partial' productos.id %}">
                           {% csrf_token %}
@@ -534,7 +505,7 @@
 
                     <!-- Modal de Confirmación -->
                     <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
-                      <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
+                      <div class="modal-content">
                         <h2>¿Estás seguro de eliminar este producto?</h2>
                         <form method="POST" action="{% url 'productos_partial' productos.id %}">
                           {% csrf_token %}
@@ -700,7 +671,7 @@
 </script>
             
 <div class="facturas-grid">
-  {% include 'accounts/productos_partial.html' %}
+  {% include 'accounts/Modal_part_eliminar.html' %}
 </div>
 </body>
 
