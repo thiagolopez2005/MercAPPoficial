@@ -49,7 +49,7 @@
                       <i class="material-icons">receipt</i> 
                       <span>RECIBOS</span>
                   </a></li>
-                  <li><a href="#" data-page="estado-compra">
+                  <li><a href="{% url 'validacion_compras' %}" data-page="estado-compra">
                       <i class="material-icons">payment</i> 
                       <span>ESTADO DE COMPRA</span>
                   </a></li>
@@ -71,6 +71,7 @@
           </header>
 </head>
 <style>
+
 
   .user-menu img {
       width: 35px;
@@ -460,61 +461,62 @@
             <div class="products-container">
               <!-- Frutas -->
               <h2>Frutas</h2>
-              <div class="products-grid">
+            <div class="products-grid">
                 {% for productos in frutas %}
-                  <div class="product-card">
+                <div class="product-card">
                     {% if productos.imagen %}
-                      <img src="{{ productos.imagen.url }}" class="product-image-container" alt="{{ productos.nombre_producto }}">
+                        <img src="{{ productos.imagen.url }}" class="product-image-container" alt="{{ productos.nombre_producto }}">
                     {% else %}
-                      <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                        <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                     {% endif %}
                     <h3>{{ productos.nombre }}</h3>
                     <p>{{ productos.descripcion }}</p>
                     <p>Precio: ${{ productos.precio }}</p>
                     <div class="d-grid gap-2">
-                      <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                      <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
+                        <!-- Botón de Editar -->
+                        <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
 
-                      <!-- Modal de Confirmación -->
-                      <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
-                        <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
-                          <h2>¿Estás seguro de eliminar este producto?</h2>
-                          <form method="POST" action="{% url 'productos_partial' productos.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
-                            <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
-                          </form>
-                        </div>
-                      </div>
-                      
+                        <!-- Botones de Habilitar/Inhabilitar -->
+                        {% if productos.habilitado %}
+                            <a href="{% url 'inhabilitar_producto' productos.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                        {% else %}
+                            <a href="{% url 'habilitar_producto' productos.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                        {% endif %}
 
-                      {% if not productos.publicado %}
-                        <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
-                      {% else %}
-                        <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
-                      {% endif %}
+                        <!-- Botones de Publicar/No Publicar -->
+                        {% if not productos.publicado %}
+                            <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
+                        {% else %}
+                            <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                        {% endif %}
                     </div>
-                  </div>
+                </div>
                 {% empty %}
-                  <p>No hay frutas disponibles.</p>
+                <p>No hay frutas disponibles.</p>
                 {% endfor %}
-              </div>
-
+            </div>
               <!-- Verduras -->
               <h2>Verduras</h2>
               <div class="products-grid">
                 {% for productos in verduras %}
-                  <div class="product-card">
-                    {% if productos.imagen %}
-                            <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ productos.nombre_producto }}">
-                    {% else %}
+                    <div class="product-card">
+                  {% if productos.imagen %}
+                      <img src="{{ productos.imagen.url }}" class="product-image-container" alt="{{ productos.nombre_producto }}">
+                  {% else %}
                       <div class="card-img-top text-center p-3">No hay imagen disponible</div>
-                    {% endif %}
-                    <h3>{{ productos.nombre }}</h3>
-                    <p>{{ productos.descripcion }}</p>
-                    <p>Precio: ${{ productos.precio }}</p>
-                    <div class="d-grid gap-2">
+                  {% endif %}
+                  <h3>{{ productos.nombre }}</h3>
+                  <p>{{ productos.descripcion }}</p>
+                  <p>Precio: ${{ productos.precio }}</p>
+                  <div class="d-grid gap-2">
                       <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                      {% if productos.habilitado %}
+                          <a href="{% url 'inhabilitar_producto' productos.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                      {% else %}
+                          <a href="{% url 'habilitar_producto' productos.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                      {% endif %}
+                      {% if not productos.publicado %}
+                          <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                       <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
 
 
@@ -532,14 +534,14 @@
                       {% if not producto.publicado %}
                         <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                       {% else %}
-                        <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                          <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
                       {% endif %}
-                    </div>
                   </div>
-                {% empty %}
-                  <p>No hay verduras disponibles.</p>
-                {% endfor %}
               </div>
+              {% empty %}
+              <p>No hay verduras disponibles.</p>
+              {% endfor %}
+          </div>
 
               <!-- Tubérculos -->
               <h2>Tuberculos</h2>
@@ -585,68 +587,38 @@
               <h2>Hortalizas</h2>
               <div class="products-grid">
                 {% for productos in hortalizas %}
-                <div class="product-card">
-                  {% if productos.imagen %}
-                    <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
-                  {% else %}
-                    <div class="card-img-top text-center p-3">No hay imagen disponible</div>
-                  {% endif %}
-                  <h3>{{ productos.nombre }}</h3>
-                  <p>{{ productos.descripcion }}</p>
-                  <p>Precio: ${{ productos.precio }}</p>
-                  <div class="d-grid gap-2">
-                    <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                    <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
-
-                    <!-- Modal de Confirmación -->
-                    <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
-                      <div class="modal-content" style="height: 211px; width: 513px; bottom: 244px;">
-                        <h2>¿Estás seguro de eliminar este producto?</h2>
-                        <form method="POST" action="{% url 'productos_partial' productos.id %}">
-                          {% csrf_token %}
-                          <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
-                          <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
-                        </form>
-                      </div>
+                  <div class="product-card">
+                        {% if productos.imagen %}
+                            <img src="{{ productos.imagen.url }}" class="product-image-container" alt="{{ productos.nombre_producto }}">
+                        {% else %}
+                            <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                        {% endif %}
+                        <h3>{{ productos.nombre }}</h3>
+                        <p>{{ productos.descripcion }}</p>
+                        <p>Precio: ${{ productos.precio }}</p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                            {% if productos.habilitado %}
+                                <a href="{% url 'inhabilitar_producto' productos.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                            {% else %}
+                                <a href="{% url 'habilitar_producto' productos.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                            {% endif %}
+                            {% if not productos.publicado %}
+                                <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
+                            {% else %}
+                                <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if not producto.publicado %}
-                      <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
-                    {% else %}
-                      <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
-                    {% endif %}
-                  </div>
+                    {% empty %}
+                    <p>No hay verduras disponibles.</p>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <p>No hay hortalizas disponibles.</p>
-                {% endfor %}
-              </div>
-            </div>
           </main>
     </div>
 
   </div>
   </section>
-  <script>
-    function abrirModalEliminar(productoId) {
-      const modal = document.getElementById("modalEliminar-" + productoId);
-      if (modal) modal.style.display = "flex";
-    }
-  
-    function cerrarModalEliminar(productoId) {
-      const modal = document.getElementById("modalEliminar-" + productoId);
-      if (modal) modal.style.display = "none";
-    }
-  
-    window.onclick = function(event) {
-      const modales = document.querySelectorAll(".modal");
-      modales.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      });
-    };
-  </script>
-
     <script>
       
       function getCookie(name) {

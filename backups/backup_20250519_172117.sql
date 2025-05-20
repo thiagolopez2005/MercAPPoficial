@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `auth_group`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auth_group` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `name` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
@@ -84,9 +84,9 @@ DROP TABLE IF EXISTS `auth_permission`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auth_permission` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `content_type_id` int NOT NULL,
-  `codename` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `codename` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
@@ -113,10 +113,10 @@ DROP TABLE IF EXISTS `django_admin_log`;
 CREATE TABLE `django_admin_log` (
   `id` int NOT NULL AUTO_INCREMENT,
   `action_time` datetime(6) NOT NULL,
-  `object_id` longtext COLLATE utf8mb3_spanish2_ci,
-  `object_repr` varchar(200) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `object_id` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci,
+  `object_repr` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `action_flag` smallint unsigned NOT NULL,
-  `change_message` longtext COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `change_message` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `content_type_id` int DEFAULT NULL,
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
@@ -146,8 +146,8 @@ DROP TABLE IF EXISTS `django_content_type`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_content_type` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `app_label` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `model` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `app_label` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `model` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
@@ -172,11 +172,11 @@ DROP TABLE IF EXISTS `django_migrations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_migrations` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `app` varchar(255) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `app` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +185,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-05-15 13:28:07.427523'),(2,'contenttypes','0002_remove_content_type_name','2025-05-15 13:28:07.573146'),(3,'auth','0001_initial','2025-05-15 13:28:09.592266'),(4,'auth','0002_alter_permission_name_max_length','2025-05-15 13:28:09.725848'),(5,'auth','0003_alter_user_email_max_length','2025-05-15 13:28:09.735340'),(6,'auth','0004_alter_user_username_opts','2025-05-15 13:28:09.758428'),(7,'auth','0005_alter_user_last_login_null','2025-05-15 13:28:09.939432'),(8,'auth','0006_require_contenttypes_0002','2025-05-15 13:28:09.944788'),(9,'auth','0007_alter_validators_add_error_messages','2025-05-15 13:28:09.954492'),(10,'auth','0008_alter_user_username_max_length','2025-05-15 13:28:09.970439'),(11,'auth','0009_alter_user_last_name_max_length','2025-05-15 13:28:09.993844'),(12,'auth','0010_alter_group_name_max_length','2025-05-15 13:28:10.142844'),(13,'auth','0011_update_proxy_permissions','2025-05-15 13:28:10.154637'),(14,'auth','0012_alter_user_first_name_max_length','2025-05-15 13:28:10.169233'),(15,'libreria','0001_initial','2025-05-15 13:28:12.382033'),(16,'admin','0001_initial','2025-05-15 13:28:12.627077'),(17,'admin','0002_logentry_remove_auto_add','2025-05-15 13:28:12.642058'),(18,'admin','0003_logentry_add_action_flag_choices','2025-05-15 13:28:12.656672'),(19,'sessions','0001_initial','2025-05-15 13:28:12.762662');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-05-15 13:28:07.427523'),(2,'contenttypes','0002_remove_content_type_name','2025-05-15 13:28:07.573146'),(3,'auth','0001_initial','2025-05-15 13:28:09.592266'),(4,'auth','0002_alter_permission_name_max_length','2025-05-15 13:28:09.725848'),(5,'auth','0003_alter_user_email_max_length','2025-05-15 13:28:09.735340'),(6,'auth','0004_alter_user_username_opts','2025-05-15 13:28:09.758428'),(7,'auth','0005_alter_user_last_login_null','2025-05-15 13:28:09.939432'),(8,'auth','0006_require_contenttypes_0002','2025-05-15 13:28:09.944788'),(9,'auth','0007_alter_validators_add_error_messages','2025-05-15 13:28:09.954492'),(10,'auth','0008_alter_user_username_max_length','2025-05-15 13:28:09.970439'),(11,'auth','0009_alter_user_last_name_max_length','2025-05-15 13:28:09.993844'),(12,'auth','0010_alter_group_name_max_length','2025-05-15 13:28:10.142844'),(13,'auth','0011_update_proxy_permissions','2025-05-15 13:28:10.154637'),(14,'auth','0012_alter_user_first_name_max_length','2025-05-15 13:28:10.169233'),(15,'libreria','0001_initial','2025-05-15 13:28:12.382033'),(16,'admin','0001_initial','2025-05-15 13:28:12.627077'),(17,'admin','0002_logentry_remove_auto_add','2025-05-15 13:28:12.642058'),(18,'admin','0003_logentry_add_action_flag_choices','2025-05-15 13:28:12.656672'),(19,'sessions','0001_initial','2025-05-15 13:28:12.762662'),(20,'libreria','0002_producto_habilitado','2025-05-19 22:20:47.458606');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,8 +197,8 @@ DROP TABLE IF EXISTS `django_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `django_session` (
-  `session_key` varchar(40) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `session_data` longtext COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `session_key` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `session_data` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`),
   KEY `django_session_expire_date_a5c62663` (`expire_date`)
@@ -211,7 +211,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('4qqastkvudpmuegbjo7galizp8zsnn2g','.eJxVjMsOwiAUBf-FtSFAWx4u3fsN5D5AqgaS0q6M_65NutDtmZnzEhG2tcStpyXOLM5Ci9PvhkCPVHfAd6i3JqnVdZlR7oo8aJfXxul5Ody_gwK9fGsKhnJwakCnU6aQeSKEabSDt8GaxNYgaATlwSfOo3WaB0UmeGSFgOL9Af4oOMA:1uFZiV:tZX_2Nfu9pfQGZYGGAIS7vrEHHMJ9gi9gb3tmP4Uvis','2025-05-29 14:37:47.388668'),('lrbx2yuihyqtu1ie2618g6ur9vexina9','.eJxVjMsOwiAUBf-FtSFAWx4u3fsN5D5AqgaS0q6M_65NutDtmZnzEhG2tcStpyXOLM5Ci9PvhkCPVHfAd6i3JqnVdZlR7oo8aJfXxul5Ody_gwK9fGsKhnJwakCnU6aQeSKEabSDt8GaxNYgaATlwSfOo3WaB0UmeGSFgOL9Af4oOMA:1uFzHz:Z1z06qGt6NZYZkvaJhqcxGebRs9R_L8NbT4OjEjfX6o','2025-05-30 17:56:07.374403');
+INSERT INTO `django_session` VALUES ('4qqastkvudpmuegbjo7galizp8zsnn2g','.eJxVjMsOwiAUBf-FtSFAWx4u3fsN5D5AqgaS0q6M_65NutDtmZnzEhG2tcStpyXOLM5Ci9PvhkCPVHfAd6i3JqnVdZlR7oo8aJfXxul5Ody_gwK9fGsKhnJwakCnU6aQeSKEabSDt8GaxNYgaATlwSfOo3WaB0UmeGSFgOL9Af4oOMA:1uFZiV:tZX_2Nfu9pfQGZYGGAIS7vrEHHMJ9gi9gb3tmP4Uvis','2025-05-29 14:37:47.388668'),('b7mz0yo5auan9elfpqt0w22g74sy22b9','.eJxVjMsOwiAUBf-FtSFAWx4u3fsN5D5AqgaS0q6M_65NutDtmZnzEhG2tcStpyXOLM5Ci9PvhkCPVHfAd6i3JqnVdZlR7oo8aJfXxul5Ody_gwK9fGsKhnJwakCnU6aQeSKEabSDt8GaxNYgaATlwSfOo3WaB0UmeGSFgOL9Af4oOMA:1uH8on:NuHP3UpQnFFSfoLY9CKPq5vwejuG3xYyLFW5y5g35cs','2025-06-02 22:18:45.832088'),('lrbx2yuihyqtu1ie2618g6ur9vexina9','.eJxVjMsOwiAUBf-FtSFAWx4u3fsN5D5AqgaS0q6M_65NutDtmZnzEhG2tcStpyXOLM5Ci9PvhkCPVHfAd6i3JqnVdZlR7oo8aJfXxul5Ody_gwK9fGsKhnJwakCnU6aQeSKEabSDt8GaxNYgaATlwSfOo3WaB0UmeGSFgOL9Af4oOMA:1uFzHz:Z1z06qGt6NZYZkvaJhqcxGebRs9R_L8NbT4OjEjfX6o','2025-05-30 17:56:07.374403');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,21 +224,21 @@ DROP TABLE IF EXISTS `libreria_customcliente`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `libreria_customcliente` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `password` varchar(128) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `password` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
-  `username` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `first_name` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `last_name` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `username` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `first_name` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `last_name` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL,
-  `roleCliente` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `email` varchar(254) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `telefono` varchar(10) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
-  `CC` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `nombre` varchar(250) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `apellido` varchar(250) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `roleCliente` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `email` varchar(254) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `telefono` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
+  `CC` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `nombre` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `apellido` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
@@ -321,20 +321,20 @@ DROP TABLE IF EXISTS `libreria_customuser`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `libreria_customuser` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `password` varchar(128) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `password` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
-  `username` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `first_name` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `last_name` varchar(150) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `username` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `first_name` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `last_name` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `date_joined` datetime(6) NOT NULL,
-  `role` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `email` varchar(254) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `telefono` varchar(10) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
-  `cec` varchar(10) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `nombre` varchar(250) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `apellido` varchar(250) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `status` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `role` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `email` varchar(254) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `telefono` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
+  `cec` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `nombre` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `apellido` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `status` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
@@ -350,7 +350,7 @@ CREATE TABLE `libreria_customuser` (
 
 LOCK TABLES `libreria_customuser` WRITE;
 /*!40000 ALTER TABLE `libreria_customuser` DISABLE KEYS */;
-INSERT INTO `libreria_customuser` VALUES (1,'pbkdf2_sha256$1000000$rtiVuaciRR8hEmXWua57dj$y81aaGKyKgWtBuxD78sG15Ppf/nAPyyoXCoII23v+J4=','2025-05-16 17:56:07.366658',0,'1051472774','','','2025-05-15 13:33:36.371424','admin','milenaholguin95@gmail.com','1293081928','1051472774','Thiago','Lopez',' No activo',1,0),(2,'pbkdf2_sha256$1000000$0m8wNjWpeMeMh0gSmLxPaH$tR8fR1AytOScnMSAZUHDQI5P84gCSCM9mxPqF82qDnI=','2025-05-15 17:13:16.055922',0,'1051472770','','','2025-05-15 16:55:48.099362','emple','emple@gmail.com','8791287948','1051472770','emple','ejemplo emple',' No activo',1,0),(3,'pbkdf2_sha256$1000000$ZlglZnbfL4WD6TBEN3lKDq$U+rG57s3HpTKdjC6XlMUJfhEcI/bgiJVsMMFO++gbSc=',NULL,0,'1051472778','','','2025-05-15 21:25:57.924465','admin','admin@gmail.com','37984918','1051472778','admin','admin',' No activo',1,0);
+INSERT INTO `libreria_customuser` VALUES (1,'pbkdf2_sha256$1000000$rtiVuaciRR8hEmXWua57dj$y81aaGKyKgWtBuxD78sG15Ppf/nAPyyoXCoII23v+J4=','2025-05-19 22:18:45.819040',0,'1051472774','','','2025-05-15 13:33:36.371424','admin','milenaholguin95@gmail.com','1293081928','1051472774','Thiago','Lopez',' No activo',1,0),(2,'pbkdf2_sha256$1000000$0m8wNjWpeMeMh0gSmLxPaH$tR8fR1AytOScnMSAZUHDQI5P84gCSCM9mxPqF82qDnI=','2025-05-15 17:13:16.055922',0,'1051472770','','','2025-05-15 16:55:48.099362','emple','emple@gmail.com','8791287948','1051472770','emple','ejemplo emple',' No activo',1,0),(3,'pbkdf2_sha256$1000000$ZlglZnbfL4WD6TBEN3lKDq$U+rG57s3HpTKdjC6XlMUJfhEcI/bgiJVsMMFO++gbSc=',NULL,0,'1051472778','','','2025-05-15 21:25:57.924465','admin','admin@gmail.com','37984918','1051472778','admin','admin',' No activo',1,0);
 /*!40000 ALTER TABLE `libreria_customuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,8 +418,8 @@ DROP TABLE IF EXISTS `libreria_factura`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `libreria_factura` (
-  `imagen` varchar(100) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
-  `descripcion` longtext COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `imagen` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
+  `descripcion` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `numero_factura` int NOT NULL AUTO_INCREMENT,
   `fecha_publicacion` datetime(6) NOT NULL,
   `habilitada` tinyint(1) NOT NULL,
@@ -505,16 +505,17 @@ DROP TABLE IF EXISTS `libreria_producto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `libreria_producto` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `imagen` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `nombre` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `descripcion` longtext COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `origen` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `imagen` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `descripcion` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `origen` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `unidad` double NOT NULL,
   `stock` int NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `publicado` tinyint(1) NOT NULL,
-  `medida` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `tipoproducto` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `medida` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `tipoproducto` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `habilitado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -525,7 +526,7 @@ CREATE TABLE `libreria_producto` (
 
 LOCK TABLES `libreria_producto` WRITE;
 /*!40000 ALTER TABLE `libreria_producto` DISABLE KEYS */;
-INSERT INTO `libreria_producto` VALUES (2,'productos/Aguacate_obe1g8z.jpg','aksjdhkaj','aksjhdkha','hjsdha',1,1,1.00,0,'1','frutas'),(3,'productos/Bancoalamano.png','ada','ada','sada',2,2,2.00,0,'2','frutas');
+INSERT INTO `libreria_producto` VALUES (2,'productos/Aguacate_obe1g8z.jpg','aksjdhkaj','aksjhdkha','hjsdha',1,1,1.00,0,'1','frutas',1),(3,'productos/Bancoalamano.png','ada','ada','sada',2,2,2.00,0,'2','frutas',1);
 /*!40000 ALTER TABLE `libreria_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -538,10 +539,10 @@ DROP TABLE IF EXISTS `libreria_proveedor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `libreria_proveedor` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `apellido` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `telefono` varchar(15) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `correo` varchar(254) COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `apellido` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `telefono` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `correo` varchar(254) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `correo` (`correo`)
@@ -567,8 +568,8 @@ DROP TABLE IF EXISTS `libreria_registroactividad`;
 CREATE TABLE `libreria_registroactividad` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `timestamp` datetime(6) NOT NULL,
-  `accion` varchar(255) COLLATE utf8mb3_spanish2_ci NOT NULL,
-  `detalle` longtext COLLATE utf8mb3_spanish2_ci,
+  `accion` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci NOT NULL,
+  `detalle` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish2_ci,
   `usuario_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `libreria_registroact_usuario_id_e332a7f9_fk_libreria_` (`usuario_id`),
@@ -653,4 +654,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-16 13:35:01
+-- Dump completed on 2025-05-19 17:21:19

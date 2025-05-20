@@ -72,7 +72,7 @@ class Producto(models.Model):
     publicado = models.BooleanField(default=True)
     medida = models.CharField(max_length=50)
     tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')  # Nuevo campo
-
+    habilitado = models.BooleanField(default=True) 
 
     def __str__(self):
         return self.nombre
@@ -191,3 +191,6 @@ class ResumenCompra(models.Model):
 
     def __str__(self):
         return f'Compra de {self.cliente.CC} - {self.fecha_compra}'
+    
+    # -----------------EDITAR PERFIN CLIENTE-----------------
+    

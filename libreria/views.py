@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProductoForm
 from django.contrib.auth import authenticate, login
 from libreria.backends import CustomClienteBackend
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm,EditarPerfilClienteForm
 from .models import CustomUser 
 from django.contrib import messages
 from .forms import ProveedorForm
@@ -19,6 +19,8 @@ from django.urls import reverse
 from .forms import CustomClienteCreationForm
 from .forms import FacturaForm
 import os
+from django.core.exceptions import ValidationError
+from xhtml2pdf import pisa
 from libreria.backends import CustomClienteBackend
 from django.http import HttpResponse, Http404
 from django.conf import settings
@@ -29,7 +31,10 @@ from decimal import Decimal
 from .models import Producto, Order, OrderProduct,ResumenCompra, CustomCliente,RegistroActividad
 from django.http import HttpResponse
 from django.template.loader import get_template
+<<<<<<< HEAD
 # from xhtml2pdf import pisa
+=======
+>>>>>>> backend
 from libreria.decorators import admin_required
 from libreria.decorators import verificar_rol_requerido
 
@@ -165,9 +170,25 @@ def register_cliente_view(request):
 # vista tabla de los datos del cliente
 
 def listar_clientes(request):
-    # Recupera todos los clientes registrados
     clientes = CustomCliente.objects.all()
     return render(request, 'accounts/clientes.html', {'clientes': clientes})
+
+@verificar_rol_requerido('admin')
+@admin_required(login_url="/accounts/login/")
+def editar_cliente(request, cliente_id):
+    cliente = get_object_or_404(CustomCliente, id=cliente_id)
+    if request.method == 'POST':
+        form = EditarPerfilClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"El perfil de {cliente.nombre} {cliente.apellido} ha sido actualizado con éxito.")
+            return redirect('listar_clientes')  # Redirige a la lista de clientes
+        else:
+            messages.error(request, "Por favor corrige los errores en el formulario.")
+    else:
+        form = EditarPerfilClienteForm(instance=cliente)
+
+    return render(request, 'accounts/editar_perfil_cliente.html', {'form': form, 'cliente': cliente})
 
 # --------------------------------------------------------------------
 #CERRAR CESION DE AMBOS LOGEOS, AQUI EL EMPELADO , ADMIN Y CLIENTE CIERRAN SESION, SE REDIRECCIONA A LA PRINCIPAL
@@ -508,15 +529,7 @@ def editar_producto(request, producto_id):
     return render(request, 'accounts/editar_producto.html', {'form': form})
 
 
-#AQUI PODEMOS ELIMINAR UN PRUDUCTO AGREGADO
-@verificar_rol_requerido('admin')
-@admin_required(login_url="/accounts/login/", error_url="/error_403/")
-def eliminar_producto(request, producto_id):
-    producto = get_object_or_404(Producto, id=producto_id)
-    if request.method == "POST":
-        producto.delete()
-        return redirect('productos2')
-    return render(request, 'accounts/productos_partial.html', {'producto': producto})
+
 
 #-----------------AQUI VISUALIZA LOS PRODUCTOS EN EL INVENTARIO-----
 
@@ -537,15 +550,23 @@ def editar_inven(request, producto_id):
         form = ProductoForm(instance=producto)
     return render(request, 'accounts/editarinve.html', {'form': form})
 
+
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
-def eliminar_inven(request, producto_id):
+def habilitar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
-    if request.method == "POST":
-        producto.delete()
-        return redirect('inventario')
-    return render(request, 'accounts/confirmar_eliminar.html', {'producto': producto})
-
+    producto.habilitado = True
+    producto.save()
+    messages.success(request, f"El producto '{producto.nombre}' ha sido habilitado con éxito.")
+    return redirect(request.META.get('HTTP_REFERER', 'inventario'))
+@verificar_rol_requerido('admin')
+@admin_required(login_url="/accounts/login/")
+def inhabilitar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    producto.habilitado = False
+    producto.save()
+    messages.success(request, f"El producto '{producto.nombre}' ha sido habilitado con éxito.")
+    return redirect(request.META.get('HTTP_REFERER', 'inventario'))
 # -------------------------------------------
 # REGISTRO DE LOS RECIBOS DE LOS PRODUCTOS EN EL BACKEND
 # --------------------------------------------
@@ -762,7 +783,7 @@ def finalizar_compra(request):
     order.is_active = False
     order.save()
 
-    messages.success1(request, "Compra finalizada con éxito.")
+    messages.success(request, "Compra finalizada con éxito.")
     # Redirigir a la vista detalle_compra con el ID de la compra
     return redirect('detalle_compra', compra_id=compra.id)
 

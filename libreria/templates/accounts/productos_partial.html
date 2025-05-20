@@ -102,4 +102,12 @@
     background-color: #747474;
   }
 
-</style> -->
+</style>
+
+        {% for producto in productos %}
+
+        {% empty %}
+  <div class="col-12">
+    <p>No hay productos publicados.</p>
+  </div>
+{% endfor %}
