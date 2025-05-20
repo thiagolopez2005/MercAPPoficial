@@ -24,6 +24,8 @@ urlpatterns = [
     # URLS DE LAS VISTAS DE ADMINISTRACION Y EMPLEADOS
     
     path('inventario/', views.inventario, name='inventario'),
+    path('habilitar_producto/<int:producto_id>/', views.habilitar_producto, name='habilitar_producto'),
+    path('inhabilitar_producto/<int:producto_id>/', views.inhabilitar_producto, name='inhabilitar_producto'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('empleado/', views.vista_emple, name='vista_emple'),
     path('clientes/', views.listar_clientes, name='listar_clientes'),
@@ -31,19 +33,20 @@ urlpatterns = [
     
     # URLS DE LAS VISTAS DE ADMINISTRACION DE CUENTAS DE MERCAPP
     
-    # path('listar-registros/', views.listar_registros, name='listar_registros'),
+    path('editar_perfil_cliente/<int:cliente_id>/', views.editar_cliente, name='editar_cliente'),
     path('editar-cuenta/<int:id>/', views.editar_cuenta, name='editar_cuenta'),
     path('activar-cuenta/<int:id>/', views.activar_cuenta, name='activar_cuenta'),
     path('desactivar-cuenta/<int:id>/', views.desactivar_cuenta, name='desactivar_cuenta'),
     path('eliminar-cuenta/<int:id>/', views.eliminar_cuenta, name='eliminar_cuenta'),
+    path('marcar_pagada/<int:compra_id>/', views.marcar_pagada, name='marcar_pagada'),
+    path('marcar_no_pagada/<int:compra_id>/', views.marcar_no_pagada, name='marcar_no_pagada'),
     
     # URLS DE LAS VISTAS DE ADMINISTRACION DE PRODUCTOS
     
     path('index/', views.index, name='index'),
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),
     path('editar_producto/<int:producto_id>/', views.editar_producto, name='editar_producto'),
-    path('eliminar/<int:producto_id>/', views.eliminar_producto, name='confirmar_eliminar'),
-    path('productos_partial/<int:producto_id>/', views.eliminar_producto, name='productos_partial'),
+
     path('subir_imagen/', views.subir_imagen, name='subir_imagen'),
     path('quitar_publicidad/<int:productoId>/', views.quitar_publicidad, name='quitar_publicidad'),
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
