@@ -31,10 +31,7 @@ from decimal import Decimal
 from .models import Producto, Order, OrderProduct,ResumenCompra, CustomCliente,RegistroActividad
 from django.http import HttpResponse
 from django.template.loader import get_template
-<<<<<<< HEAD
 # from xhtml2pdf import pisa
-=======
->>>>>>> backend
 from libreria.decorators import admin_required
 from libreria.decorators import verificar_rol_requerido
 
