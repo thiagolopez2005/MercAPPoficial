@@ -56,84 +56,125 @@
         </table>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Manejar el botón "Marcar como Pagada"
-            document.querySelectorAll('.marcar-pagada').forEach(button => {
-                button.addEventListener('click', function () {
-                    const compraId = this.getAttribute('data-id');
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: "¿Deseas marcar esta compra como pagada?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#28a745',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, marcar como pagada',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            fetch(`/marcar_pagada/${compraId}/`, {
-                                method: 'POST',
-                                headers: {
-                                    'X-CSRFToken': '{{ csrf_token }}',
-                                    'X-Requested-With': 'XMLHttpRequest'
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    Swal.fire('¡Éxito!', data.message, 'success').then(() => location.reload());
-                                } else {
-                                    Swal.fire('Error', data.message, 'error');
-                                }
-                            })
-                            .catch(error => {
-                                Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
-                            });
-                        }
-                    });
-                });
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejar el botón "Marcar como Pagada"
+        document.querySelectorAll('.marcar-pagada').forEach(button => {
+            button.addEventListener('click', function () {
+                const compraId = this.getAttribute('data-id');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Deseas marcar esta compra como pagada?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, marcar como pagada',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/marcar_pagada/${compraId}/`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Actualizar el estado en el HTML
+                                const row = button.closest('tr');
+                                row.querySelector('.badge').classList.remove('bg-danger');
+                                row.querySelector('.badge').classList.add('bg-success');
+                                row.querySelector('.badge').textContent = 'Pagada';
 
-            // Manejar el botón "Marcar como No Pagada"
-            document.querySelectorAll('.marcar-no-pagada').forEach(button => {
-                button.addEventListener('click', function () {
-                    const compraId = this.getAttribute('data-id');
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: "¿Deseas marcar esta compra como no pagada?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#28a745',
-                        confirmButtonText: 'Sí, marcar como no pagada',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            fetch(`/marcar_no_pagada/${compraId}/`, {
-                                method: 'POST',
-                                headers: {
-                                    'X-CSRFToken': '{{ csrf_token }}',
-                                    'X-Requested-With': 'XMLHttpRequest'
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    Swal.fire('¡Éxito!', data.message, 'success').then(() => location.reload());
-                                } else {
-                                    Swal.fire('Error', data.message, 'error');
-                                }
-                            })
-                            .catch(error => {
-                                Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
-                            });
-                        }
-                    });
+                                // Cambiar los botones
+                                button.remove(); // Eliminar el botón "Marcar como Pagada"
+                                const accionesCell = row.querySelector('td:last-child');
+                                const noPagadaButton = document.createElement('button');
+                                noPagadaButton.className = 'btn btn-danger btn-sm marcar-no-pagada';
+                                noPagadaButton.textContent = 'Marcar como No Pagada';
+                                noPagadaButton.setAttribute('data-id', compraId);
+                                accionesCell.appendChild(noPagadaButton);
+
+                                // Agregar evento al nuevo botón
+                                noPagadaButton.addEventListener('click', marcarNoPagada);
+
+                                Swal.fire('¡Éxito!', data.message, 'success');
+                            } else {
+                                Swal.fire('Error', data.message, 'error');
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
+                        });
+                    }
                 });
             });
         });
-    </script>
+
+        // Manejar el botón "Marcar como No Pagada"
+        function marcarNoPagada(event) {
+            const button = event.target;
+            const compraId = button.getAttribute('data-id');
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas marcar esta compra como no pagada?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#28a745',
+                confirmButtonText: 'Sí, marcar como no pagada',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/marcar_no_pagada/${compraId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Actualizar el estado en el HTML
+                            const row = button.closest('tr');
+                            row.querySelector('.badge').classList.remove('bg-success');
+                            row.querySelector('.badge').classList.add('bg-danger');
+                            row.querySelector('.badge').textContent = 'No Pagada';
+
+                            // Cambiar los botones
+                            button.remove(); // Eliminar el botón "Marcar como No Pagada"
+                            const accionesCell = row.querySelector('td:last-child');
+                            const pagadaButton = document.createElement('button');
+                            pagadaButton.className = 'btn btn-success btn-sm marcar-pagada';
+                            pagadaButton.textContent = 'Marcar como Pagada';
+                            pagadaButton.setAttribute('data-id', compraId);
+                            accionesCell.appendChild(pagadaButton);
+
+                            // Agregar evento al nuevo botón
+                            pagadaButton.addEventListener('click', function () {
+                                button.click();
+                            });
+
+                            Swal.fire('¡Éxito!', data.message, 'success');
+                        } else {
+                            Swal.fire('Error', data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
+                    });
+                }
+            });
+        }
+
+        document.querySelectorAll('.marcar-no-pagada').forEach(button => {
+            button.addEventListener('click', marcarNoPagada);
+        });
+    });
+</script>
 </body>
 </html>

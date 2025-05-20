@@ -75,3 +75,16 @@ class OrderProductForm(ModelForm):
     class Meta:
         model = OrderProduct
         fields = ["product"]
+        
+        
+class EditarPerfilClienteForm(forms.ModelForm):
+    class Meta:
+        model = CustomCliente
+        fields = ['nombre', 'apellido', 'email', 'telefono', 'CC']  # Excluye la contraseña
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'apellido': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+            'CC': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),  # CC no editable
+        }

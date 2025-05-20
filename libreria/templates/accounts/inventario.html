@@ -164,7 +164,9 @@
                                     <th>Medida</th>
                                     <th>stock</th>
                                     <th>Tipo de Medida</th>
+                                    <th>Estado</th>
                                     <th>Opciones</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -175,25 +177,31 @@
                                     <td>{{ producto.unidad }}</td>
                                     <td>{{ producto.stock }}</td>
                                     <td>{{ producto.medida }}</td>
+
+          
+                                <td>
+                                    {% if producto.habilitado %}
+                                    <span class="badge bg-success">Habilitado</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Inhabilitado</span>
+                                    {% endif %}
+                                </td>
                                     <td>
                                         <a href="{% url 'editarinve' producto.id %}" class="btn btn-editar" style="text-decoration: none;">Editar</a>
-                                        <a href="javascript:void(0);" class="btn btn-danger" style="text-decoration: none;" onclick="abrirModalEliminar({{ producto.id }})">Eliminar</a>
                                     </td>
-                                </tr>
+                                <td>
+                                    {% if producto.habilitado %}
+                                    <a href="{% url 'inhabilitar_producto' producto.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                                    {% else %}
+                                    <a href="{% url 'habilitar_producto' producto.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 
-                                <div id="modalEliminar-{{ producto.id }}" class="modal">
-                                    <div class="modal-content">
-                                        <h2>¿Estás seguro de eliminar este producto del inventario?</h2>
-                                        <form method="POST" action="{% url 'confirmar_eliminar' producto.id %}">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
-                                            <button href="{% url 'inventario' %}" class="btn-cancelar">Cancelar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+
                     </form>
                 </div>
                 
