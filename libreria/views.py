@@ -20,7 +20,7 @@ from .forms import CustomClienteCreationForm
 from .forms import FacturaForm
 import os
 from django.core.exceptions import ValidationError
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 from libreria.backends import CustomClienteBackend
 from django.http import HttpResponse, Http404
 from django.conf import settings
