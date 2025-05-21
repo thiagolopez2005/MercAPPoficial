@@ -71,167 +71,214 @@
           </header>
 </head>
 <style>
+ /* Estilos base para todos los dispositivos */
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 15px;
+  width: 100%;
+}
+
+.search-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.products-header h1 {
+  text-align: center;
+  width: 100%;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+
+/* Modal de imagen */
+.modal-imagen {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-imagen .modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.modal-imagen h2 {
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 20px;
+  color: #28a745;
+  font-size: 1.5rem;
+}
+
+.modal-imagen form p {
+  margin-bottom: 15px;
+}
+
+.modal-imagen input,
+.modal-imagen textarea,
+.modal-imagen select {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-imagen input:focus,
+.modal-imagen textarea:focus,
+.modal-imagen select:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+.modal-imagen .btn-primary,
+.modal-imagen .btn-secondary {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.modal-imagen .btn-primary {
+  background-color: #28a745;
+}
+
+.modal-imagen .btn-primary:hover {
+  background-color: #218838;
+}
+
+.modal-imagen .btn-secondary {
+  background-color: #6c757d;
+}
+
+.modal-imagen .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.modal-imagen .close-modal {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.modal-imagen .close-modal:hover {
+  color: #000;
+}
+
+.btn-eliminar_1 {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+/* Media queries para responsividad */
+/* Dispositivos pequeños (móviles, hasta 576px) */
+@media (max-width: 576px) {
   .search-bar {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
+    max-width: 100%;
+    padding: 6px 10px;
+  }
   
-  }
-
-  .search-bar input {
-    border: none;
-    background: transparent;
-    outline: none;
-    flex: 1;
-    font-size: 15px;
-  }
-
   .search-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+    gap: 10px;
   }
-
+  
   .products-header h1 {
-      text-align: center;
-      width: 100%;
-  }
-
-  .search-button {
-    background: none;
-    border: none;
-    padding: 0;
-    margin-left: 8px;
-    cursor: pointer;
-    color: #666;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .search-button:hover {
-    background: none;
-  }
-
-
-  .modal-imagen {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 1.5rem;
   }
   
   .modal-imagen .modal-content {
-    background-color: #fff;
-    margin: 5% auto;
-    padding: 30px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 600px;
+    margin: 10% auto;
+    padding: 15px;
+    width: 95%;
   }
   
   .modal-imagen h2 {
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 20px;
-    color: #28a745;
-  }
-  
-  .modal-imagen form p {
-    margin-bottom: 15px;
-  }
-  
-  .modal-imagen input,
-  .modal-imagen textarea,
-  .modal-imagen select {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-  }
-  
-  .modal-imagen input:focus,
-  .modal-imagen textarea:focus,
-  .modal-imagen select:focus {
-    border-color: #28a745;
-    outline: none;
+    font-size: 1.2rem;
   }
   
   .modal-imagen .btn-primary,
   .modal-imagen .btn-secondary {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
+    width: 100%;
+    margin: 5px 0;
   }
   
-  .modal-imagen .btn-primary {
-    background-color: #28a745;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 10px;
-    display: inline-block;
-    text-align: center;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+  .btn-eliminar_1 {
+    margin-left: 0;
+    margin-top: 5px;
+    width: 100%;
+  }
+}
+
+/* Dispositivos medianos (tablets, 577px hasta 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .search-bar {
+    max-width: 90%;
   }
   
-  .modal-imagen .btn-primary:hover {
-    background-color: #218838;
+  .search-actions {
+    gap: 15px;
   }
   
+  .modal-imagen .modal-content {
+    margin: 7% auto;
+    padding: 20px;
+    width: 90%;
+  }
+  
+  .modal-imagen .btn-primary,
   .modal-imagen .btn-secondary {
-    background-color: #6c757d;
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin: 10px;
-    text-align: center;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+    width: auto;
   }
-  
-  .modal-imagen .btn-secondary:hover {
-    background-color: #5a6268;
+}
+
+/* Dispositivos grandes (desktops, 769px hasta 992px) */
+@media (min-width: 769px) and (max-width: 992px) {
+  .search-bar {
+    max-width: 70%;
   }
-  
-  .modal-imagen .close-modal {
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-    color: #aaa;
-    cursor: pointer;
-  }
-  
-  .modal-imagen .close-modal:hover {
-    color: #000;
-  }
-  
-  .btn-eliminar_1{
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: none;
-    text-decoration: none;
-    font-weight: 600;
-    color: white;
-    margin-left: 10px;
-    transition: background-color 0.3s;
-  }
+}
 
 </style>
 
@@ -309,7 +356,7 @@
                         </p>
                         <p style="display: flex; align-items: flex-start; gap: 4px;">
                           <label for="id_publicado" style="margin: 0;">Publicado:</label>
-                          <input type="checkbox" name="publicado" id="id_publicado" style="margin-top: 7px;margin-right: 500px;">
+                          <input type="checkbox" name="publicado" id="id_publicado">
                         </p>
                         <p>
                           <label for="id_medida">Medida:</label>
@@ -317,8 +364,8 @@
                         </p>
 
                         <div class="product-actions">
-                          <button type="submit" class="btn btn-success" style="padding-top: 10px;margin-bottom: 10px;margin-top: 10px;">Subir Imagen</button>
-                        <a href="{% url 'productos2' %}" class="btn-secondary">Cancelar</a>
+                          <button type="submit" class="Subir-interno">Subir Imagen</button>
+                        <a href="{% url 'productos2' %}" class="Cancelar-interno">Cancelar</a>
                         </div>
 
                       </form>
@@ -382,13 +429,19 @@
                       <p>Precio: ${{ productos.precio }}</p>
                       <div class="d-grid gap-2">
                           <!-- Botón de Editar -->
-                          <a href="{% url 'editar_producto' productos.id %}" class="Editar">Editar</a>
-
+                          <a href="{% url 'editar_producto' productos.id %}" class="Editar">
+                          <span class="texto">Editar</span>
+                          <div class="pencil-container">
+                              <svg class="pencil-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                              </svg>
+                          </div>
+                          </a>
                           <!-- Botones de Habilitar/Inhabilitar -->
                           {% if productos.habilitado %}
-                              <a href="{% url 'inhabilitar_producto' productos.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                              <a href="{% url 'inhabilitar_producto' productos.id %}">Inhabilitar</a>
                           {% else %}
-                              <a href="{% url 'habilitar_producto' productos.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                              <a href="{% url 'habilitar_producto' productos.id %}">Habilitar</a>
                           {% endif %}
 
                           <!-- Botones de Publicar/No Publicar -->
@@ -407,7 +460,7 @@
               <h2>Verduras</h2>
               <div class="products-grid">
                 {% for productos in verduras %}
-                                  <div class="product-card">
+                     <div class="product-card">
                     {% if productos.imagen %}
                         <img src="{{ productos.imagen.url }}" class="product-image-container" alt="{{ productos.nombre_producto }}">
                     {% else %}
@@ -418,18 +471,24 @@
                     <p>Precio: ${{ productos.precio }}</p>
                     <div class="d-grid gap-2">
                         <!-- Botón de Editar -->
-                        <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-
+                          <a href="{% url 'editar_producto' productos.id %}" class="Editar">
+                          <span class="texto">Editar</span>
+                          <div class="pencil-container">
+                              <svg class="pencil-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                              </svg>
+                          </div>
+                          </a>
                         <!-- Botones de Habilitar/Inhabilitar -->
                         {% if productos.habilitado %}
-                            <a href="{% url 'inhabilitar_producto' productos.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                            <a href="{% url 'inhabilitar_producto' productos.id %}">Inhabilitar</a>
                         {% else %}
-                            <a href="{% url 'habilitar_producto' productos.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                            <a href="{% url 'habilitar_producto' productos.id %}">Habilitar</a>
                         {% endif %}
 
                         <!-- Botones de Publicar/No Publicar -->
                         {% if not productos.publicado %}
-                            <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
+                             <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar </button>
                         {% else %}
                             <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
                         {% endif %}
@@ -453,20 +512,21 @@
                   <p>{{ productos.descripcion }}</p>
                   <p>Precio: ${{ productos.precio }}</p>
                   <div class="d-grid gap-2">
-                    <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
-                    <button class="btn-eliminar_1"style="padding-top: 10px; height: 42px;" onclick="abrirModalEliminar({{ productos.id }})">Eliminar</button>
+                     <a href="{% url 'editar_producto' productos.id %}" class="Editar">
+                          <span class="texto">Editar</span>
+                          <div class="pencil-container">
+                              <svg class="pencil-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                              </svg>
+                          </div>
+                          </a>
 
-                    <!-- Modal de Confirmación -->
-                    <div id="modalEliminar-{{ productos.id }}" class="modal-eliminar">
-                      <div class="modal-content">
-                        <h2>¿Estás seguro de eliminar este producto?</h2>
-                        <form method="POST" action="{% url 'productos_partial' productos.id %}">
-                          {% csrf_token %}
-                          <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
-                          <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar({{ productos.id }})">Cancelar</button>
-                        </form>
-                      </div>
-                    </div>
+                      {% if productos.habilitado %}
+                            <a href="{% url 'inhabilitar_producto' productos.id %}">Inhabilitar</a>
+                        {% else %}
+                            <a href="{% url 'habilitar_producto' productos.id %}">Habilitar</a>
+                        {% endif %}
+
                     {% if not producto.publicado %}
                       <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                     {% else %}
@@ -493,11 +553,18 @@
                         <p>{{ productos.descripcion }}</p>
                         <p>Precio: ${{ productos.precio }}</p>
                         <div class="d-grid gap-2">
-                            <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                             <a href="{% url 'editar_producto' productos.id %}" class="Editar">
+                          <span class="texto">Editar</span>
+                          <div class="pencil-container">
+                              <svg class="pencil-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                              </svg>
+                          </div>
+                          </a>
                             {% if productos.habilitado %}
-                                <a href="{% url 'inhabilitar_producto' productos.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                                <a href="{% url 'inhabilitar_producto' productos.id %}">Inhabilitar</a>
                             {% else %}
-                                <a href="{% url 'habilitar_producto' productos.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                                <a href="{% url 'habilitar_producto' productos.id %}">Habilitar</a>
                             {% endif %}
                             {% if not productos.publicado %}
                                 <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
