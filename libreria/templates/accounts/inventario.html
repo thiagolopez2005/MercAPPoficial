@@ -187,13 +187,20 @@
                                     {% endif %}
                                 </td>
                                     <td>
-                                        <a href="{% url 'editarinve' producto.id %}" class="btn btn-editar" style="text-decoration: none;">Editar</a>
+                                        <a href="{% url 'editarinve' producto.id %}" class="Editar">
+                                          <span class="texto">Editar</span>
+                                        <div class="pencil-container">
+                                            <svg class="pencil-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                            </svg>
+                                        </div>
+                                        </a>
                                     </td>
                                 <td>
                                     {% if producto.habilitado %}
-                                    <a href="{% url 'inhabilitar_producto' producto.id %}" class="btn btn-danger btn-sm">Inhabilitar</a>
+                                    <a href="{% url 'inhabilitar_producto' producto.id %}">Inhabilitar</a>
                                     {% else %}
-                                    <a href="{% url 'habilitar_producto' producto.id %}" class="btn btn-success btn-sm">Habilitar</a>
+                                    <a href="{% url 'habilitar_producto' producto.id %}">Habilitar</a>
                                     {% endif %}
                                 </td>
                             </tr>
