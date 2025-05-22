@@ -170,8 +170,8 @@ class Order(models.Model):
         return f"Orden #{self.id} - Usuario: {self.user.CC} - Activa: {self.is_active}"
     
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)  # Cambia a PROTECT o SET_NULL
+    product = models.ForeignKey(Producto, on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(default=1)
 
     def get_total_price(self):

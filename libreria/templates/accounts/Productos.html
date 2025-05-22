@@ -136,29 +136,16 @@
                                             }
                                         })
                                         .catch(error => {
-                                            console.error('Error:', error);
                                             Swal.fire({
                                                 icon: 'error',
                                                 title: 'Error',
-                                                text: 'Ocurrió un error al agregar el producto al carrito.',
+                                                text: error.message,
                                             });
                                         });
                                     });
                                 });
                             </script>
-                            {% if messages %}
-                                {% for message in messages %}
-                                    {% if message.tags == "success" %}
-                                        <div class="alert alert-success" role="alert">
-                                            {{ message }}
-                                        </div>
-                                    {% elif message.tags == "error" %}
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ message }}
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
+
                         </div>
                     </div>
                 </div>

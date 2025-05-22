@@ -692,7 +692,7 @@ def agregar_al_carrito(request, producto_id):
     if not request.user.is_authenticated:
         # Agrega un mensaje de error
         messages.error(request, "Oh, salió un error. Debes iniciar sesión para agregar productos al carrito.")
-        return redirect('Productos')  # Redirige a la página de productos
+        return JsonResponse({'error': 'No tienes permisos para agregar productos al carrito.'}, status=403)    
     
     if hasattr(request.user, 'role') and request.user.role in ['emple', 'admin']:
         # Mensaje de error para empleados o administradores
@@ -725,7 +725,7 @@ def agregar_al_carrito(request, producto_id):
 
     # Agrega un mensaje de éxito
     messages.success(request, f"{producto.nombre} se agregó al carrito.")
-    return redirect('Carrito')
+    return JsonResponse({'success': f"{producto.nombre} se agregó al carrito."})
 
 # --------------------------------------------------
 # VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
@@ -786,10 +786,23 @@ def finalizar_compra(request):
 
 @login_required(login_url="/accounts/login/")
 def detalle_compra(request, compra_id):
-
     compra = get_object_or_404(ResumenCompra, id=compra_id)
     order_products = compra.orderproduct_set.all()  # Obtén los productos asociados
-    return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+
+    # Verifica el rol del usuario
+    if hasattr(request.user, 'role'):
+        if request.user.role == 'admin':
+            # Renderiza el detalle de la compra para administradores
+            return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+        elif request.user.role == 'cliente':
+            # Renderiza el detalle de la compra para clientes
+            return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+        else:
+            # Si el rol no es válido, redirige a una página de error
+            return redirect('error_403')
+
+    # Si no tiene un rol definido, redirige a una página de error
+    return redirect('error_403')
 
 @login_required
 def generar_pdf(request, compra_id):
@@ -805,9 +818,10 @@ def generar_pdf(request, compra_id):
     return response
 
 def validacion_compras(request):
-    compras = ResumenCompra.objects.all()
+    compras = ResumenCompra.objects.prefetch_related('orderproduct_set__product').all()
     return render(request, 'accounts/validacion_compras.html', {'compras': compras})
-from django.http import JsonResponse
+
+
 from django.views.decorators.csrf import csrf_exempt
 
 # @csrf_exempt

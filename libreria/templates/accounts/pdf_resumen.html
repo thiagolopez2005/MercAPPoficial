@@ -44,16 +44,16 @@
                     <th>Subtotal</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for item in orderproduct_set.all %}
-                <tr>
-                    <td>{{ item.product.nombre }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>${{ item.product.precio }}</td>
-                    <td>${{ item.product.precio}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+                <tbody>
+                    {% for item in orderproduct_set %}
+                    <tr>
+                        <td>{{ item.product.nombre }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.product.precio }}</td>
+                        <td>${{ item.get_total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
         </table>
 
         <h3>Resumen de Totales</h3>
