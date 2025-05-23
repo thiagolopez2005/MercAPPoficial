@@ -18,7 +18,7 @@ body {
     font-weight: 400;
     font-style: normal;
     overflow: auto;
-    background-image: url('/static/imagenes/Fondo Productos.jpg');
+    background-image: url('/static/images/Fondoproduct.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed; /* Mantiene la imagen fija durante el scroll */
@@ -154,6 +154,9 @@ body {
     padding-top: 120px;
     padding-bottom: 50px;
     overflow-y: auto;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .product-box {
@@ -460,3 +463,4 @@ body {
 .form-group input:invalid, .form-group textarea:invalid {
     border-color: #dc3545;
 }
+
