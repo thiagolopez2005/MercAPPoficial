@@ -270,62 +270,65 @@ font-size: 15px;
 }
 
  .Ayuda {
-            position: fixed;
-            bottom: 165px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-            display: flex; /* Para centrar la imagen si es necesario */
-            justify-content: center;
-            align-items: center;
-        }
+    position: fixed;
+    bottom: 82px;
+    right: 24px; /* Mantiene un posicionamiento derecho consistente */
+    width: 61px;
+    height: 62px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-        .Ayuda:hover {
-            transform: scale(1.1);
-        }
+}
 
-        .Ayuda img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.Ayuda:hover {
+    transform: scale(1.1);
+}
 
-        .manual-usuario {
-            position: fixed;
-            bottom: 89px;
-            right: 29px;
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            display: none; /* Inicialmente oculto */
-            z-index: 1000; /* Asegura que esté por encima del botón */
-            color: black;
-        }
+.Ayuda img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        .manual-usuario::before {
-            content: '';
-            position: absolute;
-            bottom: 100%; /* Ubicarlo encima del manual */
-            right: 15px; /* Ajustar la posición horizontal */
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 15px solid #f9f9f9; /* Color de fondo del manual */
-            filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.2)); /* Sombra sutil */
-            display: none; /* Oculto inicialmente */
-            z-index: 1001; /* Sobre el manual */
-        }
+.manual-usuario {
+    position: fixed;
+    bottom: 19px;
+    right: 28px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+    color: black;
+    /* Considera agregar un max-width si el contenido puede ser muy amplio */
+    /* max-width: 300px; */
+}
 
-        .manual-usuario.mostrar {
-            display: block;
-        }
+.manual-usuario::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 15px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #f9f9f9;
+    filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.2));
+    display: none;
+    z-index: 1001;
+}
 
-        .manual-usuario.mostrar::before {
-            display: block;
-        }
+.manual-usuario.mostrar {
+    display: block;
+}
+
+.manual-usuario.mostrar::before {
+    display: block;
+}
