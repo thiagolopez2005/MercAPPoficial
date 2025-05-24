@@ -32,7 +32,7 @@ from .models import Producto, Order, OrderProduct,ResumenCompra, CustomCliente,R
 from django.http import HttpResponse
 from django.template.loader import get_template
 # from xhtml2pdf import pisa
-from libreria.decorators import admin_required
+from libreria.decorators import admin_required,Rcontraseña
 from libreria.decorators import verificar_rol_requerido
 
 
@@ -178,6 +178,14 @@ def editar_cliente(request, cliente_id):
         form = EditarPerfilClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
+
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,  # Usuario que realiza la acción
+                accion="Edición de cliente",
+                detalle=f"El perfil de {cliente.nombre} {cliente.apellido} ha sido actualizado."
+            )
+
             messages.success(request, f"El perfil de {cliente.nombre} {cliente.apellido} ha sido actualizado con éxito.")
             return redirect('listar_clientes')  # Redirige a la lista de clientes
         else:
@@ -319,7 +327,15 @@ def editar_proveedor(request, id):
         form = ProveedorForm(request.POST, instance=proveedor)
         if form.is_valid():
             form.save()
-            return redirect('listar_proveedor')  # Redirige al dashboard después de guardar
+
+            # Registrar la actividad
+            RegistroActividad.objects.create(
+                usuario=request.user,  # Usuario que realiza la acción
+                accion="Edición de proveedor",
+                detalle=f"El perfil del proveedor '{proveedor.nombre} {proveedor.apellido}' ha sido actualizado."
+            )
+
+            return redirect('listar_proveedor')  # Redirige a la lista de proveedores
     else:
         form = ProveedorForm(instance=proveedor)
     return render(request, 'accounts/editar_proveedor.html', {'form': form, 'proveedor': proveedor})
@@ -491,9 +507,17 @@ def subir_imagen(request):
 @verificar_rol_requerido('admin')
 def publicar_producto(request, productoId):
     if request.method == 'POST':
-        imagen = get_object_or_404(Producto, id=productoId)
-        imagen.publicado = True
-        imagen.save()
+        producto = get_object_or_404(Producto, id=productoId)
+        producto.publicado = True
+        producto.save()
+
+        # Registrar la actividad
+        RegistroActividad.objects.create(
+            usuario=request.user,  # Usuario que realiza la acción
+            accion="Publicación de producto",
+            detalle=f"El producto '{producto.nombre}' ha sido publicado."
+        )
+
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
 
@@ -503,9 +527,16 @@ def quitar_publicidad(request, productoId):
         imagen = get_object_or_404(Producto, id=productoId)
         imagen.publicado = False
         imagen.save()
+
+        # Registrar la actividad
+        RegistroActividad.objects.create(
+            usuario=request.user,  # Usuario que realiza la acción
+            accion="Retiro de publicidad de producto",
+            detalle=f"El producto '{imagen.nombre}' ha sido retirado de la publicidad."
+        )
+
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
-
 
  #AQUI PODEMOS EDITAR LOS DATOS DEL PRODUCTO AGREGADO   @verificar_rol_requerido('admin')
 @verificar_rol_requerido('admin')
@@ -554,15 +585,28 @@ def habilitar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     producto.habilitado = True
     producto.save()
-    messages.success(request, f"El producto '{producto.nombre}' ha sido habilitado con éxito.")
+
+    # Registrar la actividad
+    RegistroActividad.objects.create(
+        usuario=request.user,  # Usuario que realiza la acción
+        accion="Habilitación de producto",
+        detalle=f"El producto '{producto.nombre}' ha sido habilitado."
+    )
     return redirect(request.META.get('HTTP_REFERER', 'inventario'))
+
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
 def inhabilitar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     producto.habilitado = False
     producto.save()
-    messages.success(request, f"El producto '{producto.nombre}' ha sido habilitado con éxito.")
+    
+        # Registrar la actividad
+    RegistroActividad.objects.create(
+        usuario=request.user,  # Usuario que realiza la acción
+        accion="Habilitación de producto",
+        detalle=f"El producto '{producto.nombre}' ha sido inhabilitado."
+    )
     return redirect(request.META.get('HTTP_REFERER', 'inventario'))
 # -------------------------------------------
 # REGISTRO DE LOS RECIBOS DE LOS PRODUCTOS EN EL BACKEND
@@ -830,9 +874,13 @@ def validacion_compras(request):
     return render(request, 'accounts/validacion_compras.html', {'compras': compras})
 
 
-from django.views.decorators.csrf import csrf_exempt
 
-# @csrf_exempt
+from libreria.decorators import registrar_actividad_json
+
+@registrar_actividad_json(
+    accion="Marcar compra como pagada",
+    detalle_func=lambda request, compra_id: f"La compra del cliente '{ResumenCompra.objects.get(id=compra_id).cliente.nombre}' fue marcada como pagada."
+)
 @login_required
 def marcar_pagada(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
@@ -840,7 +888,10 @@ def marcar_pagada(request, compra_id):
     compra.save()
     return JsonResponse({'success': True, 'message': 'La compra se marcó como pagada.'})
 
-# @csrf_exempt
+@registrar_actividad_json(
+    accion="Marcar compra como no pagada",
+    detalle_func=lambda request, compra_id: f"La compra del cliente '{ResumenCompra.objects.get(id=compra_id).cliente.nombre}' fue marcada como NO pagada."
+)
 @login_required
 def marcar_no_pagada(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
@@ -851,6 +902,7 @@ def marcar_no_pagada(request, compra_id):
 # ---------------------------------
 # VISTA PARA LA RECUPERACION DE CONTRASEÑA
 # ---------------------------------
+
 
 def recu_contra(request):
     if request.method == 'POST':
@@ -895,6 +947,9 @@ def recu_contra(request):
         
     return render(request, 'accounts/recuperar_contraseña.html')
 
+
+
+
 def cambia_con(request, token):
     signer = TimestampSigner()
     try:
@@ -902,7 +957,7 @@ def cambia_con(request, token):
         usuario = get_object_or_404(CustomUser, pk=user_id)
     except (BadSignature, SignatureExpired):
         messages.error(request, "El enlace de recuperación es inválido o ha expirado.")
-        return redirect("recuperar_contraseña")
+        return redirect("recu_contra")
     
     if request.method == 'POST':
         new_password = request.POST.get('new_password')
@@ -930,7 +985,9 @@ def cambia_con(request, token):
     
     return render(request, 'accounts/cambia_contraseña.html')
 
-
+# ---------------------------------
+# COPIAS DE SEGUIDAD
+# ------------------------------
 # Ruta donde se almacenarán las copias de seguridad
 BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
 

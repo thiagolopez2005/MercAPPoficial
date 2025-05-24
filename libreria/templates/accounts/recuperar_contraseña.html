@@ -407,7 +407,14 @@
           </div>
         {% endfor %}
       {% endif %}
-      
+          
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
       <p>Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
       
       <div class="form-group">

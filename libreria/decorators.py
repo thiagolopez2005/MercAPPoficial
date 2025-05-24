@@ -39,3 +39,58 @@ def verificar_rol_requerido(role_requerido):
             return view_func(request, *args, **kwargs)
         return _wrapped_view
     return decorator
+
+
+
+from functools import wraps
+from django.http import JsonResponse
+from .models import RegistroActividad
+
+def registrar_actividad_json(accion, detalle_func):
+    """
+    Decorador para manejar JsonResponse y registrar actividad.
+    :param accion: Acción a registrar en RegistroActividad.
+    :param detalle_func: Función que genera el detalle dinámico para el registro.
+    """
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            try:
+                # Ejecuta la vista decorada
+                response = view_func(request, *args, **kwargs)
+
+                # Si la respuesta es un JsonResponse con éxito, registra la actividad
+                if isinstance(response, JsonResponse) and response.status_code == 200:
+                    detalle = detalle_func(request, *args, **kwargs)
+                    RegistroActividad.objects.create(
+                        usuario=request.user,
+                        accion=accion,
+                        detalle=detalle
+                    )
+                return response
+            except Exception as e:
+                # Manejo de errores y respuesta JSON
+                return JsonResponse({'success': False, 'error': str(e)}, status=500)
+        return _wrapped_view
+    return decorator
+
+from functools import wraps
+from django.contrib import messages
+from django.shortcuts import redirect
+
+def Rcontraseña(mensaje, redireccion_url):
+    """
+    Decorador para agregar un mensaje especial y redirigir a una URL específica.
+    :param mensaje: Mensaje que se mostrará como alerta.
+    :param redireccion_url: URL a la que se redirigirá después de mostrar el mensaje.
+    """
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            response = view_func(request, *args, **kwargs)
+            if response.status_code == 200:  # Si la vista se ejecuta correctamente
+                messages.success(request, mensaje)
+                return redirect(redireccion_url)
+            return response
+        return _wrapped_view
+    return decorator

@@ -1,0 +1,129 @@
+        body {
+          font-family: 'Arial', sans-serif;
+          color: #333;
+          padding: 20px;
+          background-image: url(/static/css/Imagenes/Maracucao.png);
+        }
+
+        .container {
+          max-width: 600px;
+          margin: 40px auto;
+          background: #fff;
+          padding: 50px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+          text-align: center;
+          margin-bottom: 20px;
+          color: #525252;
+          animation: slideDown 1s ease-out;
+        }
+
+        form {
+          animation: fadeIn 1s ease-out;
+        }
+
+        form p {
+          margin-bottom: 15px;
+        }
+
+        input,
+        textarea,
+        select {
+          border: 1px solid #ddd;
+          padding: 10px;
+          border-radius: 5px;
+          width: 100%;
+          transition: border 0.3s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+          border-color: #5563DE;
+          outline: none;
+        }
+
+
+        button.btn-success {
+          transition: background-color 0.3s;
+        }
+
+        button.btn-success:hover {
+          background-color: #515fff;
+        }
+
+        a.btn-secondary {
+          transition: background-color 0.3s;
+          background-color: #6c757d;
+        }
+
+        a.btn-secondary:hover {
+          background-color: #6c757d;
+        }
+
+        /* Botón "Registrar" */
+        button[type="submit"] {
+          background-color: #28a745;
+          /* Verde */
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          text-decoration: none;
+          /* Quita el subrayado */
+          transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #218838;
+          /* Verde más oscuro */
+        }
+
+        /* Botón "Cancelar" */
+        a.btn-secondary {
+          background-color: #dc3545;
+          /* Rojo */
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          text-decoration: none;
+          /* Quita el subrayado */
+          display: inline-block;
+          /* Asegura que se comporte como un botón */
+          transition: background-color 0.3s ease;
+        }
+
+        a.btn-secondary:hover {
+          background-color: #c82333;
+          /* Rojo más oscuro */
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+
+          to {
+            opacity: 1;
+          }
+        }
