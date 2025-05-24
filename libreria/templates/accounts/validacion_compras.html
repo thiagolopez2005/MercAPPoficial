@@ -1,180 +1,324 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validación de Compras</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Panel de Inventario - MercApp</title>
+    <link href="{% static 'css/interno.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Validación de Compras</h2>
-        <table class="table table-striped table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Cliente</th>
-                    <th>Total</th>
-                    <th>IVA</th>
-                    <th>Total con IVA</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for compra in compras %}
-                <tr>
-                    <td>{{ compra.cliente.nombre }} {{ compra.cliente.apellido }}</td>
-                    <td>${{ compra.total }}</td>
-                    <td>${{ compra.iva }}</td>
-                    <td>${{ compra.total_con_iva }}</td>
-                    <td>{{ compra.fecha_compra|date:"d/m/Y H:i" }}</td>
-                    <td>
-                        {% if compra.pagada %}
-                        <span class="badge bg-success">Pagada</span>
-                        {% else %}
-                        <span class="badge bg-danger">No Pagada</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'detalle_compra' compra.id %}" class="btn btn-primary btn-sm">Ver Resumen</a>
-                        {% if not compra.pagada %}
-                        <button class="btn btn-success btn-sm marcar-pagada" data-id="{{ compra.id }}">Marcar como Pagada</button>
-                        {% endif %}
-                        {% if compra.pagada %}
-                        <button class="btn btn-danger btn-sm marcar-no-pagada" data-id="{{ compra.id }}">Marcar como No Pagada</button>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="7" class="text-center">No hay compras registradas.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Manejar el botón "Marcar como Pagada"
-        document.querySelectorAll('.marcar-pagada').forEach(button => {
-            button.addEventListener('click', function () {
-                const compraId = this.getAttribute('data-id');
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¿Deseas marcar esta compra como pagada?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#28a745',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, marcar como pagada',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/marcar_pagada/${compraId}/`, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRFToken': '{{ csrf_token }}',
-                                'X-Requested-With': 'XMLHttpRequest'
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Actualizar el estado en el HTML
-                                const row = button.closest('tr');
-                                row.querySelector('.badge').classList.remove('bg-danger');
-                                row.querySelector('.badge').classList.add('bg-success');
-                                row.querySelector('.badge').textContent = 'Pagada';
-
-                                // Cambiar los botones
-                                button.remove(); // Eliminar el botón "Marcar como Pagada"
-                                const accionesCell = row.querySelector('td:last-child');
-                                const noPagadaButton = document.createElement('button');
-                                noPagadaButton.className = 'btn btn-danger btn-sm marcar-no-pagada';
-                                noPagadaButton.textContent = 'Marcar como No Pagada';
-                                noPagadaButton.setAttribute('data-id', compraId);
-                                accionesCell.appendChild(noPagadaButton);
-
-                                // Agregar evento al nuevo botón
-                                noPagadaButton.addEventListener('click', marcarNoPagada);
-
-                                Swal.fire('¡Éxito!', data.message, 'success');
-                            } else {
-                                Swal.fire('Error', data.message, 'error');
-                            }
-                        })
-                        .catch(error => {
-                            Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
-                        });
-                    }
-                });
-            });
-        });
-
-        // Manejar el botón "Marcar como No Pagada"
-        function marcarNoPagada(event) {
-            const button = event.target;
-            const compraId = button.getAttribute('data-id');
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¿Deseas marcar esta compra como no pagada?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#28a745',
-                confirmButtonText: 'Sí, marcar como no pagada',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(`/marcar_no_pagada/${compraId}/`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRFToken': '{{ csrf_token }}',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Actualizar el estado en el HTML
-                            const row = button.closest('tr');
-                            row.querySelector('.badge').classList.remove('bg-success');
-                            row.querySelector('.badge').classList.add('bg-danger');
-                            row.querySelector('.badge').textContent = 'No Pagada';
-
-                            // Cambiar los botones
-                            button.remove(); // Eliminar el botón "Marcar como No Pagada"
-                            const accionesCell = row.querySelector('td:last-child');
-                            const pagadaButton = document.createElement('button');
-                            pagadaButton.className = 'btn btn-success btn-sm marcar-pagada';
-                            pagadaButton.textContent = 'Marcar como Pagada';
-                            pagadaButton.setAttribute('data-id', compraId);
-                            accionesCell.appendChild(pagadaButton);
-
-                            // Agregar evento al nuevo botón
-                            pagadaButton.addEventListener('click', function () {
-                                button.click();
-                            });
-
-                            Swal.fire('¡Éxito!', data.message, 'success');
-                        } else {
-                            Swal.fire('Error', data.message, 'error');
-                        }
-                    })
-                    .catch(error => {
-                        Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
-                    });
-                }
-            });
+    <style>
+        /* Centrar el contenido de la columna "Acciones" */
+        .acciones-columna {
+            text-align: center;
+            /* Centrar horizontalmente */
+            vertical-align: middle;
+            /* Centrar verticalmente */
         }
 
-        document.querySelectorAll('.marcar-no-pagada').forEach(button => {
-            button.addEventListener('click', marcarNoPagada);
-        });
-    });
-</script>
+        /* Botón "Ver Resumen" */
+        .acciones-columna .btn-ver-resumen {
+            background-color: #28a745 !important;
+            /* Verde */
+            border-color: #28a745 !important;
+            color: white !important;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            /* Elimina el subrayado */
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .acciones-columna .btn-ver-resumen:hover {
+            background-color: #218838 !important;
+            /* Verde más oscuro */
+            border-color: #1e7e34 !important;
+        }
+
+        /* Botón "Marcar como Pagada" */
+        .acciones-columna .btn-marcar-pagada {
+            background-color: #28a745 !important;
+            /* Verde */
+            border-color: #28a745 !important;
+            color: white !important;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .acciones-columna .btn-marcar-pagada:hover {
+            background-color: #218838 !important;
+            /* Verde más oscuro */
+            border-color: #1e7e34 !important;
+        }
+
+        /* Botón "Marcar como No Pagada" */
+        .acciones-columna .btn-marcar-no-pagada {
+            background-color: #dc3545 !important;
+            /* Rojo */
+            border-color: #dc3545 !important;
+            color: white !important;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .acciones-columna .btn-marcar-no-pagada:hover {
+            background-color: #c82333 !important;
+            /* Rojo más oscuro */
+            border-color: #bd2130 !important;
+        }
+
+        /* Espaciado entre los botones */
+        .acciones-columna .btn {
+            margin: 5px 0;
+            /* Espaciado vertical entre los botones */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="{% static 'images/Admin.png' %}" alt="Perfil Admin">
+                </div>
+                <h3>{{ request.user.nombre }}</h3>
+                <p>Administrador</p>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="{% url 'dashboard' %}" data-page="dashboard">
+                            <i class="material-icons">groups</i>
+                            <span>PRINCIPAL</span>
+                        </a></li>
+                    <li><a href="{% url 'productos2' %}" data-page="productos">
+                            <i class="material-icons">inventory_2</i>
+                            <span>PRODUCTOS</span>
+                        </a></li>
+                    <li><a href="{% url 'inventario' %}" data-page="inventario">
+                            <i class="material-icons">inventory</i>
+                            <span>INVENTARIO</span>
+                        </a></li>
+                    <li><a href="{% url 'listar_clientes' %}" data-page="dashboard">
+                            <i class="material-icons">groups</i>
+                            <span>CLIENTES</span>
+                        </a></li>
+                    <li><a href="{% url 'listar_proveedor' %}" data-page="dashboard">
+                            <i class="material-icons">groups</i>
+                            <span>PROVEEDORES</span>
+                        </a></li>
+                    <li><a href="{% url 'trabajadores' %}" data-page="dashboard">
+                            <i class="material-icons">groups</i>
+                            <span>TRABAJADORES</span>
+                        </a></li>
+                    <li><a href="{% url 'factura' %}" data-page="recibos">
+                            <i class="material-icons">receipt</i>
+                            <span>RECIBOS</span>
+                        </a></li>
+                    <li><a href="#" data-page="estado-compra">
+                            <i class="material-icons">payment</i>
+                            <span>ESTADO DE COMPRA</span>
+                        </a></li>
+                    <li><a href="{% url 'copias_seguridad' %}" data-page="estado-compra">
+                            <i class="material-icons">payment</i>
+                            <span>COPIAS SEGURIDAD</span>
+                        </a></li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Gestión de Compras</h1>
+                <div class="user-menu">
+                    <i class="material-icons">notifications</i>
+                    <i class="material-icons">power_settings_new</i>
+                </div>
+            </header>
+
+            <section class="users-dashboard">
+                <div class="section-header d-flex justify-content-between align-items-center">
+                    <h2>VALIDACION DE COMPRAS</h2>
+                </div>
+                <div class="container mt-5">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Total</th>
+                                <th>IVA</th>
+                                <th>Total con IVA</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th class="acciones-columna">Acciones</th>
+
+                        </thead>
+                        <tbody>
+                            {% for compra in compras %}
+                            <tr>
+                                <td>{{ compra.cliente.nombre }} {{ compra.cliente.apellido }}</td>
+                                <td>${{ compra.total }}</td>
+                                <td>${{ compra.iva }}</td>
+                                <td>${{ compra.total_con_iva }}</td>
+                                <td>{{ compra.fecha_compra|date:"d/m/Y H:i" }}</td>
+                                <td>
+                                    {% if compra.pagada %}
+                                    <span class="badge bg-success">Pagada</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">No Pagada</span>
+                                    {% endif %}
+                                <td class="acciones-columna">
+                                    <a href="{% url 'detalle_compra' compra.id %}" class="btn-ver-resumen">Ver
+                                        Resumen</a>
+                                    {% if not compra.pagada %}
+                                    <button class="btn-marcar-pagada" data-id="{{ compra.id }}">Marcar como
+                                        Pagada</button>
+                                    {% endif %}
+                                    {% if compra.pagada %}
+                                    <button class="btn-marcar-no-pagada" data-id="{{ compra.id }}">Marcar como No
+                                        Pagada</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center">No hay compras registradas.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Manejar el botón "Marcar como Pagada"
+                        document.querySelectorAll('.btn-marcar-pagada').forEach(button => {
+                            button.addEventListener('click', function () {
+                                const compraId = this.getAttribute('data-id');
+                                Swal.fire({
+                                    title: '¿Estás seguro?',
+                                    text: "¿Deseas marcar esta compra como pagada?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#28a745',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Sí, marcar como pagada',
+                                    cancelButtonText: 'Cancelar'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        fetch(`/marcar_pagada/${compraId}/`, {
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRFToken': '{{ csrf_token }}',
+                                                'X-Requested-With': 'XMLHttpRequest'
+                                            }
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    // Actualizar el estado en el HTML
+                                                    const row = button.closest('tr');
+                                                    row.querySelector('.badge').classList.remove('bg-danger');
+                                                    row.querySelector('.badge').classList.add('bg-success');
+                                                    row.querySelector('.badge').textContent = 'Pagada';
+
+                                                    // Cambiar los botones
+                                                    button.remove(); // Eliminar el botón "Marcar como Pagada"
+                                                    const accionesCell = row.querySelector('td:last-child');
+                                                    const noPagadaButton = document.createElement('button');
+                                                    noPagadaButton.className = 'btn-marcar-no-pagada';
+                                                    noPagadaButton.textContent = 'Marcar como No Pagada';
+                                                    noPagadaButton.setAttribute('data-id', compraId);
+                                                    accionesCell.appendChild(noPagadaButton);
+
+                                                    // Agregar evento al nuevo botón
+                                                    noPagadaButton.addEventListener('click', marcarNoPagada);
+
+                                                    Swal.fire('¡Éxito!', data.message, 'success');
+                                                } else {
+                                                    Swal.fire('Error', data.message, 'error');
+                                                }
+                                            })
+                                            .catch(error => {
+                                                Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
+                                            });
+                                    }
+                                });
+                            });
+                        });
+
+                        // Manejar el botón "Marcar como No Pagada"
+                        function marcarNoPagada(event) {
+                            const button = event.target;
+                            const compraId = button.getAttribute('data-id');
+                            Swal.fire({
+                                title: '¿Estás seguro?',
+                                text: "¿Deseas marcar esta compra como no pagada?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d33',
+                                cancelButtonColor: '#28a745',
+                                confirmButtonText: 'Sí, marcar como no pagada',
+                                cancelButtonText: 'Cancelar'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    fetch(`/marcar_no_pagada/${compraId}/`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRFToken': '{{ csrf_token }}',
+                                            'X-Requested-With': 'XMLHttpRequest'
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                // Actualizar el estado en el HTML
+                                                const row = button.closest('tr');
+                                                row.querySelector('.badge').classList.remove('bg-success');
+                                                row.querySelector('.badge').classList.add('bg-danger');
+                                                row.querySelector('.badge').textContent = 'No Pagada';
+
+                                                // Cambiar los botones
+                                                button.remove(); // Eliminar el botón "Marcar como No Pagada"
+                                                const accionesCell = row.querySelector('td:last-child');
+                                                const pagadaButton = document.createElement('button');
+                                                pagadaButton.className = 'btn-marcar-pagada';
+                                                pagadaButton.textContent = 'Marcar como Pagada';
+                                                pagadaButton.setAttribute('data-id', compraId);
+                                                accionesCell.appendChild(pagadaButton);
+
+                                                // Agregar evento al nuevo botón
+                                                pagadaButton.addEventListener('click', function () {
+                                                    button.click();
+                                                });
+
+                                                Swal.fire('¡Éxito!', data.message, 'success');
+                                            } else {
+                                                Swal.fire('Error', data.message, 'error');
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
+                                        });
+                                }
+                            });
+                        }
+
+                        document.querySelectorAll('.btn-marcar-no-pagada').forEach(button => {
+                            button.addEventListener('click', marcarNoPagada);
+                        });
+                    });
+                </script>
 </body>
+
 </html>

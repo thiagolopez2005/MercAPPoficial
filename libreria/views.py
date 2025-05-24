@@ -20,7 +20,7 @@ from .forms import CustomClienteCreationForm
 from .forms import FacturaForm
 import os
 from django.core.exceptions import ValidationError
-# from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 from libreria.backends import CustomClienteBackend
 from django.http import HttpResponse, Http404
 from django.conf import settings
@@ -691,14 +691,13 @@ def actualizar_cantidad(request, order_product_id):
 def agregar_al_carrito(request, producto_id):
     # Verifica si el usuario está autenticado
     if not request.user.is_authenticated:
-        # Agrega un mensaje de error
-        messages.error(request, "Oh, salió un error. Debes iniciar sesión para agregar productos al carrito.")
-        return JsonResponse({'error': 'No tienes permisos para agregar productos al carrito.'}, status=403)    
-    
+        messages.error(request, "Debes iniciar sesión para agregar productos al carrito.")
+        return JsonResponse({'error': 'No tienes permisos para agregar productos al carrito.'}, status=403)
+
     if hasattr(request.user, 'role') and request.user.role in ['emple', 'admin']:
-        # Mensaje de error para empleados o administradores
         messages.error(request, "❌ No tienes permisos para ingresar al carrito.")
         return redirect('Productos')
+
     # Obtén el producto
     producto = get_object_or_404(Producto, id=producto_id)
     cantidad = request.POST.get('cantidad', 1)
@@ -709,7 +708,7 @@ def agregar_al_carrito(request, producto_id):
             cantidad = 1
     except ValueError:
         cantidad = 1
-        
+
     if cantidad > producto.stock:
         return JsonResponse({'error': f"No hay suficiente stock para el producto '{producto.nombre}'."}, status=400)
 
@@ -717,17 +716,28 @@ def agregar_al_carrito(request, producto_id):
     order, created = Order.objects.get_or_create(user=request.user, is_active=True)
 
     # Verifica si el producto ya está en el carrito
-    order_product, created = OrderProduct.objects.get_or_create(order=order, product=producto)
-    if not created:
-        order_product.quantity += cantidad  # Incrementa la cantidad si ya existe
+    order_product = OrderProduct.objects.filter(order=order, product=producto).first()
+    if order_product:
+        # Incrementa la cantidad si ya existe
+        order_product.quantity += cantidad
     else:
-        order_product.quantity = cantidad  # Establece la cantidad inicial
+        # Crea un nuevo registro si no existe
+        order_product = OrderProduct(order=order, product=producto, quantity=cantidad)
     order_product.save()
 
-    # Agrega un mensaje de éxito
     messages.success(request, f"{producto.nombre} se agregó al carrito.")
     return JsonResponse({'success': f"{producto.nombre} se agregó al carrito."})
 
+@login_required(login_url="/accounts/login/")
+def eliminar_producto_carrito(request, order_product_id):
+    try:
+        order_product = get_object_or_404(OrderProduct, id=order_product_id)
+        order_product.delete()
+        messages.success(request, f"El producto '{order_product.product.nombre}' se eliminó del carrito.")
+        return redirect('carrito')
+    except Http404:
+        messages.error(request, "El producto no se encontró en el carrito.")
+        return redirect('carrito')
 # --------------------------------------------------
 # VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
 # --------------------------------------------
@@ -760,7 +770,8 @@ def finalizar_compra(request):
         iva=iva,
         total_con_iva=total_con_iva
     )
-    
+
+    # Verificar el stock antes de finalizar la compra
     for order_product in order.orderproduct_set.all():
         producto = order_product.product
         if order_product.quantity > producto.stock:
@@ -784,26 +795,22 @@ def finalizar_compra(request):
     # Redirigir a la vista detalle_compra con el ID de la compra
     return redirect('detalle_compra', compra_id=compra.id)
 
-
 @login_required(login_url="/accounts/login/")
 def detalle_compra(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
     order_products = compra.orderproduct_set.all()  # Obtén los productos asociados
 
     # Verifica el rol del usuario
-    if hasattr(request.user, 'role'):
-        if request.user.role == 'admin':
-            # Renderiza el detalle de la compra para administradores
-            return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
-        elif request.user.role == 'cliente':
-            # Renderiza el detalle de la compra para clientes
-            return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
-        else:
-            # Si el rol no es válido, redirige a una página de error
-            return redirect('error_403')
-
-    # Si no tiene un rol definido, redirige a una página de error
-    return redirect('error_403')
+    if hasattr(request.user, 'roleCliente') and request.user.roleCliente == 'user':
+        # Renderiza el detalle de la compra para clientes
+        return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+    elif hasattr(request.user, 'role') and request.user.role == 'admin':
+        # Renderiza el detalle de la compra para administradores
+        return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+    else:
+        # Si el rol no es válido, redirige a una página de error
+        messages.error(request, "No tienes permisos para acceder a esta página.")
+        return redirect('error_403')
 
 @login_required
 def generar_pdf(request, compra_id):
@@ -933,7 +940,7 @@ def crear_copia_seguridad(request):
     if request.method == 'POST':
         if not os.path.exists(BACKUP_DIR):
             os.makedirs(BACKUP_DIR)
-        backup_name = f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.sql"
+        backup_name = f"BD_MERCAPP{datetime.now().strftime('%Y%m%d_%H%M%S')}.sql"
         backup_path = os.path.join(BACKUP_DIR, backup_name)
 
         # Ruta completa al ejecutable de mysqldump
@@ -1021,7 +1028,8 @@ def restaurar_copia_seguridad(request, backup_id):
                 mysql_cmd,
                 '-u', db['USER'],
                 f"--password={db['PASSWORD']}",
-                db['NAME']
+                db['NAME'],
+                '--ignore'
             ]
 
             try:

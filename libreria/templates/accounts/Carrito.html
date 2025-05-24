@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
     <link href="{% static 'css/all.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/Footerdos.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
@@ -22,14 +23,18 @@
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'Principal' %}"> 
-                <img src="{% static 'images/bolsa.png' %}" alt="logo" height="100" width="100"/>
+            <a class="navbar-brand" href="{% url 'Principal' %}">
+                <img src="{% static 'images/bolsa.png' %}" alt="logo" height="100" width="100" />
             </a>
             <a class="navbar-letra" href="{% url 'Principal' %}">
-                <img id="logo-claro" src="{% static 'images/letranegra.png' %}" alt="logo claro" height="60" width="250"/>
-                <img id="logo-oscuro" src="{% static 'images/letrablanca.png' %}" alt="logo oscuro" height="60" width="250" style="display: none;">
+                <img id="logo-claro" src="{% static 'images/letranegra.png' %}" alt="logo claro" height="60"
+                    width="250" />
+                <img id="logo-oscuro" src="{% static 'images/letrablanca.png' %}" alt="logo oscuro" height="60"
+                    width="250" style="display: none;">
             </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -38,7 +43,7 @@
                         <a class="nav-link" href="{% url 'Principal' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
-						<a class="nav-link" href="{% url 'Productos' %}">Productos</a>
+                        <a class="nav-link" href="{% url 'Productos' %}">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'Carrito' %}">
@@ -67,30 +72,39 @@
             <!-- Lista de productos en el carrito -->
             <div class="col-lg-8">
                 <h2>Carrito de Compras</h2>
-                    <div id="cart-items">
-                        {% for item in order.orderproduct_set.all %}
-                        <div class="cart-item d-flex align-items-center mb-3 p-3 border rounded">
-                            <img src="{{ item.product.imagen.url }}" alt="{{ item.product.nombre }}" class="cart-item-image" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
-                            <div class="cart-item-details flex-grow-1">
-                                <h4>{{ item.product.nombre }}</h4>
-                                <p>{{ item.product.descripcion }}</p>
-                                <p>Precio: ${{ item.product.precio }} COP</p>
-                                <p>Cantidad: {{ item.quantity }}</p>
+                <div id="cart-items">
+                    {% for item in order.orderproduct_set.all %}
+                    <div class="cart-item d-flex align-items-center mb-3 p-3 border rounded">
+                        <img src="{{ item.product.imagen.url }}" alt="{{ item.product.nombre }}" class="cart-item-image"
+                            style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
+                        <div class="cart-item-details flex-grow-1">
+                            <h4>{{ item.product.nombre }}</h4>
+                            <p>{{ item.product.descripcion }}</p>
+                            <p>Precio: ${{ item.product.precio }} COP</p>
+                            <p>Cantidad: {{ item.quantity }}</p>
                             <div class="quantity-control d-flex align-items-center">
-                                <form method="POST" action="{% url 'actualizar_cantidad' item.id %}" class="update-quantity-form d-flex align-items-center">
+                                <form method="POST" action="{% url 'actualizar_cantidad' item.id %}"
+                                    class="update-quantity-form d-flex align-items-center">
                                     {% csrf_token %}
-                                    <button type="button" class="btn btn-outline-secondary quantity-btn minus-btn">-</button>
-                                    <input type="number" name="cantidad" min="1" value="{{ item.quantity }}" class="form-control text-center quantity-input mx-2" style="width: 60px;">
-                                    <button type="button" class="btn btn-outline-secondary quantity-btn plus-btn">+</button>
+                                    <button type="button"
+                                        class="btn btn-outline-secondary quantity-btn minus-btn">-</button>
+                                    <input type="number" name="cantidad" min="1" value="{{ item.quantity }}"
+                                        class="form-control text-center quantity-input mx-2" style="width: 60px;">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary quantity-btn plus-btn">+</button>
                                     <button type="submit" class="btn btn-primary ml-2">Actualizar</button>
+                                </form>
+                                <!-- Botón para eliminar el producto -->
+                                <form method="POST" action="{% url 'eliminar_producto_carrito' item.id %}" class="ml-2">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                    </div> {% endfor %}
                 </div>
             </div>
-    
+
             <!-- Resumen del carrito -->
             <div class="col-lg-4">
                 <div class="cart-summary p-3 border rounded">
@@ -113,138 +127,139 @@
         </div>
     </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Verifica si el carrito está vacío
-        {% if carrito_vacio %}
-        Swal.fire({
-            icon: 'error',
-            title: 'Carrito vacío',
-            text: 'El carrito está vacío. No se puede generar una compra.',
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Verifica si el carrito está vacío
+            {% if carrito_vacio %}
+            Swal.fire({
+                icon: 'error',
+                title: 'Carrito vacío',
+                text: 'El carrito está vacío. No se puede generar una compra.',
+            });
+            {% endif %}
         });
-        {% endif %}
-    });
-    document.querySelectorAll('.update-quantity-form').forEach(form => {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita el envío normal del formulario
+        document.querySelectorAll('.update-quantity-form').forEach(form => {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Evita el envío normal del formulario
 
-            const formData = new FormData(this);
-            const actionUrl = this.action;
+                const formData = new FormData(this);
+                const actionUrl = this.action;
 
-            fetch(actionUrl, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    // Mostrar alerta de error con SweetAlert2
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.error,
+                fetch(actionUrl, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            // Mostrar alerta de error con SweetAlert2
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.error,
+                            });
+                        } else if (data.success) {
+                            // Mostrar alerta de éxito con SweetAlert2
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cantidad actualizada',
+                                text: data.success,
+                            });
+
+                            // Opcional: Recargar la página para reflejar los cambios
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1500);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ocurrió un error al actualizar la cantidad.',
+                        });
                     });
-                } else if (data.success) {
-                    // Mostrar alerta de éxito con SweetAlert2
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Cantidad actualizada',
-                        text: data.success,
-                    });
-
-                    // Opcional: Recargar la página para reflejar los cambios
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1500);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Ocurrió un error al actualizar la cantidad.',
-                });
             });
         });
-    });
 
-    
-    document.querySelectorAll('.minus-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const input = this.nextElementSibling;
-            const currentValue = parseInt(input.value);
-            if (currentValue > 1) {
-                input.value = currentValue - 1;
-            }
+
+        document.querySelectorAll('.minus-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const input = this.nextElementSibling;
+                const currentValue = parseInt(input.value);
+                if (currentValue > 1) {
+                    input.value = currentValue - 1;
+                }
+            });
         });
-    });
-    
-    document.querySelectorAll('.plus-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const input = this.previousElementSibling;
-            const currentValue = parseInt(input.value);
-            input.value = currentValue + 1;
+
+        document.querySelectorAll('.plus-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const input = this.previousElementSibling;
+                const currentValue = parseInt(input.value);
+                input.value = currentValue + 1;
+            });
         });
-    });
-</script>
+    </script>
 
 
-        <footer class="footer">
-            <div class="footer-section">
-                <h4>Redes Sociales</h4>
-                <div class="social-icons">
-                    <a href="#" title="WhatsApp">
-                        <img src="{% static 'images/whatsapp.png' %}" alt="WhatsApp" style="width: 40px; height: 40px;"><br>
+    <footer class="footer">
+        <div class="footer-section">
+            <h4>Redes Sociales</h4>
+            <div class="social-icons">
+                <a href="#" title="WhatsApp">
+                    <img src="{% static 'images/whatsapp.png' %}" alt="WhatsApp" style="width: 40px; height: 40px;"><br>
 
-                    </a>
-                    <a href="#" title="Instagram">
-                        <img src="{% static 'images/instagram.png' %}" alt="Instagram" style="width: 40px; height: 40px;"><br>
+                </a>
+                <a href="#" title="Instagram">
+                    <img src="{% static 'images/instagram.png' %}" alt="Instagram"
+                        style="width: 40px; height: 40px;"><br>
 
-                    </a>
-                </div>
+                </a>
             </div>
+        </div>
 
-            <div class="footer-section">
-                <h4>Contactos</h4>
-                <ul class="contact-info">
-                    <li>📞 Teléfono: (57) 313-261-7684</li>
-                    <li>✉️ Email: wonpeña@gmail.com</li>
-                    <li>🏢 Km 0, Sogamoso - Duitama</li>
-                    <li>🏪 (Corporiente Puesto N° 85-86)</li>
-                </ul>
-            </div>
+        <div class="footer-section">
+            <h4>Contactos</h4>
+            <ul class="contact-info">
+                <li>📞 Teléfono: (57) 313-261-7684</li>
+                <li>✉️ Email: wonpeña@gmail.com</li>
+                <li>🏢 Km 0, Sogamoso - Duitama</li>
+                <li>🏪 (Corporiente Puesto N° 85-86)</li>
+            </ul>
+        </div>
 
-            <div class="footer-section">
-                <h4>Horario de Atención</h4>
-                <ul class="support-info">
+        <div class="footer-section">
+            <h4>Horario de Atención</h4>
+            <ul class="support-info">
                 <li>🕖 Horario: Lunes-Viernes 7:00 - 17:00</li>
-                </ul>
-            </div>
+            </ul>
+        </div>
 
 
-            <div class="footer-section">
-                <h4>Soporte Técnico</h4>
-                <ul class="support-info">
-                    <li>📞 Soporte:<br>
-                        (57) 323-418-8262<br>
-                        (57) 313-246-2532<br>
-                        (57) 324-381-5478<br>
-                        (57) 310-882-4073<br>
-                    </li>
-                    <li>✉️ Soporte Email: soporte@MercApp.com</li>
-                    <li>💻 Horario: Lunes-Viernes 9:00 - 18:00</li>
-                </ul>
-            </div>
+        <div class="footer-section">
+            <h4>Soporte Técnico</h4>
+            <ul class="support-info">
+                <li>📞 Soporte:<br>
+                    (57) 323-418-8262<br>
+                    (57) 313-246-2532<br>
+                    (57) 324-381-5478<br>
+                    (57) 310-882-4073<br>
+                </li>
+                <li>✉️ Soporte Email: soporte@MercApp.com</li>
+                <li>💻 Horario: Lunes-Viernes 9:00 - 18:00</li>
+            </ul>
+        </div>
 
-            <div class="copyright">
-                <h6>© 2025 MercApp. Todos los derechos reservados.</h6>
-            </div>
+        <div class="copyright">
+            <h6>© 2025 MercApp. Todos los derechos reservados.</h6>
+        </div>
 
-        </footer>
+    </footer>
 
 
     <!-- Scripts -->
@@ -253,8 +268,7 @@
     <script src="{% static 'js/carrito.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/sienna.js' %}"></script>
-    
+
 </body>
-</html> 
 
-
+</html>

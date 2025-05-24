@@ -90,7 +90,8 @@ urlpatterns = [
     #URLS DE TERMINOS Y CONDICIONES
     path('terminos_condiciones/', views.terminos, name='terminos_condiciones'),
     # urls para detalle compra y valiacion de pago 
-    # ... other URL patterns ...
+    path('eliminar_producto_carrito/<int:order_product_id>/', views.eliminar_producto_carrito, name='eliminar_producto_carrito'),
+
     path('finalizar_compra/', views.finalizar_compra, name='finalizar_compra'),
     path('validacion_compras/', views.validacion_compras, name='validacion_compras'),
     path('detalle_compra/<int:compra_id>/', views.detalle_compra, name='detalle_compra'),
