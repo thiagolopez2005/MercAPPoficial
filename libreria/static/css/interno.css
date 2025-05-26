@@ -1,1317 +1,1331 @@
 /* Variables globales con una paleta más vibrante */
 :root {
-    --primary-color: #2ecc71;      /* Verde más brillante */
-    --primary-dark: #27ae60;       /* Verde oscuro para hover */
-    --primary-light: #e8f8f0;      /* Verde claro para fondos suaves */
-    --dark-bg: #1a1a2e;            /* Azul oscuro para el sidebar */
-    --light-bg: #f9f9f9;           /* Fondo principal claro */
-    --text-color: #333333;         /* Color de texto principal */
-    --accent-color: #3498db;       /* Color acento para destacados */
-    --danger-color: #e74c3c;       /* Color para acciones de eliminación */
-    --success-color: #2ecc71;      /* Color para acciones de éxito */
-    --warning-color: #f39c12;      /* Color para advertencias */
-    --sidebar-width: 260px;
-    --border-radius: 10px;
-    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    --transition-speed: 0.3s;
+  --primary-color: #2ecc71; /* Verde más brillante */
+  --primary-dark: #27ae60; /* Verde oscuro para hover */
+  --primary-light: #e8f8f0; /* Verde claro para fondos suaves */
+  --dark-bg: #1a1a2e; /* Azul oscuro para el sidebar */
+  --light-bg: #f9f9f9; /* Fondo principal claro */
+  --text-color: #333333; /* Color de texto principal */
+  --accent-color: #3498db; /* Color acento para destacados */
+  --danger-color: #e74c3c; /* Color para acciones de eliminación */
+  --success-color: #2ecc71; /* Color para acciones de éxito */
+  --warning-color: #f39c12; /* Color para advertencias */
+  --sidebar-width: 260px; /* Ancho del sidebar */
+  --border-radius: 10px; /* Radio de borde global */
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra de caja estándar */
+  --transition-speed: 0.3s; /* Velocidad de transición estándar */
 }
 
 /* Reset y estilos base mejorados */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0; /* Elimina el margen predeterminado */
+  padding: 0; /* Elimina el relleno predeterminado */
+  box-sizing: border-box; /* Incluye el padding y el borde en el tamaño del elemento */
 }
 
 body {
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--light-bg);
-    color: var(--text-color);
-    transition: background-color 0.5s ease;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuentes del cuerpo */
+  background-color: var(--light-bg); /* Color de fondo del cuerpo */
+  color: var(--text-color); /* Color de texto del cuerpo */
+  transition: background-color 0.5s ease; /* Transición suave del color de fondo */
 }
 
 /* Mejora del contenedor principal */
 .container {
-    display: flex;
-    min-height: 100vh;
-    position: relative;
-    background: linear-gradient(to bottom right, var(--primary-light), var(--light-bg));
+  display: flex; /* Usa flexbox para el diseño */
+  min-height: 100vh; /* Altura mínima del 100% del viewport */
+  position: relative; /* Posicionamiento relativo */
+  background: linear-gradient(to bottom right, var(--primary-light), var(--light-bg)); /* Gradiente de fondo */
 }
 
 /* ----- SIDEBAR MEJORADO ----- */
 .sidebar {
-    width: var(--sidebar-width);
-    background: linear-gradient(135deg, var(--dark-bg), #16213e);
-    color: white;
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    transition: all var(--transition-speed) ease;
-    z-index: 1000;
-    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+  width: var(--sidebar-width); /* Ancho del sidebar */
+  background: linear-gradient(135deg, var(--dark-bg), #16213e); /* Gradiente de fondo del sidebar */
+  color: white; /* Color de texto del sidebar */
+  padding: 20px; /* Relleno del sidebar */
+  position: fixed; /* Sidebar fijo */
+  height: 100vh; /* Altura del 100% del viewport */
+  overflow-y: auto; /* Habilita el scroll vertical si el contenido excede la altura */
+  transition: all var(--transition-speed) ease; /* Transición suave para todos los cambios */
+  z-index: 1000; /* Z-index alto para estar por encima de otros elementos */
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2); /* Sombra de caja */
 }
 
 .sidebar::-webkit-scrollbar {
-    width: 5px;
+  width: 5px; /* Ancho de la barra de desplazamiento para navegadores Webkit */
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2); /* Color del "pulgar" de la barra de desplazamiento */
+  border-radius: 10px; /* Radio de borde del "pulgar" */
 }
 
 /* Perfil de usuario mejorado */
 .profile {
-    text-align: center;
-    padding: 25px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
-    position: relative;
+  text-align: center; /* Centra el texto */
+  padding: 25px 0; /* Relleno superior e inferior */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Borde inferior */
+  margin-bottom: 20px; /* Margen inferior */
+  position: relative; /* Posicionamiento relativo */
 }
 
 .profile-image {
-    width: 110px;
-    height: 110px;
-    margin: 0 auto 15px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--primary-color);
-    box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
-    transition: all 0.5s ease;
-    position: relative;
+  width: 110px; /* Ancho de la imagen de perfil */
+  height: 110px; /* Altura de la imagen de perfil */
+  margin: 0 auto 15px; /* Centra horizontalmente y añade margen inferior */
+  border-radius: 50%; /* Hace la imagen circular */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  border: 3px solid var(--primary-color); /* Borde de la imagen */
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.4); /* Sombra de la imagen */
+  transition: all 0.5s ease; /* Transición suave */
+  position: relative; /* Posicionamiento relativo */
 }
 
 .profile-image:hover {
-    transform: scale(1.05);
-    border-color: white;
+  transform: scale(1.05); /* Escala la imagen ligeramente al pasar el ratón */
+  border-color: white; /* Cambia el color del borde al pasar el ratón */
 }
 
 .profile-image img {
-    width: 103%;
-    height: 107%;
-    object-fit: cover;
-    transition: all 0.3s ease;
+  width: 103%; /* Ancho de la imagen dentro del contenedor */
+  height: 107%; /* Altura de la imagen dentro del contenedor */
+  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 .profile-image:hover img {
-    transform: scale(1.0);
+  transform: scale(1.0); /* Reinicia la escala de la imagen al pasar el ratón */
 }
 
 .profile h3 {
-    color: white;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: white; /* Color del título h3 */
+  font-size: 1.2rem; /* Tamaño de fuente del título h3 */
+  margin-bottom: 5px; /* Margen inferior del título h3 */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Sombra de texto */
 }
 
 .profile p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.85rem;
-    position: relative;
-    display: inline-block;
+  color: rgba(255, 255, 255, 0.7); /* Color del párrafo */
+  font-size: 0.85rem; /* Tamaño de fuente del párrafo */
+  position: relative; /* Posicionamiento relativo */
+  display: inline-block; /* Muestra como bloque en línea */
 }
 
 .profile p::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: -5px; /* Posición inferior */
+  left: 50%; /* Posición izquierda al 50% */
+  transform: translateX(-50%); /* Centra horizontalmente */
+  width: 0; /* Ancho inicial del pseudo-elemento */
+  height: 2px; /* Altura del pseudo-elemento */
+  background-color: var(--primary-color); /* Color de fondo del pseudo-elemento */
+  transition: width 0.3s ease; /* Transición suave del ancho */
 }
 
 .profile:hover p::after {
-    width: 80%;
+  width: 80%; /* Ancho del pseudo-elemento al pasar el ratón */
 }
 
 /* Menú lateral con animaciones mejoradas */
 .menu ul {
-    list-style: none;
-    margin-top: 15px;
+  list-style: none; /* Elimina los estilos de lista */
+  margin-top: 15px; /* Margen superior */
 }
 
 .menu li {
-    margin-bottom: 8px;
-    position: relative;
+  margin-bottom: 8px; /* Margen inferior */
+  position: relative; /* Posicionamiento relativo */
 }
 
 .menu a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
+  color: white; /* Color del enlace */
+  text-decoration: none; /* Elimina la decoración de texto */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  padding: 12px 15px; /* Relleno del enlace */
+  border-radius: var(--border-radius); /* Radio de borde */
+  transition: all 0.3s ease; /* Transición suave */
+  font-weight: 500; /* Grosor de fuente */
+  letter-spacing: 0.3px; /* Espaciado entre letras */
+  position: relative; /* Posicionamiento relativo */
+  overflow: hidden; /* Oculta el contenido que se desborda */
 }
 
 .menu a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: all 0.5s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0; /* Posición superior */
+  left: -100%; /* Posición izquierda inicial */
+  width: 100%; /* Ancho del pseudo-elemento */
+  height: 100%; /* Altura del pseudo-elemento */
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent); /* Gradiente de fondo */
+  transition: all 0.5s ease; /* Transición suave */
 }
 
 .menu a:hover::before {
-    left: 100%;
+  left: 100%; /* Posición izquierda final al pasar el ratón */
 }
 
 .menu a:hover, .menu a.active {
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
-    transform: translateY(-2px);
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark)); /* Gradiente de fondo al pasar el ratón o activo */
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); /* Sombra de caja */
+  transform: translateY(-2px); /* Desplaza ligeramente hacia arriba */
 }
 
 .menu i {
-    margin-right: 12px;
-    font-size: 1.25rem;
-    transition: all 0.3s ease;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-right: 12px; /* Margen derecho del ícono */
+  font-size: 1.25rem; /* Tamaño de fuente del ícono */
+  transition: all 0.3s ease; /* Transición suave */
+  width: 24px; /* Ancho del ícono */
+  height: 24px; /* Altura del ícono */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: center; /* Centra horizontalmente */
 }
 
 .menu a:hover i {
-    transform: scale(1.2);
+  transform: scale(1.2); /* Escala el ícono al pasar el ratón */
 }
 
 .menu span {
-    position: relative;
+  position: relative; /* Posicionamiento relativo */
 }
 
 .menu span::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: white;
-    transition: width 0.3s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: -2px; /* Posición inferior */
+  left: 0; /* Posición izquierda */
+  width: 0; /* Ancho inicial del pseudo-elemento */
+  height: 1px; /* Altura del pseudo-elemento */
+  background-color: white; /* Color de fondo del pseudo-elemento */
+  transition: width 0.3s ease; /* Transición suave del ancho */
 }
 
 .menu a:hover span::after {
-    width: 100%;
+  width: 100%; /* Ancho del pseudo-elemento al pasar el ratón */
 }
 
 /* --- CONTENIDO PRINCIPAL MEJORADO --- */
 .main-content {
-    flex: 1;
-    margin-left: var(--sidebar-width);
-    padding: 25px;
-    transition: all var(--transition-speed) ease;
-    background-color: var(--light-bg);
-    min-height: 100vh;
+  flex: 1; /* Ocupa el espacio restante */
+  margin-left: var(--sidebar-width); /* Margen izquierdo igual al ancho del sidebar */
+  padding: 25px; /* Relleno del contenido principal */
+  transition: all var(--transition-speed) ease; /* Transición suave */
+  background-color: var(--light-bg); /* Color de fondo */
+  min-height: 100vh; /* Altura mínima del 100% del viewport */
 }
 
 /* Barra superior mejorada */
 .top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 30px;
-    background-color: white;
-    border-radius: var(--border-radius);
-    margin-bottom: 30px;
-    box-shadow: var(--box-shadow);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border-left: 4px solid var(--primary-color);
+  display: flex; /* Usa flexbox para el diseño */
+  justify-content: space-between; /* Espacio entre los ítems */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  padding: 20px 30px; /* Relleno de la barra superior */
+  background-color: white; /* Color de fondo */
+  border-radius: var(--border-radius); /* Radio de borde */
+  margin-bottom: 30px; /* Margen inferior */
+  box-shadow: var(--box-shadow); /* Sombra de caja */
+  position: relative; /* Posicionamiento relativo */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  transition: all 0.3s ease; /* Transición suave */
+  border-left: 4px solid var(--primary-color); /* Borde izquierdo */
 }
 
 .top-bar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(46, 204, 113, 0.03), transparent);
-    transform: translateX(-100%);
-    transition: transform 1.5s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0; /* Posición superior */
+  left: 0; /* Posición izquierda */
+  width: 100%; /* Ancho del pseudo-elemento */
+  height: 100%; /* Altura del pseudo-elemento */
+  background: linear-gradient(45deg, transparent, rgba(46, 204, 113, 0.03), transparent); /* Gradiente de fondo */
+  transform: translateX(-100%); /* Desplaza el pseudo-elemento fuera de la vista */
+  transition: transform 1.5s ease; /* Transición suave de la transformación */
 }
 
 .top-bar:hover::before {
-    transform: translateX(100%);
+  transform: translateX(100%); /* Desplaza el pseudo-elemento a la vista al pasar el ratón */
 }
 
 .top-bar h1 {
-    color: var(--primary-color);
-    font-size: 1.8rem;
-    font-weight: 600;
-    position: relative;
-    display: inline-block;
+  color: var(--primary-color); /* Color del título h1 */
+  font-size: 1.8rem; /* Tamaño de fuente del título h1 */
+  font-weight: 600; /* Grosor de fuente */
+  position: relative; /* Posicionamiento relativo */
+  display: inline-block; /* Muestra como bloque en línea */
 }
 
 .top-bar h1::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: -5px; /* Posición inferior */
+  left: 0; /* Posición izquierda */
+  width: 40px; /* Ancho del pseudo-elemento */
+  height: 3px; /* Altura del pseudo-elemento */
+  background-color: var(--primary-color); /* Color de fondo del pseudo-elemento */
+  transition: width 0.3s ease; /* Transición suave del ancho */
 }
 
 .top-bar:hover h1::after {
-    width: 100%;
+  width: 100%; /* Ancho del pseudo-elemento al pasar el ratón */
 }
 
 /* Menú de usuario mejorado */
 .user-menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  gap: 20px; /* Espacio entre los ítems */
 }
 
 .user-menu i {
-    font-size: 1.5rem;
-    color: #666;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+  font-size: 1.5rem; /* Tamaño de fuente del ícono */
+  color: #666; /* Color del ícono */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  transition: all 0.3s ease; /* Transición suave */
+  position: relative; /* Posicionamiento relativo */
+  width: 40px; /* Ancho del ícono */
+  height: 40px; /* Altura del ícono */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  border-radius: 50%; /* Hace el ícono circular */
 }
 
 .user-menu i:hover {
-    color: var(--primary-color);
-    background-color: rgba(46, 204, 113, 0.1);
-    transform: translateY(-3px);
+  color: var(--primary-color); /* Cambia el color del ícono al pasar el ratón */
+  background-color: rgba(46, 204, 113, 0.1); /* Color de fondo al pasar el ratón */
+  transform: translateY(-3px); /* Desplaza ligeramente hacia arriba */
 }
 
 .user-menu img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 3px solid var(--primary-color);
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  width: 45px; /* Ancho de la imagen de usuario */
+  height: 45px; /* Altura de la imagen de usuario */
+  border-radius: 50%; /* Hace la imagen circular */
+  border: 3px solid var(--primary-color); /* Borde de la imagen */
+  transition: all 0.3s ease; /* Transición suave */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Sombra de caja */
 }
 
 .user-menu img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+  transform: scale(1.1); /* Escala la imagen al pasar el ratón */
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); /* Sombra de caja al pasar el ratón */
 }
 
 /* Títulos mejorados */
 h1, h2 {
-    color: var(--primary-color);
-    margin-bottom: 25px;
-    position: relative;
-    padding-bottom: 10px;
+  color: var(--primary-color); /* Color de los títulos */
+  margin-bottom: 25px; /* Margen inferior */
+  position: relative; /* Posicionamiento relativo */
+  padding-bottom: 10px; /* Relleno inferior */
 }
 
 h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: 0; /* Posición inferior */
+  left: 0; /* Posición izquierda */
+  width: 50px; /* Ancho del pseudo-elemento */
+  height: 3px; /* Altura del pseudo-elemento */
+  background-color: var(--primary-color); /* Color de fondo del pseudo-elemento */
+  transition: width 0.3s ease; /* Transición suave del ancho */
 }
 
 h2:hover::after {
-    width: 100px;
+  width: 100px; /* Ancho del pseudo-elemento al pasar el ratón */
 }
 
 /* Pocisionamiento y metricas de productos */
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px 0;
+  display: grid; /* Usa grid para el diseño */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Columnas responsivas */
+  gap: 20px; /* Espacio entre las celdas de la cuadrícula */
+  padding: 20px 0; /* Relleno superior e inferior */
 }
 
 .product-card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  background-color: white; /* Color de fondo de la tarjeta de producto */
+  border-radius: 10px; /* Radio de borde */
+  padding: 20px; /* Relleno de la tarjeta */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra de caja */
+  display: flex; /* Usa flexbox para el diseño */
+  flex-direction: column; /* Dirección de los ítems en columna */
+  gap: 15px; /* Espacio entre los ítems */
 }
 
 .product-title {
-    color: var(--primary-color);
-    font-size: 1.5em;
-    margin: 0;
+  color: var(--primary-color); /* Color del título del producto */
+  font-size: 1.5em; /* Tamaño de fuente */
+  margin: 0; /* Elimina el margen */
 }
 
 .product-description {
-    color: #666;
-    font-size: 0.9em;
-    line-height: 1.4;
-    margin: 0;
+  color: #666; /* Color de la descripción del producto */
+  font-size: 0.9em; /* Tamaño de fuente */
+  line-height: 1.4; /* Altura de línea */
+  margin: 0; /* Elimina el margen */
 }
 
 .product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex; /* Usa flexbox para el diseño */
+  flex-direction: column; /* Dirección de los ítems en columna */
+  gap: 5px; /* Espacio entre los ítems */
 }
 
 .product-unit {
-    color: #666;
-    font-size: 0.9em;
-    margin: 0;
+  color: #666; /* Color de la unidad del producto */
+  font-size: 0.9em; /* Tamaño de fuente */
+  margin: 0; /* Elimina el margen */
 }
 
 .product-price {
-    color: var(--primary-color);
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 0;
+  color: var(--primary-color); /* Color del precio del producto */
+  font-size: 1.2em; /* Tamaño de fuente */
+  font-weight: bold; /* Grosor de fuente en negrita */
+  margin: 0; /* Elimina el margen */
 }
 
 .product-quantity {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  gap: 10px; /* Espacio entre los ítems */
+  margin: 10px 0; /* Margen superior e inferior */
 }
 
 .quantity-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
+  background-color: var(--primary-color); /* Color de fondo del botón de cantidad */
+  color: white; /* Color de texto del botón de cantidad */
+  border: none; /* Sin borde */
+  width: 30px; /* Ancho del botón */
+  height: 30px; /* Altura del botón */
+  border-radius: 5px; /* Radio de borde */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  font-size: 1.2em; /* Tamaño de fuente */
 }
 
 .quantity-input {
-    width: 60px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 5px;
+  width: 60px; /* Ancho del input de cantidad */
+  text-align: center; /* Centra el texto */
+  border: 1px solid #ddd; /* Borde del input */
+  border-radius: 5px; /* Radio de borde */
+  padding: 5px; /* Relleno del input */
 }
 
 .add-to-cart-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-    font-weight: 500;
+  background-color: var(--primary-color); /* Color de fondo del botón "Añadir al carrito" */
+  color: white; /* Color de texto del botón */
+  border: none; /* Sin borde */
+  padding: 10px; /* Relleno del botón */
+  border-radius: 5px; /* Radio de borde */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  transition: background-color 0.3s; /* Transición suave del color de fondo */
+  width: 100%; /* Ancho completo */
+  font-weight: 500; /* Grosor de fuente */
 }
 
 .add-to-cart-btn:hover,
 .quantity-btn:hover,
 .edit-catalog-button:hover,
 .add-catalog-button:hover {
-    background-color: var(--hover-green);
+  background-color: var(--hover-green); /* Color de fondo al pasar el ratón */
 }
 
 /* Contenedor de inventario mejorado */
 .container_inven {
-    width: 100%;
-    margin: 30px auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: all 0.3s ease;
-    border-left: 4px solid var(--primary-color);
+  width: 100%; /* Ancho completo */
+  margin: 30px auto; /* Margen superior/inferior y centrado horizontalmente */
+  background-color: white; /* Color de fondo */
+  padding: 30px; /* Relleno */
+  border-radius: var(--border-radius); /* Radio de borde */
+  box-shadow: var(--box-shadow); /* Sombra de caja */
+  transition: all 0.3s ease; /* Transición suave */
+  border-left: 4px solid var(--primary-color); /* Borde izquierdo */
 }
 
 .container_inven:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra de caja al pasar el ratón */
 }
 
 .container_inven h1 {
-    color: var(--primary-color);
-    text-align: center;
-    margin-bottom: 25px;
-    position: relative;
-    padding-bottom: 10px;
+  color: var(--primary-color); /* Color del título h1 */
+  text-align: center; /* Centra el texto */
+  margin-bottom: 25px; /* Margen inferior */
+  position: relative; /* Posicionamiento relativo */
+  padding-bottom: 10px; /* Relleno inferior */
 }
 
 .container_inven h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: 0; /* Posición inferior */
+  left: 50%; /* Posición izquierda al 50% */
+  transform: translateX(-50%); /* Centra horizontalmente */
+  width: 80px; /* Ancho inicial del pseudo-elemento */
+  height: 3px; /* Altura del pseudo-elemento */
+  background-color: var(--primary-color); /* Color de fondo del pseudo-elemento */
+  transition: width 0.3s ease; /* Transición suave del ancho */
 }
 
 .container_inven:hover h1::after {
-    width: 150px;
+  width: 150px; /* Ancho del pseudo-elemento al pasar el ratón */
 }
 
 /* Barra de búsqueda mejorada */
 .search-container {
-    text-align: center;
-    margin-bottom: 30px;
-    position: relative;
+  text-align: center; /* Centra el texto */
+  margin-bottom: 30px; /* Margen inferior */
+  position: relative; /* Posicionamiento relativo */
 }
 
 #search-input, .search-bar input {
-    width: 100%;
-    padding: 15px 20px;
-    border: 2px solid #eee;
-    border-radius: 30px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    padding-left: 45px;
-    margin-bottom: 5%;
+  width: 100%; /* Ancho completo */
+  padding: 15px 20px; /* Relleno del input */
+  border: 2px solid #eee; /* Borde del input */
+  border-radius: 30px; /* Radio de borde circular */
+  font-size: 16px; /* Tamaño de fuente */
+  transition: all 0.3s ease; /* Transición suave */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); /* Sombra de caja */
+  padding-left: 45px; /* Relleno izquierdo para el ícono de búsqueda */
+  margin-bottom: 5%; /* Margen inferior */
 }
 
 #search-input:focus, .search-bar input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.1);
-    outline: none;
+  border-color: var(--primary-color); /* Color del borde al enfocar */
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.1); /* Sombra de caja al enfocar */
+  outline: none; /* Elimina el contorno al enfocar */
 }
 
 .search-button {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: #666;
-    transition: all 0.3s ease;
+  position: absolute; /* Posicionamiento absoluto */
+  left: 15px; /* Posición izquierda */
+  top: 50%; /* Posición superior al 50% */
+  transform: translateY(-50%); /* Centra verticalmente */
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  padding: 0; /* Sin relleno */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  color: #666; /* Color del botón */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 .search-button:hover {
-    color: var(--primary-color);
-    transform: translateY(-50%) scale(1.2);
+  color: var(--primary-color); /* Cambia el color al pasar el ratón */
+  transform: translateY(-50%) scale(1.2); /* Escala y desplaza al pasar el ratón */
 }
 
 /* Tabla de inventario mejorada */
 #inventoryTable {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 25px;
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+  width: 100%; /* Ancho completo */
+  border-collapse: separate; /* Colapsa los bordes de la tabla */
+  border-spacing: 0; /* Espacio entre celdas */
+  margin-top: 25px; /* Margen superior */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  border-radius: var(--border-radius); /* Radio de borde */
+  box-shadow: var(--box-shadow); /* Sombra de caja */
 }
 
 #inventoryTable th,
 #inventoryTable td {
-    padding: 15px 20px;
-    text-align: left;
-    border: none;
+  padding: 15px 20px; /* Relleno de las celdas */
+  text-align: left; /* Alineación del texto a la izquierda */
+  border: none; /* Sin borde */
 }
 
 #inventoryTable th {
-    background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-dark)); /* Gradiente de fondo de las cabeceras */
+  color: white; /* Color de texto de las cabeceras */
+  font-weight: 600; /* Grosor de fuente */
+  position: relative; /* Posicionamiento relativo */
+  overflow: hidden; /* Oculta el contenido que se desborda */
 }
 
 #inventoryTable th:first-child {
-    border-top-left-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius); /* Radio de borde superior izquierdo */
 }
 
 #inventoryTable th:last-child {
-    border-top-right-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius); /* Radio de borde superior derecho */
 }
 
 #inventoryTable tr:last-child td:first-child {
-    border-bottom-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius); /* Radio de borde inferior izquierdo */
 }
 
 #inventoryTable tr:last-child td:last-child {
-    border-bottom-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius); /* Radio de borde inferior derecho */
 }
 
 #inventoryTable th::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: rgba(255, 255, 255, 0.3);
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: 0; /* Posición inferior */
+  left: 0; /* Posición izquierda */
+  width: 100%; /* Ancho completo */
+  height: 3px; /* Altura del pseudo-elemento */
+  background-color: rgba(255, 255, 255, 0.3); /* Color de fondo del pseudo-elemento */
 }
 
 #inventoryTable tr {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 #inventoryTable tr:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Color de fondo para filas pares */
 }
 
 #inventoryTable tr:hover {
-    background-color: #f0f7ff;
-    transform: scale(1.005);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    z-index: 1;
-    position: relative;
+  background-color: #f0f7ff; /* Color de fondo al pasar el ratón */
+  transform: scale(1.005); /* Escala ligeramente al pasar el ratón */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); /* Sombra de caja al pasar el ratón */
+  z-index: 1; /* Z-index para estar por encima de otros elementos */
+  position: relative; /* Posicionamiento relativo */
 }
 
 #inventoryTable td {
-    border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee; /* Borde inferior de las celdas */
 }
 
 /* Destacado mejorado */
 .highlight {
-    background-color: rgba(255, 255, 0, 0.3);
-    border-radius: 3px;
-    padding: 2px 0;
-    transition: all 0.3s ease;
+  background-color: rgba(255, 255, 0, 0.3); /* Color de fondo del resaltado */
+  border-radius: 3px; /* Radio de borde */
+  padding: 2px 0; /* Relleno superior e inferior */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 /* Animaciones mejoradas */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0; /* Opacidad inicial */
+    transform: translateY(30px); /* Desplazamiento inicial */
+  }
+  to {
+    opacity: 1; /* Opacidad final */
+    transform: translateY(0); /* Posición final */
+  }
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-    }
-    50% {
-        transform: scale(1.03);
-        box-shadow: 0 15px 25px rgba(46, 204, 113, 0.4);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-    }
+  0% {
+    transform: scale(1); /* Escala inicial */
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); /* Sombra de caja inicial */
+  }
+  50% {
+    transform: scale(1.03); /* Escala al 50% */
+    box-shadow: 0 15px 25px rgba(46, 204, 113, 0.4); /* Sombra de caja al 50% */
+  }
+  100% {
+    transform: scale(1); /* Escala final */
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); /* Sombra de caja final */
+  }
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateX(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateX(-50px); /* Desplazamiento inicial */
+    opacity: 0; /* Opacidad inicial */
+  }
+  to {
+    transform: translateX(0); /* Posición final */
+    opacity: 1; /* Opacidad final */
+  }
 }
-
-
 
 .top-bar {
-    animation: slideIn 0.5s ease-out;
+  animation: slideIn 0.5s ease-out; /* Aplica la animación slideIn a la barra superior */
 }
 
-
 /* Aplicar animaciones en cascada para elementos del menú */
-.menu li:nth-child(1) { animation: slideIn 0.3s ease-out; }
-.menu li:nth-child(2) { animation: slideIn 0.4s ease-out; }
-.menu li:nth-child(3) { animation: slideIn 0.5s ease-out; }
-.menu li:nth-child(4) { animation: slideIn 0.6s ease-out; }
-.menu li:nth-child(5) { animation: slideIn 0.7s ease-out; }
-.menu li:nth-child(6) { animation: slideIn 0.8s ease-out; }
-.menu li:nth-child(7) { animation: slideIn 0.9s ease-out; }
-.menu li:nth-child(8) { animation: slideIn 1.0s ease-out; }
-.menu li:nth-child(9) { animation: slideIn 1.1s ease-out; }
+.menu li:nth-child(1) {
+  animation: slideIn 0.3s ease-out;
+} /* Animación para el primer elemento de la lista del menú */
+.menu li:nth-child(2) {
+  animation: slideIn 0.4s ease-out;
+} /* Animación para el segundo elemento de la lista del menú */
+.menu li:nth-child(3) {
+  animation: slideIn 0.5s ease-out;
+} /* Animación para el tercer elemento de la lista del menú */
+.menu li:nth-child(4) {
+  animation: slideIn 0.6s ease-out;
+} /* Animación para el cuarto elemento de la lista del menú */
+.menu li:nth-child(5) {
+  animation: slideIn 0.7s ease-out;
+} /* Animación para el quinto elemento de la lista del menú */
+.menu li:nth-child(6) {
+  animation: slideIn 0.8s ease-out;
+} /* Animación para el sexto elemento de la lista del menú */
+.menu li:nth-child(7) {
+  animation: slideIn 0.9s ease-out;
+} /* Animación para el séptimo elemento de la lista del menú */
+.menu li:nth-child(8) {
+  animation: slideIn 1.0s ease-out;
+} /* Animación para el octavo elemento de la lista del menú */
+.menu li:nth-child(9) {
+  animation: slideIn 1.1s ease-out;
+} /* Animación para el noveno elemento de la lista del menú */
 
 /* Estilos para iconos de notificaciones */
 .notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: #ff5252;
-    color: white;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulse 2s infinite;
+  position: absolute; /* Posicionamiento absoluto */
+  top: -5px; /* Posición superior */
+  right: -5px; /* Posición derecha */
+  background-color: #ff5252; /* Color de fondo de la insignia */
+  color: white; /* Color de texto de la insignia */
+  border-radius: 50%; /* Hace la insignia circular */
+  width: 18px; /* Ancho de la insignia */
+  height: 18px; /* Altura de la insignia */
+  font-size: 0.7rem; /* Tamaño de fuente */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  animation: pulse 2s infinite; /* Aplica la animación pulse infinitamente */
 }
 
 /* Estilos responsivos mejorados */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 80px;
-        padding: 15px 10px;
-    }
+  .sidebar {
+    width: 80px; /* Ancho reducido del sidebar en pantallas pequeñas */
+    padding: 15px 10px; /* Relleno ajustado */
+  }
 
-    .sidebar .profile h3,
-    .sidebar .profile p,
-    .menu a span {
-        display: none;
-    }
+  .sidebar .profile h3,
+  .sidebar .profile p,
+  .menu a span {
+    display: none;
+  } /* Oculta elementos de texto en el sidebar en pantallas pequeñas */
 
-    .profile-image {
-        width: 50px;
-        height: 50px;
-    }
+  .profile-image {
+    width: 50px; /* Ancho reducido de la imagen de perfil */
+    height: 50px; /* Altura reducida de la imagen de perfil */
+  }
 
-    .main-content {
-        margin-left: 80px;
-        padding: 15px;
-    }
+  .main-content {
+    margin-left: 80px; /* Margen izquierdo ajustado para el sidebar reducido */
+    padding: 15px; /* Relleno ajustado */
+  }
 
-    .menu i {
-        margin-right: 0;
-        font-size: 1.5rem;
-    }
+  .menu i {
+    margin-right: 0; /* Elimina el margen derecho del ícono */
+    font-size: 1.5rem; /* Tamaño de fuente del ícono ajustado */
+  }
 
-    .menu a {
-        justify-content: center;
-        padding: 15px;
-    }
+  .menu a {
+    justify-content: center; /* Centra el contenido del enlace */
+    padding: 15px; /* Relleno ajustado */
+  }
 
-    .top-bar {
-        padding: 15px;
-        flex-direction: column;
-        gap: 10px;
-    }
+  .top-bar {
+    padding: 15px; /* Relleno ajustado */
+    flex-direction: column; /* Cambia la dirección a columna */
+    gap: 10px; /* Espacio entre los ítems */
+  }
 
-    .top-bar h1 {
-        font-size: 1.4rem;
-    }
+  .top-bar h1 {
+    font-size: 1.4rem;
+  } /* Tamaño de fuente del título h1 ajustado */
 
-    .user-menu {
-        width: 100%;
-        justify-content: space-around;
-    }
+  .user-menu {
+    width: 100%; /* Ancho completo */
+    justify-content: space-around; /* Espacio alrededor de los ítems */
+  }
 
-
-    button, .btn {
-        padding: 10px -15px;
-    }
+  button,
+  .btn {
+    padding: 10px -15px;
+  } /* Relleno ajustado para botones */
 }
 
 /* Efecto de hover para el sidebar */
 .sidebar:hover {
-    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3); /* Sombra de caja al pasar el ratón */
 }
-
-
-
 
 /* Estilos mejorados para las tablas de dashboard e inventario */
 
 /* Contenedor de tablas con efecto suave */
 .table-container {
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    margin: 30px 0;
-    box-shadow: var(--box-shadow);
-    transition: all 0.4s ease;
-    position: relative;
-    background: white;
+  border-radius: var(--border-radius); /* Radio de borde */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  margin: 30px 0; /* Margen superior e inferior */
+  box-shadow: var(--box-shadow); /* Sombra de caja */
+  transition: all 0.4s ease; /* Transición suave */
+  position: relative; /* Posicionamiento relativo */
+  background: white; /* Color de fondo */
 }
 
 .table-container:hover {
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* Sombra de caja al pasar el ratón */
+  transform: translateY(-5px); /* Desplaza ligeramente hacia arriba */
 }
 
 /* Estilos base comunes para todas las tablas */
 table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
-    background: white;
-    font-size: 0.95rem;
+  width: 100%; /* Ancho completo */
+  border-collapse: separate; /* Colapsa los bordes de la tabla */
+  border-spacing: 0; /* Espacio entre celdas */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  background: white; /* Color de fondo */
+  font-size: 0.95rem; /* Tamaño de fuente */
 }
 
 /* Cabeceras de tabla con gradiente y animación */
 table thead th {
-    background: linear-gradient(145deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 16px 20px;
-    position: relative;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    font-size: 0.95rem;
-    white-space: nowrap;
-    transition: all 0.3s ease;
+  background: linear-gradient(145deg, var(--primary-color), var(--primary-dark)); /* Gradiente de fondo de las cabeceras */
+  color: white; /* Color de texto de las cabeceras */
+  font-weight: 600; /* Grosor de fuente */
+  text-transform: uppercase; /* Transforma el texto a mayúsculas */
+  letter-spacing: 1px; /* Espaciado entre letras */
+  padding: 16px 20px; /* Relleno de las cabeceras */
+  position: relative; /* Posicionamiento relativo */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra de texto */
+  font-size: 0.95rem; /* Tamaño de fuente */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 table thead th:hover {
-    background: linear-gradient(145deg, var(--primary-dark), var(--primary-color));
+  background: linear-gradient(145deg, var(--primary-dark), var(--primary-color)); /* Gradiente de fondo al pasar el ratón */
 }
 
 /* Efecto de línea brillante en cabeceras */
 table thead th::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.3);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  bottom: 0; /* Posición inferior */
+  left: 0; /* Posición izquierda */
+  width: 100%; /* Ancho completo */
+  height: 3px; /* Altura del pseudo-elemento */
+  background: rgba(255, 255, 255, 0.3); /* Color de fondo del pseudo-elemento */
+  transform: scaleX(0); /* Escala inicial en X */
+  transition: transform 0.3s ease; /* Transición suave de la transformación */
 }
 
 table thead th:hover::after {
-    transform: scaleX(1);
+  transform: scaleX(1); /* Escala en X al pasar el ratón */
 }
 
 /* Filas de tabla con animaciones y micro-interacciones */
 table tbody tr {
-    transition: all 0.3s ease;
-    border-bottom: 1px solid #f0f0f0;
-    position: relative;
+  transition: all 0.3s ease; /* Transición suave */
+  border-bottom: 1px solid #f0f0f0; /* Borde inferior */
+  position: relative; /* Posicionamiento relativo */
 }
 
 table tbody tr:nth-child(even) {
-    background-color: var(--primary-light);
+  background-color: var(--primary-light); /* Color de fondo para filas pares */
 }
 
 table tbody tr:hover {
-    background-color: rgba(52, 152, 219, 0.08);
-    transform: translateX(5px);
-    box-shadow: -5px 0 0 var(--primary-color);
+  background-color: rgba(52, 152, 219, 0.08); /* Color de fondo al pasar el ratón */
+  transform: translateX(5px); /* Desplaza ligeramente a la derecha */
+  box-shadow: -5px 0 0 var(--primary-color); /* Sombra de caja */
 }
 
 /* Celdas de tabla estilizadas */
 table td {
-    padding: 16px 20px;
-    vertical-align: middle;
-    transition: all 0.3s ease;
-    position: relative;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 16px 20px; /* Relleno de las celdas */
+  vertical-align: middle; /* Alineación vertical al centro */
+  transition: all 0.3s ease; /* Transición suave */
+  position: relative; /* Posicionamiento relativo */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Borde inferior */
 }
 
 /* Añadir bordado suave para una mejor separación visual en modo hover */
 table tbody tr:hover td {
-    border-bottom-color: rgba(46, 204, 113, 0.2);
+  border-bottom-color: rgba(46, 204, 113, 0.2); /* Color del borde inferior al pasar el ratón */
 }
 
 /* Estado de inventario con indicadores visuales */
 .status-indicator {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 8px;
-    position: relative;
-    top: 1px;
+  display: inline-block; /* Muestra como bloque en línea */
+  width: 12px; /* Ancho del indicador */
+  height: 12px; /* Altura del indicador */
+  border-radius: 50%; /* Hace el indicador circular */
+  margin-right: 8px; /* Margen derecho */
+  position: relative; /* Posicionamiento relativo */
+  top: 1px; /* Posición superior */
 }
 
 .status-in-stock {
-    background-color: var(--success-color);
-    box-shadow: 0 0 8px var(--success-color);
+  background-color: var(--success-color); /* Color de fondo para "en stock" */
+  box-shadow: 0 0 8px var(--success-color); /* Sombra de caja */
 }
 
 .status-low {
-    background-color: var(--warning-color);
-    box-shadow: 0 0 8px var(--warning-color);
+  background-color: var(--warning-color); /* Color de fondo para "bajo" */
+  box-shadow: 0 0 8px var(--warning-color); /* Sombra de caja */
 }
 
 .status-out {
-    background-color: var(--danger-color);
-    box-shadow: 0 0 8px var(--danger-color);
+  background-color: var(--danger-color); /* Color de fondo para "agotado" */
+  box-shadow: 0 0 8px var(--danger-color); /* Sombra de caja */
 }
 
 /* Columna de acciones con mejor espaciado */
 .actions-column {
-    white-space: nowrap;
-    text-align: right;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  text-align: right; /* Alineación del texto a la derecha */
 }
 
 .actions-column button {
-    margin-left: 8px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    color: #666;
+  margin-left: 8px; /* Margen izquierdo del botón */
+  border: none; /* Sin borde */
+  background: none; /* Sin fondo */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  padding: 8px; /* Relleno del botón */
+  border-radius: 50%; /* Hace el botón circular */
+  transition: all 0.3s ease; /* Transición suave */
+  color: #666; /* Color del botón */
 }
 
 .actions-column button:hover {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    transform: scale(1.15);
+  background-color: var(--primary-light); /* Color de fondo al pasar el ratón */
+  color: var(--primary-color); /* Cambia el color al pasar el ratón */
+  transform: scale(1.15); /* Escala el botón al pasar el ratón */
 }
 
 .edit-btn:hover {
-    color: var(--accent-color);
+  color: var(--accent-color); /* Color del botón de edición al pasar el ratón */
 }
 
 .delete-btn:hover {
-    color: var(--danger-color);
+  color: var(--danger-color); /* Color del botón de eliminar al pasar el ratón */
 }
 
 /* Columna con valor numérico */
 .numeric-column {
-    font-family: 'JetBrains Mono', monospace;
-    text-align: right;
-    font-variant-numeric: tabular-nums;
+  font-family: 'JetBrains Mono', monospace; /* Fuente monoespaciada */
+  text-align: right; /* Alineación del texto a la derecha */
+  font-variant-numeric: tabular-nums; /* Alinea los números en columnas */
 }
 
 /* Columna de precio con formato destacado */
 .price-column {
-    font-weight: 600;
-    color: var(--primary-dark);
-    text-align: right;
+  font-weight: 600; /* Grosor de fuente */
+  color: var(--primary-dark); /* Color del precio */
+  text-align: right; /* Alineación del texto a la derecha */
 }
 
 /* Columna con fecha formateada */
 .date-column {
-    font-size: 0.9rem;
-    color: #666;
+  font-size: 0.9rem; /* Tamaño de fuente */
+  color: #666; /* Color de la fecha */
 }
 
 /* Paginación mejorada */
 .table-pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #f9f9f9;
-    border-top: 1px solid #eee;
+  display: flex; /* Usa flexbox para el diseño */
+  justify-content: space-between; /* Espacio entre los ítems */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  padding: 15px 20px; /* Relleno */
+  background-color: #f9f9f9; /* Color de fondo */
+  border-top: 1px solid #eee; /* Borde superior */
 }
 
 .page-info {
-    color: #666;
-    font-size: 0.9rem;
+  color: #666; /* Color de la información de la página */
+  font-size: 0.9rem; /* Tamaño de fuente */
 }
 
 .page-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex; /* Usa flexbox para el diseño */
+  gap: 10px; /* Espacio entre los ítems */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
 }
 
 .page-btn {
-    border: none;
-    background-color: white;
-    color: var(--primary-color);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: none; /* Sin borde */
+  background-color: white; /* Color de fondo */
+  color: var(--primary-color); /* Color de texto */
+  width: 35px; /* Ancho del botón */
+  height: 35px; /* Altura del botón */
+  border-radius: 50%; /* Hace el botón circular */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  transition: all 0.3s ease; /* Transición suave */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra de caja */
 }
 
 .page-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+  background-color: var(--primary-color); /* Color de fondo al pasar el ratón */
+  color: white; /* Color de texto al pasar el ratón */
+  transform: translateY(-2px); /* Desplaza ligeramente hacia arriba */
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); /* Sombra de caja al pasar el ratón */
 }
 
 .page-btn.active {
-    background-color: var(--primary-color);
-    color: white;
+  background-color: var(--primary-color); /* Color de fondo para el botón activo */
+  color: white; /* Color de texto para el botón activo */
 }
 
 .page-btn.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
+  opacity: 0.5; /* Opacidad reducida para botones deshabilitados */
+  cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+  pointer-events: none; /* Deshabilita los eventos de puntero */
 }
 
 /* Barra de tabla con acciones y filtros */
 .table-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #eee;
+  display: flex; /* Usa flexbox para el diseño */
+  justify-content: space-between; /* Espacio entre los ítems */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  padding: 15px 20px; /* Relleno */
+  background-color: #f9f9f9; /* Color de fondo */
+  border-bottom: 1px solid #eee; /* Borde inferior */
 }
 
 .table-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--primary-dark);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  font-size: 1.1rem; /* Tamaño de fuente */
+  font-weight: 600; /* Grosor de fuente */
+  color: var(--primary-dark); /* Color del título de la tabla */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  gap: 10px; /* Espacio entre los ítems */
 }
 
 .table-title i {
-    color: var(--primary-color);
+  color: var(--primary-color); /* Color del ícono del título */
 }
 
 .table-actions {
-    display: flex;
-    gap: 15px;
+  display: flex; /* Usa flexbox para el diseño */
+  gap: 15px; /* Espacio entre los ítems */
 }
 
-.filter-btn, .export-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: white;
-    border: 1px solid #eee;
-    border-radius: 20px;
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    color: #666;
+.filter-btn,
+.export-btn {
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  gap: 8px; /* Espacio entre los ítems */
+  background-color: white; /* Color de fondo */
+  border: 1px solid #eee; /* Borde */
+  border-radius: 20px; /* Radio de borde circular */
+  padding: 8px 15px; /* Relleno */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  transition: all 0.3s ease; /* Transición suave */
+  font-size: 0.9rem; /* Tamaño de fuente */
+  color: #666; /* Color de texto */
 }
 
-.filter-btn:hover, .export-btn:hover {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    border-color: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.filter-btn:hover,
+.export-btn:hover {
+  background-color: var(--primary-light); /* Color de fondo al pasar el ratón */
+  color: var(--primary-color); /* Color de texto al pasar el ratón */
+  border-color: var(--primary-light); /* Color del borde al pasar el ratón */
+  transform: translateY(-2px); /* Desplaza ligeramente hacia arriba */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra de caja al pasar el ratón */
 }
 
 /* Celdas vacías con estilo */
 .empty-cell {
-    color: #999;
-    font-style: italic;
+  color: #999; /* Color de texto */
+  font-style: italic; /* Estilo de fuente en cursiva */
 }
 
 /* Celdas expandibles para información adicional */
 .expandable-cell {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer; /* Cambia el cursor a puntero */
+  position: relative; /* Posicionamiento relativo */
 }
 
 .expandable-cell::after {
-    content: '\f078';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    position: absolute;
-    right: 10px;
-    font-size: 0.8rem;
-    opacity: 0.6;
-    transition: transform 0.3s ease;
+  content: '\f078'; /* Contenido del ícono (Flecha hacia abajo) */
+  font-family: 'Font Awesome 5 Free'; /* Fuente del ícono */
+  font-weight: 900; /* Grosor de fuente */
+  position: absolute; /* Posicionamiento absoluto */
+  right: 10px; /* Posición derecha */
+  font-size: 0.8rem; /* Tamaño de fuente */
+  opacity: 0.6; /* Opacidad */
+  transition: transform 0.3s ease; /* Transición suave de la transformación */
 }
 
 .expandable-cell.expanded::after {
-    transform: rotate(180deg);
+  transform: rotate(180deg); /* Rota el ícono 180 grados cuando se expande */
 }
 
 /* Fila extra para datos expandidos */
 .expanded-row {
-    background-color: #f9f9f9;
-    display: none;
+  background-color: #f9f9f9; /* Color de fondo */
+  display: none; /* Oculta la fila por defecto */
 }
 
 .expanded-row.visible {
-    display: table-row;
-    animation: fadeIn 0.4s ease;
+  display: table-row; /* Muestra la fila como una fila de tabla */
+  animation: fadeIn 0.4s ease; /* Aplica la animación fadeIn */
 }
 
 .expanded-content {
-    padding: 15px 20px;
-    color: #666;
+  padding: 15px 20px; /* Relleno del contenido expandido */
+  color: #666; /* Color de texto */
 }
 
 /* Loading state para la tabla */
 .table-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0; /* Posición superior */
+  left: 0; /* Posición izquierda */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  background-color: rgba(255, 255, 255, 0.8); /* Color de fondo semitransparente */
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  z-index: 10; /* Z-index alto */
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(46, 204, 113, 0.2);
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  width: 40px; /* Ancho del spinner */
+  height: 40px; /* Altura del spinner */
+  border: 4px solid rgba(46, 204, 113, 0.2); /* Borde del spinner */
+  border-top-color: var(--primary-color); /* Color del borde superior */
+  border-radius: 50%; /* Hace el spinner circular */
+  animation: spin 1s linear infinite; /* Aplica la animación spin infinitamente */
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
+  to {
+    transform: rotate(360deg);
+  }
+} /* Animación de rotación */
 
 /* Estilos específicos para tabla de inventario */
 #inventoryTable th {
-    text-transform: capitalize;
-    font-size: 0.95rem;
+  text-transform: capitalize; /* Transforma el texto a capitalización */
+  font-size: 0.95rem; /* Tamaño de fuente */
 }
 
 /* Mejora de selección de filas con checkbox */
 .row-select {
-    width: 20px;
-    height: 20px;
-    position: relative;
+  width: 20px; /* Ancho del contenedor de selección de fila */
+  height: 20px; /* Altura del contenedor de selección de fila */
+  position: relative; /* Posicionamiento relativo */
 }
 
 .row-select input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+  position: absolute; /* Posicionamiento absoluto */
+  opacity: 0; /* Opacidad oculta */
+  cursor: pointer; /* Cambia el cursor a puntero */
+  height: 0; /* Altura cero */
+  width: 0; /* Ancho cero */
 }
 
 .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-    border-radius: 4px;
-    transition: all 0.2s ease;
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0; /* Posición superior */
+  left: 0; /* Posición izquierda */
+  height: 20px; /* Altura del checkmark */
+  width: 20px; /* Ancho del checkmark */
+  background-color: #eee; /* Color de fondo del checkmark */
+  border-radius: 4px; /* Radio de borde */
+  transition: all 0.2s ease; /* Transición suave */
 }
 
 .row-select:hover input ~ .checkmark {
-    background-color: #ccc;
+  background-color: #ccc; /* Color de fondo del checkmark al pasar el ratón */
 }
 
 .row-select input:checked ~ .checkmark {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color); /* Color de fondo del checkmark cuando está marcado */
 }
 
 .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+  content: ""; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  display: none; /* Oculta el pseudo-elemento por defecto */
 }
 
 .row-select input:checked ~ .checkmark:after {
-    display: block;
+  display: block; /* Muestra el pseudo-elemento cuando está marcado */
 }
 
 .row-select .checkmark:after {
-    left: 7px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+  left: 7px; /* Posición izquierda */
+  top: 3px; /* Posición superior */
+  width: 5px; /* Ancho del pseudo-elemento */
+  height: 10px; /* Altura del pseudo-elemento */
+  border: solid white; /* Borde blanco */
+  border-width: 0 2px 2px 0; /* Ancho del borde */
+  transform: rotate(45deg); /* Rota el pseudo-elemento */
 }
 
 /* Estilos para columna de vista previa de producto */
 .product-preview {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex; /* Usa flexbox para el diseño */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  gap: 12px; /* Espacio entre los ítems */
 }
 
 .product-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-    background-color: #f5f5f5;
-    transition: all 0.3s ease;
+  width: 40px; /* Ancho de la imagen del producto */
+  height: 40px; /* Altura de la imagen del producto */
+  border-radius: 8px; /* Radio de borde */
+  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+  background-color: #f5f5f5; /* Color de fondo */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 .product-name {
-    font-weight: 500;
-    color: var(--text-color);
-    transition: all 0.3s ease;
+  font-weight: 500; /* Grosor de fuente */
+  color: var(--text-color); /* Color de texto */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 tr:hover .product-image {
-    transform: scale(1.1);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.1); /* Escala la imagen del producto al pasar el ratón */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Sombra de caja al pasar el ratón */
 }
 
 tr:hover .product-name {
-    color: var(--primary-color);
+  color: var(--primary-color); /* Cambia el color del nombre del producto al pasar el ratón */
 }
 
 /* Estilos para tablas con datos en tarjetas (versión móvil) */
 @media (max-width: 768px) {
-    table thead {
-        display: none;
-    }
-    
-    table tbody tr {
-        display: block;
-        margin-bottom: 15px;
-        border-radius: var(--border-radius);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border: 1px solid #eee;
-    }
-    
-    table tbody td {
-        display: flex;
-        padding: 12px 15px;
-        text-align: right;
-        justify-content: space-between;
-        border-bottom: 1px solid #eee;
-    }
-    
-    table tbody td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        text-align: left;
-        color: var(--primary-dark);
-    }
-    
-    table tbody tr:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .numeric-column,
-    .price-column {
-        text-align: right;
-    }
-    
-    .actions-column {
-        justify-content: flex-end;
-    }
+  table thead {
+    display: none;
+  } /* Oculta las cabeceras de la tabla en pantallas pequeñas */
+
+  table tbody tr {
+    display: block; /* Muestra las filas como bloques */
+    margin-bottom: 15px; /* Margen inferior */
+    border-radius: var(--border-radius); /* Radio de borde */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra de caja */
+    border: 1px solid #eee; /* Borde */
+  }
+
+  table tbody td {
+    display: flex; /* Usa flexbox para el diseño */
+    padding: 12px 15px; /* Relleno de las celdas */
+    text-align: right; /* Alineación del texto a la derecha */
+    justify-content: space-between; /* Espacio entre los ítems */
+    border-bottom: 1px solid #eee; /* Borde inferior */
+  }
+
+  table tbody td::before {
+    content: attr(data-label); /* Muestra el atributo data-label como contenido */
+    font-weight: 600; /* Grosor de fuente */
+    text-align: left; /* Alineación del texto a la izquierda */
+    color: var(--primary-dark); /* Color de texto */
+  }
+
+  table tbody tr:hover {
+    transform: translateY(-5px); /* Desplaza ligeramente hacia arriba al pasar el ratón */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra de caja al pasar el ratón */
+  }
+
+  .numeric-column,
+  .price-column {
+    text-align: right; /* Alineación del texto a la derecha */
+  }
+
+  .actions-column {
+    justify-content: flex-end; /* Alinea los ítems al final */
+  }
 }
 
 /* Animación para filas recién añadidas */
 .new-row {
-    animation: highlightNew 2s ease;
+  animation: highlightNew 2s ease; /* Aplica la animación highlightNew */
 }
 
 @keyframes highlightNew {
-    0% {
-        background-color: var(--primary-light);
-    }
-    100% {
-        background-color: transparent;
-    }
-}
+  0% {
+    background-color: var(--primary-light);
+  } /* Color de fondo inicial */
+  100% {
+    background-color: transparent;
+  }
+} /* Color de fondo final */
 
 /* Estilos para tabla de dashboard con indicadores visuales */
 .dashboard-table .progress-bar {
-    height: 8px;
-    background-color: #eee;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 5px;
+  height: 8px; /* Altura de la barra de progreso */
+  background-color: #eee; /* Color de fondo de la barra de progreso */
+  border-radius: 4px; /* Radio de borde */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  margin-top: 5px; /* Margen superior */
 }
 
 .dashboard-table .progress-fill {
-    height: 100%;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-    border-radius: 4px;
-    transition: width 0.5s ease-out;
-    position: relative;
+  height: 100%; /* Altura completa del relleno de progreso */
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color)); /* Gradiente de fondo del relleno de progreso */
+  border-radius: 4px; /* Radio de borde */
+  transition: width 0.5s ease-out; /* Transición suave del ancho */
+  position: relative; /* Posicionamiento relativo */
 }
 
 .dashboard-table .progress-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        to right, 
-        rgba(255, 255, 255, 0.3) 0%, 
-        rgba(255, 255, 255, 0.6) 50%, 
-        rgba(255, 255, 255, 0.3) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
+  content: ''; /* Contenido pseudo-elemento */
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0; /* Posición superior */
+  left: 0; /* Posición izquierda */
+  right: 0; /* Posición derecha */
+  bottom: 0; /* Posición inferior */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.3) 100%
+  ); /* Gradiente de fondo para el efecto de brillo */
+  background-size: 200% 100%; /* Tamaño del fondo */
+  animation: shimmer 2s infinite; /* Aplica la animación shimmer infinitamente */
 }
 
 @keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
+  0% {
+    background-position: -200% 0;
+  } /* Posición inicial del fondo */
+  100% {
+    background-position: 200% 0;
+  }
+} /* Posición final del fondo */
 
 /* Indicadores de tendencia */
 .trend {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
+  display: inline-flex; /* Muestra como flexbox en línea */
+  align-items: center; /* Alinea los ítems al centro verticalmente */
+  gap: 5px; /* Espacio entre los ítems */
+  padding: 3px 8px; /* Relleno */
+  border-radius: 12px; /* Radio de borde circular */
+  font-size: 0.8rem; /* Tamaño de fuente */
+  font-weight: 500; /* Grosor de fuente */
 }
 
 .trend-up {
-    background-color: rgba(46, 204, 113, 0.15);
-    color: var(--success-color);
+  background-color: rgba(46, 204, 113, 0.15); /* Color de fondo para tendencia al alza */
+  color: var(--success-color); /* Color de texto */
 }
 
 .trend-down {
-    background-color: rgba(231, 76, 60, 0.15);
-    color: var(--danger-color);
+  background-color: rgba(231, 76, 60, 0.15); /* Color de fondo para tendencia a la baja */
+  color: var(--danger-color); /* Color de texto */
 }
 
 .trend-neutral {
-    background-color: rgba(241, 196, 15, 0.15);
-    color: var(--warning-color);
+  background-color: rgba(241, 196, 15, 0.15); /* Color de fondo para tendencia neutral */
+  color: var(--warning-color); /* Color de texto */
 }
 
 .trend i {
-    font-size: 0.7rem;
+  font-size: 0.7rem; /* Tamaño de fuente del ícono */
 }
 
 /* Estilos para tabla de productos */
 .category-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    background-color: var(--primary-light)}
-
+  display: inline-block; /* Muestra como bloque en línea */
+  padding: 4px 10px; /* Relleno */
+  border-radius: 12px; /* Radio de borde circular */
+  font-size: 0.75rem; /* Tamaño de fuente */
+  font-weight: 500; /* Grosor de fuente */
+  background-color: var(--primary-light);
+} /* Color de fondo de la insignia de categoría */
 
 /*Botones */
 
@@ -1627,8 +1641,10 @@ tr:hover .product-name {
 
 /*Habilitar e inhabilitar*/
 
-a[href*="habilitar"],
-a[href*="inhabilitar"] {
+/*seccion productos*/
+
+.habilitarproduct2,
+.inhabilitarproduct2 {
   display: inline-block;
   width: 100px;
   height: 34px;
@@ -1648,28 +1664,28 @@ a[href*="inhabilitar"] {
 }
 
 /* Estilo para el botón de habilitar */
-a[href*="habilitar"] {
-  background-color:  #28a745;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+.habilitarproduct2 {
+  background-color: #28a745;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-a[href*="habilitar"]:hover {
+.habilitarproduct2:hover {
   background-color: #6c757d;
 }
 
 /* Estilo para el botón de inhabilitar */
-a[href*="inhabilitar"] {
+.inhabilitarproduct2 {
   background-color: #dc3545;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-a[href*="inhabilitar"]:hover {
+.inhabilitarproduct2:hover {
   background-color: #6c757d;
 }
 
 /* Círculo deslizante (apariencia de switch) */
-a[href*="habilitar"]::before,
-a[href*="inhabilitar"]::before {
+.habilitarproduct2::before,
+.inhabilitarproduct2::before {
   content: "";
   position: absolute;
   width: 26px;
@@ -1679,24 +1695,99 @@ a[href*="inhabilitar"]::before {
   top: 4px;
   left: 4px;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Posición del círculo para cada estado */
-a[href*="inhabilitar"]::before {
+.inhabilitarproduct2::before {
   left: 4px;
 }
 
-a[href*="habilitar"]::before {
+.habilitarproduct2::before {
   left: 4px;
 }
 
 /* Efectos hover para el círculo deslizante */
-a[href*="inhabilitar"]:hover::before {
+.inhabilitarproduct2:hover::before {
   left: 4px;
 }
 
-a[href*="habilitar"]:hover::before {
+.habilitarproduct2:hover::before {
+  left: 4px;
+}
+
+
+/*Seccion de inventario*/
+
+.Habilitarinvent,
+.Inhabilitarinvent {
+  display: inline-block;
+  width: 100px;
+  height: 34px;
+  position: relative;
+  border-radius: 17px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  line-height: 32px;
+  padding-left: 23px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  top: -35%;
+}
+
+/* Estilo para el botón de habilitar */
+.Habilitarinvent {
+  background-color: #28a745;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Habilitarinvent:hover {
+  background-color: #6c757d;
+}
+
+/* Estilo para el botón de inhabilitar */
+.Inhabilitarinvent {
+  background-color: #dc3545;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Inhabilitarinvent:hover {
+  background-color: #6c757d;
+}
+
+/* Círculo deslizante (apariencia de switch) */
+.Habilitarinvent::before,
+.Inhabilitarinvent::before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background-color: white;
+  border-radius: 50%;
+  top: 4px;
+  left: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Posición del círculo para cada estado */
+.Inhabilitarinvent::before {
+  left: 4px;
+}
+
+.Habilitarinvent::before {
+  left: 4px;
+}
+
+/* Efectos hover para el círculo deslizante */
+.Inhabilitarinvent:hover::before {
+  left: 4px;
+}
+
+.Habilitarinvent:hover::before {
   left: 4px;
 }
 
