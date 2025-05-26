@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Inventario - MercApp</title>
+    <title>Proveedores</title>
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
 	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -47,7 +48,7 @@
                     </a></li>
                     <li><a href="{% url 'factura' %}" data-page="recibos">
                         <i class="material-icons">receipt</i> 
-                        <span>RECIBOS</span>
+                        <span>SOPORTE DE PAGOS</span>
                     </a></li>
                     <li><a href="{% url 'validacion_compras' %}" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
@@ -152,62 +153,6 @@
                 });
             </script>
         <style>
-            
-            /* Encabezado de la tabla */
-        .table-header {
-            background-color: #28a745; /* Verde */
-            color: white; /* Letras blancas */
-            text-align: center;
-            font-weight: bold;
-        }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .search-bar {
-            margin-top: 15px;
-        }
-        
-        .input-group {
-            display: flex;
-            align-items: center;
-        }
-        
-        .input-group .form-control {
-            flex: 1;
-        }
-        
-        .input-group .btn {
-            margin-left: 10px;
-        }
-        /* Filas de la tabla */
-        .table tbody tr {
-            height: 50px; /* Mayor separación entre filas */
-        }
-        
-        /* Celdas de la tabla */
-        .table td, .table th {
-            padding: 15px; /* Espaciado interno */
-            text-align: left; /* Alineación del texto */
-        }
-        
-        /* Bordes de la tabla */
-        .table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        /* Alternar colores en las filas */
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f9f9f9; /* Color claro */
-        }
-        
-        .table-striped tbody tr:nth-of-type(even) {
-            background-color: #ffffff; /* Blanco */
-        }
-        
         /* Estilo para los badges de estado */
         .badge {
             padding: 5px 10px;

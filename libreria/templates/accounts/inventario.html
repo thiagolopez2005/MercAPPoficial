@@ -82,7 +82,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Inventario - MercApp</title>
+    <title>Panel de Inventario</title>
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
 	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -125,7 +126,7 @@
                     </a></li>
                     <li><a href="{% url 'factura' %}" data-page="recibos">
                         <i class="material-icons">receipt</i> 
-                        <span>RECIBOS</span>
+                        <span>SOPORTE DE PAGOS</span>
                     </a></li>
                     <li><a href="{% url 'validacion_compras' %}" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
@@ -198,9 +199,9 @@
                                     </td>
                                 <td>
                                     {% if producto.habilitado %}
-                                    <a href="{% url 'inhabilitar_producto' producto.id %}">Inhabilitar</a>
+                                    <a href="{% url 'inhabilitar_producto' producto.id %}" class="Inhabilitarinvent">Inhabilitar</a>
                                     {% else %}
-                                    <a href="{% url 'habilitar_producto' producto.id %}">Habilitar</a>
+                                    <a href="{% url 'habilitar_producto' producto.id %}" class="Habilitarinvent">Habilitar</a>
                                     {% endif %}
                                 </td>
                             </tr>
