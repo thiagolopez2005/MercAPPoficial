@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Inventario - MercApp</title>
+    <title>Estado de compra</title>
     <link href="{% static 'css/interno.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -125,7 +126,7 @@
                             <i class="material-icons">receipt</i>
                             <span>SOPORTE DE PAGOS</span>
                         </a></li>
-                    <li><a href="#" data-page="estado-compra">
+                    <li><a class="active" href="{% url 'validacion_compras' %}"  data-page="estado-compra">
                             <i class="material-icons">payment</i>
                             <span>ESTADO DE COMPRA</span>
                         </a></li>
@@ -141,7 +142,6 @@
             <header class="top-bar">
                 <h1>Gestión de Compras</h1>
                 <div class="user-menu">
-                    <i class="material-icons">notifications</i>
                     <i class="material-icons">power_settings_new</i>
                 </div>
             </header>
