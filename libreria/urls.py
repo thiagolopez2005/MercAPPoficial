@@ -30,6 +30,8 @@ urlpatterns = [
     path('empleado/', views.vista_emple, name='vista_emple'),
     path('clientes/', views.listar_clientes, name='listar_clientes'),
     path('trabajadores/', views.trabajadores, name='trabajadores'),
+    path('activar-cuenta/<int:id>/', views.activar_cuenta, name='activar_cuenta'),
+    path('desactivar-cuenta/<int:id>/', views.desactivar_cuenta, name='desactivar_cuenta'),
 
 
     

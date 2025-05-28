@@ -1,178 +1,203 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Compra</title>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Detalle de Compra</h2>
-        <table class="table table-striped table-bordered">
-            <thead class="table-header">
-                <tr>
-                    <th>Cliente</th>
-                    <th>Total</th>
-                    <th>IVA</th>
-                    <th>Total con IVA</th>
-                    <th>Fecha</th>
+    <div class="factura-contenedor">
+        <div class="info-empresa">
+            <img src="{% static 'images/bolsa.ico' %}" alt="Logo" class="logo-pequeno">
+            <div>
+                NIT: 123456789-0<br>
+                Teléfono del Propietario: 3224880905
+            </div>
+        </div>
+        <table class="table table-info-main">
+            <h3><center>Detalles de la Compra</center></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_products %}
+                    <tr>
+                        <td>{{ item.product.nombre }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.product.precio }}</td>
+                        <td>${{ item.total|floatformat:0 }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" style="background:#166d07; color:#fff; font-weight:bold;">Subtotal</td>
+                        <td style="background:#166d07; color:#fff; font-weight:bold;">${{ subtotal|floatformat:0 }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#166d07; color:#fff; font-weight:bold;">IVA (19%)</td>
+                        <td style="background:#166d07; color:#fff; font-weight:bold;">${{ iva_total|floatformat:0 }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#166d07; color:#fff; font-weight:bold;">Total a Pagar</td>
+                        <td style="background:#166d07; color:#fff; font-weight:bold;">${{ total_a_pagar|floatformat:0 }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered metodos-table">
+                <tr class="metodos-row">
+                    <th>Método de Pago</th>
+                    <td>
+                        {% if compra.metodo_pago == "neki" %}
+                        <img src="{% static 'images/Bancoalamano.png' %}" alt="Neki" class="metodo-logo">
+                        Nequi (Referencia: {{ compra.referencia_pago }})
+                        {% elif compra.metodo_pago == "efectivo" %}
+                        <img src="{% static 'images/efectivo.png' %}" alt="Efectivo" class="metodo-logo">
+                        Efectivo
+                        {% else %}
+                        {{ compra.metodo_pago|default:"-" }}
+                        {% endif %}
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ compra.cliente.nombre }} {{ compra.cliente.apellido }}</td>
-                    <td>${{ compra.total }}</td>
-                    <td>${{ compra.iva }}</td>
-                    <td>${{ compra.total_con_iva }}</td>
-                    <td>{{ compra.fecha_compra|date:"d/m/Y H:i" }}</td>
+                <tr class="metodos-row">
+                    <th>Forma de Entrega</th>
+                    <td>
+                        {% if compra.forma_entrega == "domicilio" %}
+                        Domicilio (Dirección: {{ compra.direccion_entrega }})
+                        {% elif compra.forma_entrega == "sede" %}
+                        Sede central
+                        {% else %}
+                        {{ compra.forma_entrega|default:"-" }}
+                        {% endif %}
+                    </td>
                 </tr>
-            </tbody>
-        </table>
+            </table>
+            <div class="d-flex">
+                {% if user.role == 'admin' %}
+                <a href="{% url 'validacion_compras' %}" class="btn btn-custom">Volver</a>
+                {% else %}
+                <a href="{% url 'carrito' %}" class="btn btn-custom">Volver</a>
+                {% endif %}
+                <a href="{% url 'generar_pdf' compra.id %}" class="btn btn-custom">Generar PDF</a>
+            </div>
+    </div>
 
-<h3 class="mt-4">Productos Comprados</h3>
-<table class="table table-striped table-bordered">
-    <thead class="table-header">
-        <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio Unitario</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in order_products %}
-        <tr>
-            <td>{{ item.product.nombre }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.product.precio }}</td>
-            <td>${{ item.get_total_price }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<div class="d-flex justify-content-between mt-4">
-    {% if user.role == 'admin' %}
-        <a href="{% url 'validacion_compras' %}" class="btn btn-secondary">Volver</a>
-    {% else %}
-        <a href="{% url 'carrito' %}" class="btn btn-secondary">Volver</a>
-    {% endif %}
-    <a href="{% url 'generar_pdf' compra.id %}" class="btn btn-danger">Generar PDF</a>
-</div>
     <style>
-/* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+        }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
-    background-color: #f4f6f8; /* Un gris claro suave */
-    color: #333; /* Texto principal más oscuro */
-    line-height: 1.6; /* Mejora la legibilidad del texto */
-    margin: 0; /* Elimina el margen predeterminado del body */
-    padding: 0; /* Elimina el padding predeterminado del body */
-    display: flex; /* Para centrar el contenido principal */
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente (si la altura del viewport lo permite) */
-    min-height: 100vh; /* Asegura que el body ocupe al menos la altura del viewport */
-}
+        .factura-contenedor {
+            max-width: 900px;
+            margin: 32px auto 32px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            padding: 32px 32px 24px 32px;
+        }
 
-.container {
-    background-color: #fff; /* Fondo blanco para el contenedor principal */
-    max-width: 800px;
-    margin: 2rem auto; /* Añade un poco de margen arriba y abajo */
-    padding: 30px;
-    border-radius: 8px; /* Bordes redondeados para un aspecto más suave */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sutil sombra para destacar el contenedor */
-}
-h2 {
-    font-size: 2.5rem; /* Ajusta el tamaño según necesites */
-    margin-bottom: 20px;
-    color: #333; /* Un tono de gris más oscuro */
-}
+        .info-empresa {
+            text-align: center;
+            margin-bottom: 18px;
+            font-weight: bold;
+        }
 
-h3 {
-    font-size: 1.8rem; /* Ajusta el tamaño según necesites */
-    margin-top: 30px;
-    margin-bottom: 15px;
-    color: #555; /* Otro tono de gris */
-}
-.table {
-    border: 1px solid #ccc; /* Borde más visible para la tabla */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera para elevar la tabla */
-    border-radius: 5px; /* Bordes redondeados */
-    overflow: hidden; /* Para que el borde redondeado funcione con el thead */
-}
+        .logo-pequeno {
+            height: 32px !important;
+            width: auto !important;
+            max-width: 80px !important;
+            margin-bottom: 8px;
+        }
 
-.table-header th {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 15px; /* Más espacio interno */
-    text-align: left;
-    font-weight: bold; /* Texto en negrita para los encabezados */
-    border-bottom: 2px solid #0056b3; /* Borde inferior más grueso */
-}
+        .titulo-factura {
+            text-align: center;
+            margin-bottom: 18px;
+            margin-top: 0;
+        }
 
-.table td {
-    padding: 12px 15px; /* Más espacio interno */
-    border-bottom: 1px solid #eee; /* Líneas divisorias más claras */
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 18px;
+        }
 
-.table tbody tr:last-child td {
-    border-bottom: none; /* Eliminar el borde inferior de la última fila */
-}
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
 
+        th {
+            background-color: #166d07;
+            color: #fff;
+        }
 
-.table tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Un ligero sombreado para filas pares */
-}
+        .metodos-table th,
+        .metodos-table td {
+            font-weight: bold;
+            background: #f8f8f8;
+            color: #222;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
 
+        .metodo-logo {
+            height: 40px !important;
+            width: auto !important;
+            max-width: 100px !important;
+            display: block;
+            margin: 0 auto 8px auto;
+        }
 
-.btn {
-    padding: 10px 20px; /* Más espacio interno */
-    font-size: 1rem;
-    border-radius: 8px; /* Bordes más redondeados */
-    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
-}
+        .btn-custom {
+            background: #166d07 !important;
+            color: #fff !important;
+            border: none !important;
+            text-decoration: none !important;
+            font-weight: bold;
+            padding: 8px 24px;
+            border-radius: 6px;
+            margin-right: 8px;
+            transition: background 0.2s;
+            display: inline-block;
+        }
 
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
+        .btn-custom:hover {
+            background: #228B22 !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-}
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 24px;
+        }
 
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
+        @media (max-width: 700px) {
+            .factura-contenedor {
+                padding: 10px;
+            }
 
-.btn-danger:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-}
-
-.mt-4 {
-    margin-top: 2rem; /* Aumenta un poco el margen superior */
-}
-
-.mt-5 {
-    margin-top: 4rem; /* Aumenta un poco el margen superior */
-}
-
-.d-flex {
-    display: flex; /* Utiliza flexbox para la disposición */
-    gap: 1rem; /* Espacio entre los elementos flex */
-}
-
-.justify-content-between {
-    justify-content: space-between; /* Espacio máximo entre los elementos */
-}
-
-.text-center {
-    text-align: center; /* Centra el texto */
-}    </style>
+            table,
+            th,
+            td {
+                font-size: 12px;
+            }
+        }
+    </style>
 </body>
+
 </html>

@@ -138,6 +138,12 @@ def editar_perfil(request):
         return redirect('dashboard') 
     return render(request, 'accounts/editar_perfin.html', {'user': user})
 
+def trabajadores(request):
+    cuentas = CustomUser.objects.all()
+    return render(request, 'accounts/Trabajadores.html', {'cuentas': cuentas})
+
+
+
 #------------------------------------------------
 #AQUI EL CLIENTE SERA REGISTRADO DESDE EL PANEL ADMINM
 #--------------------------------------------
@@ -377,7 +383,7 @@ def desactivar_cuenta(request, id):
     cuenta = get_object_or_404(CustomUser, id=id)
     cuenta.is_active = False
     cuenta.save()
-    return redirect('listar_registros')
+    return redirect('trabajadores')
 
 @admin_required(login_url="/accounts/login/", error_url="/error_403/")
 def eliminar_cuenta(request, id):
@@ -784,83 +790,139 @@ def eliminar_producto_carrito(request, order_product_id):
         return redirect('carrito')
 # --------------------------------------------------
 # VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
-# --------------------------------------------
-
-from django.core.mail import send_mail
-
+# ---------------------------------------------
 
 @login_required
 def finalizar_compra(request):
     order = Order.objects.filter(user=request.user, is_active=True).first()
 
     if not order or not order.orderproduct_set.exists():
-        # Si el carrito está vacío, pasa un indicador al contexto
         return render(request, 'accounts/Carrito.html', {
             'order': order,
             'total': 0,
             'iva': 0,
             'total_con_iva': 0,
-            'carrito_vacio': True  # Indicador para mostrar la alerta
+            'carrito_vacio': True
         })
 
     total = order.get_total_price()
     iva = total * Decimal('0.19')
     total_con_iva = total + iva
 
-    # Guardar el resumen de la compra
-    compra = ResumenCompra.objects.create(
-        cliente=request.user,
-        total=total,
-        iva=iva,
-        total_con_iva=total_con_iva
-    )
+    if request.method == 'POST':
+        metodo_pago = request.POST.get('metodo_pago')
+        referencia_pago = request.POST.get('referencia_neki') if metodo_pago == 'neki' else ''
+        forma_entrega = request.POST.get('forma_entrega')
+        direccion_entrega = request.POST.get('direccion_domicilio') if forma_entrega == 'domicilio' else ''
 
-    # Verificar el stock antes de finalizar la compra
-    for order_product in order.orderproduct_set.all():
-        producto = order_product.product
-        if order_product.quantity > producto.stock:
-            messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
-            return redirect('carrito')
+        compra = ResumenCompra.objects.create(
+            cliente=request.user,
+            total=total,
+            iva=iva,
+            total_con_iva=total_con_iva,
+            metodo_pago=metodo_pago,
+            referencia_pago=referencia_pago,
+            forma_entrega=forma_entrega,
+            direccion_entrega=direccion_entrega
+        )
 
-    # Asociar los productos al resumen de compra y reducir el stock
-    for order_product in order.orderproduct_set.all():
-        compra.orderproduct_set.add(order_product)
+        # Verificar el stock antes de finalizar la compra
+        for order_product in order.orderproduct_set.all():
+            producto = order_product.product
+            if order_product.quantity > producto.stock:
+                messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
+                return redirect('carrito')
 
-        # Reducir el stock del producto
-        producto = order_product.product
-        producto.stock -= order_product.quantity
-        producto.save()
+        # Asociar los productos al resumen de compra y reducir el stock
+        for order_product in order.orderproduct_set.all():
+            compra.orderproduct_set.add(order_product)
+            producto = order_product.product
+            producto.stock -= order_product.quantity
+            producto.save()
 
-    # Marcar la orden como inactiva
-    order.is_active = False
-    order.save()
+        # Marcar la orden como inactiva
+        order.is_active = False
+        order.save()
 
-    messages.success(request, "Compra finalizada con éxito.")
-    # Redirigir a la vista detalle_compra con el ID de la compra
-    return redirect('detalle_compra', compra_id=compra.id)
+        messages.success(request, "Compra finalizada con éxito.")
+        return redirect('detalle_compra', compra_id=compra.id)
 
+    # <-- ESTE BLOQUE ES EL QUE FALTABA
+    # Si la petición es GET y el carrito tiene productos, renderiza el carrito normalmente
+    return render(request, 'accounts/Carrito.html', {
+        'order': order,
+        'order_products': order.orderproduct_set.all(),
+        'total': total,
+        'iva': iva,
+        'total_con_iva': total_con_iva
+})
+
+    
 @login_required(login_url="/accounts/login/")
 def detalle_compra(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
-    order_products = compra.orderproduct_set.all()  # Obtén los productos asociados
+    order_products = compra.orderproduct_set.all()
 
-    # Verifica el rol del usuario
+    subtotal = Decimal('0.0')
+    for item in order_products:
+        # Total por producto (cantidad * precio unitario)
+        item.total = item.quantity * item.product.precio
+        subtotal += item.total
+
+    iva_total = subtotal * Decimal('0.19')
+    total_con_iva = subtotal + iva_total
+
+    # Guarda los valores para usarlos en el template
+    for item in order_products:
+        item.subtotal = item.total
+        item.iva = item.subtotal * Decimal('0.19')
+        item.total_con_iva = item.subtotal + item.iva
+
+    context = {
+        'compra': compra,
+        'order_products': order_products,
+        'subtotal': subtotal,
+        'iva_total': iva_total,
+        'total_con_iva': total_con_iva,
+        'total_a_pagar': total_con_iva,  # total a pagar es igual al total con iva
+    }
     if hasattr(request.user, 'roleCliente') and request.user.roleCliente == 'user':
-        # Renderiza el detalle de la compra para clientes
-        return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+        return render(request, 'accounts/detalle_compra.html', context)
     elif hasattr(request.user, 'role') and request.user.role == 'admin':
-        # Renderiza el detalle de la compra para administradores
-        return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+        return render(request, 'accounts/detalle_compra.html', context)
     else:
-        # Si el rol no es válido, redirige a una página de error
         messages.error(request, "No tienes permisos para acceder a esta página.")
         return redirect('error_403')
 
 @login_required
 def generar_pdf(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
+    order_products = compra.orderproduct_set.all()
+
+    subtotal = Decimal('0.0')
+    for item in order_products:
+        item.total = item.quantity * item.product.precio
+        subtotal += item.total
+
+    iva_total = subtotal * Decimal('0.19')
+    total_con_iva = subtotal + iva_total
+
+    for item in order_products:
+        item.subtotal = item.total
+        item.iva = item.subtotal * Decimal('0.19')
+        item.total_con_iva = item.subtotal + item.iva
+
+    context = {
+        'compra': compra,
+        'order_products': order_products,
+        'subtotal': subtotal,
+        'iva_total': iva_total,
+        'total_con_iva': total_con_iva,
+        'total_a_pagar': total_con_iva,
+    }
+
+    # Renderiza el PDF usando el contexto
     template = get_template('accounts/pdf_resumen.html')
-    context = {'compra': compra, 'orderproduct_set': compra.orderproduct_set.all()}  # Pass orderproduct_set to the context
     html = template.render(context)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="resumen_compra_{compra.id}.pdf"'
