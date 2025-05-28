@@ -1811,7 +1811,7 @@ tr:hover .product-name {
         
 .btn-info {
  background-color: #4eae3a;
-color: white;
+ color: white;
         }
         
 .btn-secondary {
@@ -1819,3 +1819,166 @@ padding: 7px 8px;
  background-color: #dc3545;
  color: white;
         }
+
+
+/*Nuevo cliente*/
+
+.nuevo-cliente {
+    background-color:  #27ae60;  
+    color: rgb(255, 255, 255);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    float: right;
+}
+
+.nuevo-cliente:hover {
+    background-color: #26a85c;
+    text-decoration: none;
+    color: white;
+}
+
+.nuevo-cliente:active {
+    background-color: #26a85c;
+}
+
+.nuevo-cliente:focus {
+    outline: 2px solid #26a85c;
+    outline-offset: 2px;
+}
+
+
+/*Nuevo proveedor*/
+
+.nuevo-proveedor {
+    background-color:  #27ae60;  
+    color: rgb(255, 255, 255);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    float: right;
+}
+
+.nuevo-proveedor:hover {
+    background-color: #26a85c;
+    text-decoration: none;
+    color: white;
+}
+
+.nuevo-proveedor:active {
+    background-color: #26a85c;
+}
+
+.nuevo-proveedor:focus {
+    outline: 2px solid #26a85c;
+    outline-offset: 2px;
+}
+
+/*Nuevo trabajador*/
+
+.nuevo-trabajador {
+    background-color:  #27ae60;  
+    color: rgb(255, 255, 255);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    float: right;
+}
+
+.nuevo-trabajador:hover {
+    background-color: #26a85c;
+    text-decoration: none;
+    color: white;
+}
+
+.nuevo-trabajador:active {
+    background-color: #26a85c;
+}
+
+.nuevo-trabajador:focus {
+    outline: 2px solid #26a85c;
+    outline-offset: 2px;
+}
+
+/*Habilitar e inhabilitar proveedor*/
+
+/* Estilos base para ambos botones */
+.Habilitarproveed,
+.Inhabilitarproveed {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.Habilitarproveed {
+    background-color: #28a745;
+    color: white;
+}
+
+.Habilitarproveed:hover {
+    background-color: #28a745;
+    border-color: #059669;
+    transform: translateY(-1px);
+    
+}
+
+.Habilitarproveed:active {
+    transform: translateY(0);
+}
+
+
+.Inhabilitarproveed {
+    background-color: #ef4444;
+    color: white;
+    border: 2px solid #ef4444;
+}
+
+.Inhabilitarproveed:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+}
+
+
+@media (max-width: 768px) {
+    .Habilitarproveed,
+    .Inhabilitarproveed {
+        padding: 10px 14px;
+        font-size: 13px;
+        min-width: 90px;
+    }
+}
+
+

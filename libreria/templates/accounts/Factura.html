@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Inventario - MercApp</title>
+    <title>Soporte de pagos</title>
 	<link href="{% static 'css/Factura.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -65,9 +66,10 @@
             <header class="top-bar">
                 <h1>Gestión de Recibos</h1>
                 <div class="user-menu">
-                    <i class="material-icons">notifications</i>
-                    <i class="material-icons">power_settings_new</i>
+                    <i class="material-icons logout-icon">power_settings_new</i>
                 </div>
+
+                 
             </header>
             <!-- Contenido Principal -->
             <style>
@@ -103,24 +105,6 @@
     border: 1px solid #ccc;
     width: 300px;
     max-width: 100%; /* Asegura que el input no desborde en pantallas pequeñas */
-}
-
-.search-actions button,
-.search-actions a {
-    background-color: #28a745;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    flex-shrink: 0; /* Evita que los botones se encojan demasiado */
-}
-
-.search-actions button:hover,
-.search-actions a:hover {
-    background-color: #218838; /* Efecto hover */
 }
 
 .main-content {
@@ -414,13 +398,13 @@
                     
                     <!-- Encabezado de Facturas -->
                     <div class="facturas-header">
-                        <h1>Soporte de pago de proveedores</h1>
+                        <h1>Soporte de pago a proveedores</h1>
                         <div class="search-actions">
                             <div class="search-bar">
                                 <input type="text" id="search-input" placeholder="Buscar Número de Factura:">
                                 <i class="fas fa-search search-icon"></i>
                             </div>
-                            <a href="{% url 'crear_factura' %}">Agregar</a>
+                            <a href="{% url 'crear_factura' %}" class="agregar-fact">Agregar</a>
                         </div>
                     </div>
                                         
