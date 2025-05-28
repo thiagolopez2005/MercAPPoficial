@@ -121,13 +121,144 @@
                     <h4>Total: ${{ total }} COP</h4>
                     <h4>IVA (19%): ${{ iva|floatformat:2 }} COP</h4>
                     <h4>Total con IVA: ${{ total_con_iva|floatformat:2 }} COP</h4>
-                    <a href="{% url 'finalizar_compra' %}" class="btn btn-success mt-3">Proceder al Pago</a>
+                    <form method="post" action="{% url 'finalizar_compra' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <h5>Método de Pago y Entrega</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="metodo_pago" id="pago_neki"
+                                    value="neki">
+                                <label class="form-check-label d-flex align-items-center" for="pago_neki">
+                                    <img src="{% static 'images/Bancoalamano.png' %}" alt="Neki"
+                                        style="width:32px; height:32px; margin-right:8px;">
+                                    Pago en Neki
+                                </label>
+                                <input type="text" class="form-control mt-2" id="referencia_neki" name="referencia_neki"
+                                    placeholder="Número de referencia de pago" style="display:none;">
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="metodo_pago" id="pago_efectivo"
+                                    value="efectivo">
+                                <label class="form-check-label d-flex align-items-center" for="pago_efectivo">
+                                    <img src="{% static 'images/efectivo.png' %}" alt="Efectivo"
+                                        style="width:32px; height:32px; margin-right:8px;">
+                                    Pago en efectivo
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="forma_entrega" id="sede_central"
+                                    value="sede">
+                                <label class="form-check-label" for="sede_central">
+                                    Entrega en sede central
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="forma_entrega" id="domicilio"
+                                    value="domicilio">
+                                <label class="form-check-label" for="domicilio">
+                                    Entrega a domicilio
+                                </label>
+                                <input type="text" class="form-control mt-2" id="direccion_domicilio"
+                                    name="direccion_domicilio" placeholder="Dirección de entrega" style="display:none;">
+                            </div>
+                        </div>
+                                            <button type="submit" class="btn btn-success mt-3">Proceder al Pago</button>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form[action*="finalizar_compra"]');
+            const nekiRadio = document.getElementById('pago_neki');
+            const referenciaNeki = document.getElementById('referencia_neki');
+            const domicilioRadio = document.getElementById('domicilio');
+            const direccionDomicilio = document.getElementById('direccion_domicilio');
+
+            // Mostrar/ocultar campos según selección
+            document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    referenciaNeki.style.display = nekiRadio.checked ? 'block' : 'none';
+                    if (!nekiRadio.checked) referenciaNeki.value = '';
+                });
+            });
+            document.querySelectorAll('input[name="forma_entrega"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    direccionDomicilio.style.display = domicilioRadio.checked ? 'block' : 'none';
+                    if (!domicilioRadio.checked) direccionDomicilio.value = '';
+                });
+            });
+
+            // Solo permitir 1 letra mayúscula y hasta 7 números en referencia
+            referenciaNeki.addEventListener('input', function () {
+                let val = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                // Solo permitir 1 letra al inicio y luego hasta 7 números
+                if (val.length > 0) {
+                    val = val[0].replace(/[^A-Z]/g, '');
+                    let nums = this.value.slice(1).replace(/\D/g, '').slice(0, 7);
+                    this.value = val + nums;
+                } else {
+                    this.value = '';
+                }
+            });
+
+            form.addEventListener('submit', function (e) {
+                // Validar método de pago
+                const metodoPago = form.querySelector('input[name="metodo_pago"]:checked');
+                if (!metodoPago) {
+                    alert('Debes seleccionar un método de pago.');
+                    e.preventDefault();
+                    return;
+                }
+                // Validar forma de entrega
+                const formaEntrega = form.querySelector('input[name="forma_entrega"]:checked');
+                if (!formaEntrega) {
+                    alert('Debes seleccionar una forma de entrega.');
+                    e.preventDefault();
+                    return;
+                }
+                // Si es neki, validar referencia
+                if (nekiRadio.checked) {
+                    const ref = referenciaNeki.value;
+                    if (!ref || !/^[A-Z][0-9]{7}$/.test(ref)) {
+                        alert('La referencia de Neki debe tener 1 letra mayúscula seguida de 7 números (ejemplo: A1234567).');
+                        referenciaNeki.focus();
+                        e.preventDefault();
+                        return;
+                    }
+                }
+                // Si es domicilio, validar dirección
+                if (domicilioRadio.checked) {
+                    if (!direccionDomicilio.value.trim()) {
+                        alert('Debes ingresar la dirección de entrega.');
+                        direccionDomicilio.focus();
+                        e.preventDefault();
+                        return;
+                    }
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const nekiRadio = document.getElementById('pago_neki');
+            const referenciaNeki = document.getElementById('referencia_neki');
+            const domicilioRadio = document.getElementById('domicilio');
+            const direccionDomicilio = document.getElementById('direccion_domicilio');
+
+            document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    referenciaNeki.style.display = nekiRadio.checked ? 'block' : 'none';
+                });
+            });
+            document.querySelectorAll('input[name="forma_entrega"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    direccionDomicilio.style.display = domicilioRadio.checked ? 'block' : 'none';
+                });
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             // Verifica si el carrito está vacío
             {% if carrito_vacio %}

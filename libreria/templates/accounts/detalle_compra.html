@@ -28,6 +28,30 @@
                     <td>{{ compra.fecha_compra|date:"d/m/Y H:i" }}</td>
                 </tr>
             </tbody>
+               <tr>
+        <th>Método de Pago</th>
+        <td>
+            {% if compra.metodo_pago == "neki" %}
+                Neki (Referencia: {{ compra.referencia_pago }})
+            {% elif compra.metodo_pago == "efectivo" %}
+                Efectivo
+            {% else %}
+                {{ compra.metodo_pago|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Forma de Entrega</th>
+        <td>
+            {% if compra.forma_entrega == "domicilio" %}
+                Domicilio (Dirección: {{ compra.direccion_entrega }})
+            {% elif compra.forma_entrega == "sede" %}
+                Sede central
+            {% else %}
+                {{ compra.forma_entrega|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
         </table>
 
 <h3 class="mt-4">Productos Comprados</h3>

@@ -784,61 +784,72 @@ def eliminar_producto_carrito(request, order_product_id):
         return redirect('carrito')
 # --------------------------------------------------
 # VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
-# --------------------------------------------
-
-from django.core.mail import send_mail
-
+# ---------------------------------------------
 
 @login_required
 def finalizar_compra(request):
     order = Order.objects.filter(user=request.user, is_active=True).first()
 
     if not order or not order.orderproduct_set.exists():
-        # Si el carrito está vacío, pasa un indicador al contexto
         return render(request, 'accounts/Carrito.html', {
             'order': order,
             'total': 0,
             'iva': 0,
             'total_con_iva': 0,
-            'carrito_vacio': True  # Indicador para mostrar la alerta
+            'carrito_vacio': True
         })
 
     total = order.get_total_price()
     iva = total * Decimal('0.19')
     total_con_iva = total + iva
 
-    # Guardar el resumen de la compra
-    compra = ResumenCompra.objects.create(
-        cliente=request.user,
-        total=total,
-        iva=iva,
-        total_con_iva=total_con_iva
-    )
+    if request.method == 'POST':
+        metodo_pago = request.POST.get('metodo_pago')
+        referencia_pago = request.POST.get('referencia_neki') if metodo_pago == 'neki' else ''
+        forma_entrega = request.POST.get('forma_entrega')
+        direccion_entrega = request.POST.get('direccion_domicilio') if forma_entrega == 'domicilio' else ''
 
-    # Verificar el stock antes de finalizar la compra
-    for order_product in order.orderproduct_set.all():
-        producto = order_product.product
-        if order_product.quantity > producto.stock:
-            messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
-            return redirect('carrito')
+        compra = ResumenCompra.objects.create(
+            cliente=request.user,
+            total=total,
+            iva=iva,
+            total_con_iva=total_con_iva,
+            metodo_pago=metodo_pago,
+            referencia_pago=referencia_pago,
+            forma_entrega=forma_entrega,
+            direccion_entrega=direccion_entrega
+        )
 
-    # Asociar los productos al resumen de compra y reducir el stock
-    for order_product in order.orderproduct_set.all():
-        compra.orderproduct_set.add(order_product)
+        # Verificar el stock antes de finalizar la compra
+        for order_product in order.orderproduct_set.all():
+            producto = order_product.product
+            if order_product.quantity > producto.stock:
+                messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
+                return redirect('carrito')
 
-        # Reducir el stock del producto
-        producto = order_product.product
-        producto.stock -= order_product.quantity
-        producto.save()
+        # Asociar los productos al resumen de compra y reducir el stock
+        for order_product in order.orderproduct_set.all():
+            compra.orderproduct_set.add(order_product)
+            producto = order_product.product
+            producto.stock -= order_product.quantity
+            producto.save()
 
-    # Marcar la orden como inactiva
-    order.is_active = False
-    order.save()
+        # Marcar la orden como inactiva
+        order.is_active = False
+        order.save()
 
-    messages.success(request, "Compra finalizada con éxito.")
-    # Redirigir a la vista detalle_compra con el ID de la compra
-    return redirect('detalle_compra', compra_id=compra.id)
+        messages.success(request, "Compra finalizada con éxito.")
+        return redirect('detalle_compra', compra_id=compra.id)
 
+    # <-- ESTE BLOQUE ES EL QUE FALTABA
+    # Si la petición es GET y el carrito tiene productos, renderiza el carrito normalmente
+    return render(request, 'accounts/Carrito.html', {
+        'order': order,
+        'order_products': order.orderproduct_set.all(),
+        'total': total,
+        'iva': iva,
+        'total_con_iva': total_con_iva
+})
 @login_required(login_url="/accounts/login/")
 def detalle_compra(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
