@@ -138,6 +138,12 @@ def editar_perfil(request):
         return redirect('dashboard') 
     return render(request, 'accounts/editar_perfin.html', {'user': user})
 
+def trabajadores(request):
+    cuentas = CustomUser.objects.all()
+    return render(request, 'accounts/Trabajadores.html', {'cuentas': cuentas})
+
+
+
 #------------------------------------------------
 #AQUI EL CLIENTE SERA REGISTRADO DESDE EL PANEL ADMINM
 #--------------------------------------------
@@ -377,7 +383,7 @@ def desactivar_cuenta(request, id):
     cuenta = get_object_or_404(CustomUser, id=id)
     cuenta.is_active = False
     cuenta.save()
-    return redirect('listar_registros')
+    return redirect('trabajadores')
 
 @admin_required(login_url="/accounts/login/", error_url="/error_403/")
 def eliminar_cuenta(request, id):
