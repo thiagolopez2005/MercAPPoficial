@@ -68,7 +68,7 @@ class Producto(models.Model):
     origen = models.CharField(max_length=100)
     unidad = models.FloatField()
     stock = models.IntegerField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    precio = models.DecimalField(max_digits=10, decimal_places=1)
     publicado = models.BooleanField(default=True)
     medida = models.CharField(max_length=50)
     tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')  # Nuevo campo
@@ -183,14 +183,17 @@ from django.conf import settings
 
 class ResumenCompra(models.Model):
     cliente = models.ForeignKey('CustomCliente', on_delete=models.CASCADE)  # Cambiado a CustomCliente
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    iva = models.DecimalField(max_digits=10, decimal_places=2)
-    total_con_iva = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=1)
+    iva = models.DecimalField(max_digits=10, decimal_places=1)
+    total_con_iva = models.DecimalField(max_digits=10, decimal_places=1)
     fecha_compra = models.DateTimeField(auto_now_add=True)
     orderproduct_set = models.ManyToManyField(OrderProduct)  # Relación con OrderProduct
+    pagada = models.BooleanField(default=False)  # <-- Agrega este campo
+    metodo_pago = models.CharField(max_length=20, blank=True, null=True)
+    referencia_pago = models.CharField(max_length=8, blank=True, null=True)
+    forma_entrega = models.CharField(max_length=20, blank=True, null=True)
+    direccion_entrega = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'Compra de {self.cliente.CC} - {self.fecha_compra}'
-    
-    # -----------------EDITAR PERFIN CLIENTE-----------------
     
