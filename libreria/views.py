@@ -850,28 +850,73 @@ def finalizar_compra(request):
         'iva': iva,
         'total_con_iva': total_con_iva
 })
+
+    
 @login_required(login_url="/accounts/login/")
 def detalle_compra(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
-    order_products = compra.orderproduct_set.all()  # Obtén los productos asociados
+    order_products = compra.orderproduct_set.all()
 
-    # Verifica el rol del usuario
+    subtotal = Decimal('0.0')
+    for item in order_products:
+        # Total por producto (cantidad * precio unitario)
+        item.total = item.quantity * item.product.precio
+        subtotal += item.total
+
+    iva_total = subtotal * Decimal('0.19')
+    total_con_iva = subtotal + iva_total
+
+    # Guarda los valores para usarlos en el template
+    for item in order_products:
+        item.subtotal = item.total
+        item.iva = item.subtotal * Decimal('0.19')
+        item.total_con_iva = item.subtotal + item.iva
+
+    context = {
+        'compra': compra,
+        'order_products': order_products,
+        'subtotal': subtotal,
+        'iva_total': iva_total,
+        'total_con_iva': total_con_iva,
+        'total_a_pagar': total_con_iva,  # total a pagar es igual al total con iva
+    }
     if hasattr(request.user, 'roleCliente') and request.user.roleCliente == 'user':
-        # Renderiza el detalle de la compra para clientes
-        return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+        return render(request, 'accounts/detalle_compra.html', context)
     elif hasattr(request.user, 'role') and request.user.role == 'admin':
-        # Renderiza el detalle de la compra para administradores
-        return render(request, 'accounts/detalle_compra.html', {'compra': compra, 'order_products': order_products})
+        return render(request, 'accounts/detalle_compra.html', context)
     else:
-        # Si el rol no es válido, redirige a una página de error
         messages.error(request, "No tienes permisos para acceder a esta página.")
         return redirect('error_403')
 
 @login_required
 def generar_pdf(request, compra_id):
     compra = get_object_or_404(ResumenCompra, id=compra_id)
+    order_products = compra.orderproduct_set.all()
+
+    subtotal = Decimal('0.0')
+    for item in order_products:
+        item.total = item.quantity * item.product.precio
+        subtotal += item.total
+
+    iva_total = subtotal * Decimal('0.19')
+    total_con_iva = subtotal + iva_total
+
+    for item in order_products:
+        item.subtotal = item.total
+        item.iva = item.subtotal * Decimal('0.19')
+        item.total_con_iva = item.subtotal + item.iva
+
+    context = {
+        'compra': compra,
+        'order_products': order_products,
+        'subtotal': subtotal,
+        'iva_total': iva_total,
+        'total_con_iva': total_con_iva,
+        'total_a_pagar': total_con_iva,
+    }
+
+    # Renderiza el PDF usando el contexto
     template = get_template('accounts/pdf_resumen.html')
-    context = {'compra': compra, 'orderproduct_set': compra.orderproduct_set.all()}  # Pass orderproduct_set to the context
     html = template.render(context)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="resumen_compra_{compra.id}.pdf"'
