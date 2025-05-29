@@ -527,11 +527,11 @@
                             <a href="{% url 'habilitar_producto' productos.id %}"class="habilitarproduct2">Habilitar</a>
                         {% endif %}
 
-                    {% if not producto.publicado %}
-                      <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
-                    {% else %}
-                      <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
-                {% endif %}
+                    {% if not productos.publicado %}
+                             <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar </button>
+                        {% else %}
+                            <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                        {% endif %}
                   </div>
                 </div>
                 {% empty %}
