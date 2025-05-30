@@ -66,7 +66,7 @@
           <header class="top-bar">
               <h1>Gestión productos</h1>
               <div class="user-menu">
-                  <i class="material-icons logout-icon">power_settings_new</i>
+                  <i title="Cerrar Sesión" class="material-icons logout-icon">power_settings_new</i>
               </div>
           </header>
 </head>
@@ -280,6 +280,103 @@
   }
 }
 
+/* Botón Subir Producto */
+.Subir-interno {
+    background-color: #4eae3a;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(78, 174, 58, 0.2);
+}
+
+.Subir-interno:hover {
+    background-color: #42963a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(78, 174, 58, 0.3);
+}
+
+.Subir-interno:active {
+    background-color: #3a8532;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(78, 174, 58, 0.2);
+}
+
+.Subir-interno:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(78, 174, 58, 0.4);
+}
+
+/* Botón Cancelar */
+.Cancelar-interno {
+    background-color: #525252;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(82, 82, 82, 0.2);
+    margin-left: 12px;
+}
+
+.Cancelar-interno:hover {
+    background-color: #3a3a3a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(82, 82, 82, 0.3);
+}
+
+.Cancelar-interno:active {
+    background-color: #2a2a2a;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(82, 82, 82, 0.2);
+}
+
+.Cancelar-interno:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(82, 82, 82, 0.4);
+}
+
+/* Contenedor para los botones (opcional) */
+.botones-container {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Responsive - Para pantallas pequeñas */
+@media (max-width: 768px) {
+    .Subir-interno,
+    .Cancelar-interno {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .Cancelar-interno {
+        margin-left: 0;
+    }
+    
+    .botones-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
 </style>
 
   
@@ -314,7 +411,7 @@
                   <div id="modalSubirNuevaImagen" class="modal-imagen">
                     <div class="modal-content">
                       <span class="close-modal" onclick="cerrarModalImagen()">&times;</span>
-                      <h2>Subir Nueva Imagen</h2>
+                      <h2>Subir Nuevo Producto</h2>
                       <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <p>
@@ -364,7 +461,7 @@
                         </p>
 
                         <div class="product-actions">
-                          <button type="submit" class="Subir-interno">Subir Imagen</button>
+                          <button type="submit" class="Subir-interno">Subir Producto</button>
                         <a href="{% url 'productos2' %}" class="Cancelar-interno">Cancelar</a>
                         </div>
 

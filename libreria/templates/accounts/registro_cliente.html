@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <title>Registro Cliente</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/Formulario.css' %}">
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
@@ -17,7 +17,7 @@
     </div>
     <div id="main-content">
     <section class="form-register">
-        <h4>Registro</h4>
+        <h4>Registro cliente</h4>
         <form method="post">
             {% csrf_token %}
             <p>
@@ -25,7 +25,7 @@
                 {{ form.nombre }}
             </p>
             <p>
-                <label for="id_apellido">apellido completo:</label>
+                <label for="id_apellido">Apellido completo:</label>
                 {{ form.apellido }}
             </p>
             <p>

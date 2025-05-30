@@ -296,7 +296,7 @@ font-size: 15px;
     object-fit: cover;
 }
 
-.manual-usuario {
+.manual-cliente {
     position: fixed;
     bottom: 19px;
     right: 28px;
@@ -312,7 +312,7 @@ font-size: 15px;
     /* max-width: 300px; */
 }
 
-.manual-usuario::before {
+.manual-cliente::before {
     content: '';
     position: absolute;
     bottom: 100%;
@@ -325,10 +325,10 @@ font-size: 15px;
     z-index: 1001;
 }
 
-.manual-usuario.mostrar {
+.manual-cliente.mostrar {
     display: block;
 }
 
-.manual-usuario.mostrar::before {
+.manual-cliente.mostrar::before {
     display: block;
 }
