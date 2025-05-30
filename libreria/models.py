@@ -6,7 +6,7 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
     # Cada opción es una tupla con el valor a almacenar y la etiqueta legible
     ROLE_CHOICES = (
         ('admin', 'Administrador'),
-        ('emple', 'empleado'),
+        ('emple', 'Empleado'),
     )
     # Campo para almacenar el rol del usuario, utiliza CharField con un máximo de 10 caracteres,
     # y se limita a las opciones definidas en ROLE_CHOICES. El valor por defecto es 'user'

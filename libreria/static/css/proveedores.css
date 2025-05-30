@@ -2,7 +2,10 @@
           font-family: 'Arial', sans-serif;
           color: #333;
           padding: 20px;
-          background-image: url(/static/css/Imagenes/Maracucao.png);
+          background-image: url(/static/images/Fondoproduct.jpg);
+          background-size: cover;
+          background-repeat: no-repeat;
+
         }
 
         .container {
