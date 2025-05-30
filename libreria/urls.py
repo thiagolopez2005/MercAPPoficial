@@ -98,6 +98,7 @@ urlpatterns = [
     path('validacion_compras/', views.validacion_compras, name='validacion_compras'),
     path('detalle_compra/<int:compra_id>/', views.detalle_compra, name='detalle_compra'),
     path('generar_pdf/<int:compra_id>/', views.generar_pdf, name='generar_pdf'),
-    path('error_403/', views.error_403, name='error_403'),
+    path('error_403/', views.error_403, name='error_403'),# Agrega esta línea en tu urls.py
+    path('volver-a-productos/', views.volver_a_productos, name='volver_a_productos'),
 
 ]

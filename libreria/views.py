@@ -737,18 +737,23 @@ def actualizar_cantidad(request, order_product_id):
     except ValueError:
         return JsonResponse({'error': "Cantidad inválida."}, status=400)
 
+from django.views.decorators.http import require_POST
 
+@login_required
+@require_POST
 def agregar_al_carrito(request, producto_id):
-    # Verifica si el usuario está autenticado
     if not request.user.is_authenticated:
-        messages.error(request, "Debes iniciar sesión para agregar productos al carrito.")
-        return JsonResponse({'error': 'No tienes permisos para agregar productos al carrito.'}, status=403)
-
-    if hasattr(request.user, 'role') and request.user.role in ['emple', 'admin']:
-        messages.error(request, "❌ No tienes permisos para ingresar al carrito.")
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'error': 'Debes iniciar sesión para agregar productos al carrito.'}, status=403)
+        messages.error(request, 'Debes iniciar sesión para agregar productos al carrito.')
         return redirect('Productos')
 
-    # Obtén el producto
+    if hasattr(request.user, 'role') and request.user.role in ['emple', 'admin']:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'error': 'No tienes permisos para ingresar al carrito.'}, status=403)
+        messages.error(request, 'No tienes permisos para ingresar al carrito.')
+        return redirect('Productos')
+
     producto = get_object_or_404(Producto, id=producto_id)
     cantidad = request.POST.get('cantidad', 1)
 
@@ -760,23 +765,35 @@ def agregar_al_carrito(request, producto_id):
         cantidad = 1
 
     if cantidad > producto.stock:
-        return JsonResponse({'error': f"No hay suficiente stock para el producto '{producto.nombre}'."}, status=400)
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'error': f"No hay suficiente stock para el producto '{producto.nombre}'."}, status=400)
+        messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
+        return redirect('Productos')
 
-    # Obtén o crea una orden activa para el usuario
-    order, created = Order.objects.get_or_create(user=request.user, is_active=True)
+    order = Order.objects.filter(user=request.user, is_active=True).first()
+    if not order:
+        order = Order.objects.create(user=request.user, is_active=True)
 
-    # Verifica si el producto ya está en el carrito
     order_product = OrderProduct.objects.filter(order=order, product=producto).first()
     if order_product:
-        # Incrementa la cantidad si ya existe
         order_product.quantity += cantidad
     else:
-        # Crea un nuevo registro si no existe
         order_product = OrderProduct(order=order, product=producto, quantity=cantidad)
     order_product.save()
 
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'success': f"{producto.nombre} se agregó al carrito."})
     messages.success(request, f"{producto.nombre} se agregó al carrito.")
-    return JsonResponse({'success': f"{producto.nombre} se agregó al carrito."})
+    return redirect('Productos')
+
+@login_required(login_url="/accounts/login/")
+def volver_a_productos(request):
+    # Elimina la orden activa y sus productos para el usuario actual
+    order = Order.objects.filter(user=request.user, is_active=True).first()
+    if order:
+        order.orderproduct_set.all().delete()
+        order.delete()
+    return redirect('Productos')
 
 @login_required(login_url="/accounts/login/")
 def eliminar_producto_carrito(request, order_product_id):
@@ -1148,7 +1165,7 @@ def restaurar_copia_seguridad(request, backup_id):
                 '-u', db['USER'],
                 f"--password={db['PASSWORD']}",
                 db['NAME'],
-                '--ignore'
+                # '--ignore'
             ]
 
             try:
@@ -1176,6 +1193,7 @@ def restaurar_copia_seguridad(request, backup_id):
     except (IndexError, FileNotFoundError):
         messages.error(request, "❌ Copia de seguridad no encontrada.")
         return redirect('copias_seguridad')
+    
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
 

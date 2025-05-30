@@ -185,7 +185,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-05-22 20:52:06.024635'),(2,'contenttypes','0002_remove_content_type_name','2025-05-22 20:52:06.155032'),(3,'auth','0001_initial','2025-05-22 20:52:06.667350'),(4,'auth','0002_alter_permission_name_max_length','2025-05-22 20:52:06.790289'),(5,'auth','0003_alter_user_email_max_length','2025-05-22 20:52:06.807910'),(6,'auth','0004_alter_user_username_opts','2025-05-22 20:52:06.851143'),(7,'auth','0005_alter_user_last_login_null','2025-05-22 20:52:06.871972'),(8,'auth','0006_require_contenttypes_0002','2025-05-22 20:52:06.944403'),(9,'auth','0007_alter_validators_add_error_messages','2025-05-22 20:52:06.970834'),(10,'auth','0008_alter_user_username_max_length','2025-05-22 20:52:07.036413'),(11,'auth','0009_alter_user_last_name_max_length','2025-05-22 20:52:07.110936'),(12,'auth','0010_alter_group_name_max_length','2025-05-22 20:52:07.387432'),(13,'auth','0011_update_proxy_permissions','2025-05-22 20:52:07.425245'),(14,'auth','0012_alter_user_first_name_max_length','2025-05-22 20:52:07.462964'),(15,'libreria','0001_initial','2025-05-22 20:52:09.712781'),(16,'admin','0001_initial','2025-05-22 20:52:09.959881'),(17,'admin','0002_logentry_remove_auto_add','2025-05-22 20:52:09.977147'),(18,'admin','0003_logentry_add_action_flag_choices','2025-05-22 20:52:10.020905'),(19,'sessions','0001_initial','2025-05-22 20:52:10.135163');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-05-29 22:31:33.607225'),(2,'contenttypes','0002_remove_content_type_name','2025-05-29 22:31:34.271400'),(3,'auth','0001_initial','2025-05-29 22:31:34.759741'),(4,'auth','0002_alter_permission_name_max_length','2025-05-29 22:31:34.876934'),(5,'auth','0003_alter_user_email_max_length','2025-05-29 22:31:34.886325'),(6,'auth','0004_alter_user_username_opts','2025-05-29 22:31:34.898423'),(7,'auth','0005_alter_user_last_login_null','2025-05-29 22:31:34.913549'),(8,'auth','0006_require_contenttypes_0002','2025-05-29 22:31:34.918509'),(9,'auth','0007_alter_validators_add_error_messages','2025-05-29 22:31:34.930224'),(10,'auth','0008_alter_user_username_max_length','2025-05-29 22:31:34.957297'),(11,'auth','0009_alter_user_last_name_max_length','2025-05-29 22:31:34.967934'),(12,'auth','0010_alter_group_name_max_length','2025-05-29 22:31:35.182552'),(13,'auth','0011_update_proxy_permissions','2025-05-29 22:31:35.194075'),(14,'auth','0012_alter_user_first_name_max_length','2025-05-29 22:31:35.202835'),(15,'libreria','0001_initial','2025-05-29 22:31:38.225604'),(16,'admin','0001_initial','2025-05-29 22:31:38.485092'),(17,'admin','0002_logentry_remove_auto_add','2025-05-29 22:31:38.502021'),(18,'admin','0003_logentry_add_action_flag_choices','2025-05-29 22:31:38.536403'),(19,'sessions','0001_initial','2025-05-29 22:31:38.596691');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +211,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('dqkf2rxivi9sdtsndqc1a3yrr06etxxp','.eJxVjDsOwjAQBe_iGln-EH8o6XMGa727wQFkS3FSIe4OkVJA-2bmvUSCbS1p67ykmcRFaHH63TLgg-sO6A711iS2ui5zlrsiD9rl2Iif18P9OyjQy7cG5QnPJgTw5Hii6KM2kx4GS97a7I1DVECOLGTl0GmmGKImjANHzizeH-oXOHM:1uIDwj:cqHsB04WBva78Kr-jBE_qCKefrwdKJAScL95c_4ovEA','2025-06-05 21:59:25.007411'),('excpd4ekbkj4sxe64ikfxs1r9abs5fva','.eJxVjDsOwjAQBe_iGln-EH8o6XMGa727wQFkS3FSIe4OkVJA-2bmvUSCbS1p67ykmcRFaHH63TLgg-sO6A711iS2ui5zlrsiD9rl2Iif18P9OyjQy7cG5QnPJgTw5Hii6KM2kx4GS97a7I1DVECOLGTl0GmmGKImjANHzizeH-oXOHM:1uIWA4:_Ijhn3kHEkY0E0BbhW30Wf98xqoMNaZrUCUcT56mCG0','2025-06-06 17:26:24.994835'),('gqwxbdoykyv6phnhenmk6hrreef6kk2y','.eJxVjDsOwjAQBe_iGln-EH8o6XMGa727wQFkS3FSIe4OkVJA-2bmvUSCbS1p67ykmcRFaHH63TLgg-sO6A711iS2ui5zlrsiD9rl2Iif18P9OyjQy7cG5QnPJgTw5Hii6KM2kx4GS97a7I1DVECOLGTl0GmmGKImjANHzizeH-oXOHM:1uIDv1:oUZsvg1ESznHwu_jWjk7NZtnyPmFN5Hk3d6ug3IRF8c','2025-06-05 21:57:39.760649'),('n4lmw0yhxpsyadkbdts24gg4xr9pxhw1','.eJxVjDsOwjAQBe_iGln-EH8o6XMGa727wQFkS3FSIe4OkVJA-2bmvUSCbS1p67ykmcRFaHH63TLgg-sO6A711iS2ui5zlrsiD9rl2Iif18P9OyjQy7cG5QnPJgTw5Hii6KM2kx4GS97a7I1DVECOLGTl0GmmGKImjANHzizeH-oXOHM:1uIDAl:Wj8F8k3oFINGRsv4rQnIglGWJf0ZjvJ_u_hyMkpb56s','2025-06-05 21:09:51.018443'),('smj8mak1eoybl1vlch6ma7x9apijqdcw','.eJxVjDsOwjAQBe_iGln-EH8o6XMGa727wQFkS3FSIe4OkVJA-2bmvUSCbS1p67ykmcRFaHH63TLgg-sO6A711iS2ui5zlrsiD9rl2Iif18P9OyjQy7cG5QnPJgTw5Hii6KM2kx4GS97a7I1DVECOLGTl0GmmGKImjANHzizeH-oXOHM:1uIWPK:NlbyNhwN1Eq-p9-91yje0CaAU-hY_YJURIxchp77bs0','2025-06-06 17:42:10.587111');
+INSERT INTO `django_session` VALUES ('8fj4ey9qxj4yvqgt0e7m65xv04y3s75b','.eJxVjEEOwiAQRe_C2hBKmaG4dO8ZyMAMUjVtUtqV8e7apAvd_vfef6lI21rj1mSJI6uz6tTpd0uUHzLtgO803Wad52ldxqR3RR-06evM8rwc7t9BpVa_de-sR-DAg_NkBWiAQNhnK5aheHICnUcniAAmsysJSobQYzCYjA_q_QHK1Dcx:1uKlnu:h5HLfDTxLWv7CsHOh-01vePf4pZlj43KO_-ZCAS7OF0','2025-06-12 22:32:50.233170');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,7 +243,7 @@ CREATE TABLE `libreria_customcliente` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `CC` (`CC`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +252,6 @@ CREATE TABLE `libreria_customcliente` (
 
 LOCK TABLES `libreria_customcliente` WRITE;
 /*!40000 ALTER TABLE `libreria_customcliente` DISABLE KEYS */;
-INSERT INTO `libreria_customcliente` VALUES (1,'pbkdf2_sha256$1000000$XRcNoGxRYHFp0U2HDKKOqZ$KgqbgtN4MkLSPS+Fo132By2teWDHP2ledKIOVKizz08=','2025-05-22 21:09:24.975254',0,'1111111111','','',0,1,'2025-05-22 20:53:19.518719','user','Cliente@gmail.com','91847812','1111111111','Prueba','Cliente');
 /*!40000 ALTER TABLE `libreria_customcliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,7 +349,7 @@ CREATE TABLE `libreria_customuser` (
 
 LOCK TABLES `libreria_customuser` WRITE;
 /*!40000 ALTER TABLE `libreria_customuser` DISABLE KEYS */;
-INSERT INTO `libreria_customuser` VALUES (1,'pbkdf2_sha256$1000000$FgardYe8e7BXl2VC75kgMm$SmGuqT1anu0VTFYwWwGtged6R/PyOugElm9FQeQNuqA=','2025-05-23 17:42:10.542983',0,'1051472774','','','2025-05-22 20:54:15.812295','admin','milenaholguin95@gmail.com','1204701279','1051472774','Thiago Lopez','__',' No activo',1,0);
+INSERT INTO `libreria_customuser` VALUES (1,'pbkdf2_sha256$1000000$G7j6uAQSCrPjf2aWVpnFok$EnYbzCB1CbUZMFcKPHcxxvJPlju4Y9I4Im/VUkzU5K8=','2025-05-29 22:32:50.220470',0,'1051472774','','','2025-05-29 22:32:41.029112','admin','milenaholguin95@gmail.com','jasdhkasjd','1051472774','Thiago','Lopez',' No activo',1,0);
 /*!40000 ALTER TABLE `libreria_customuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -452,7 +451,7 @@ CREATE TABLE `libreria_order` (
   PRIMARY KEY (`id`),
   KEY `libreria_order_user_id_dab8c87f_fk_libreria_customcliente_id` (`user_id`),
   CONSTRAINT `libreria_order_user_id_dab8c87f_fk_libreria_customcliente_id` FOREIGN KEY (`user_id`) REFERENCES `libreria_customcliente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -461,7 +460,6 @@ CREATE TABLE `libreria_order` (
 
 LOCK TABLES `libreria_order` WRITE;
 /*!40000 ALTER TABLE `libreria_order` DISABLE KEYS */;
-INSERT INTO `libreria_order` VALUES (1,'2025-05-22 20:57:25.760109','2025-05-22 20:57:55.641077',0,1),(2,'2025-05-22 20:57:59.807597','2025-05-22 20:58:27.953800',0,1),(3,'2025-05-22 20:58:30.078097','2025-05-22 21:09:38.581006',0,1),(4,'2025-05-22 21:09:40.445522','2025-05-22 21:09:40.445564',1,1);
 /*!40000 ALTER TABLE `libreria_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -483,7 +481,7 @@ CREATE TABLE `libreria_orderproduct` (
   CONSTRAINT `libreria_orderproduc_product_id_734f2894_fk_libreria_` FOREIGN KEY (`product_id`) REFERENCES `libreria_producto` (`id`),
   CONSTRAINT `libreria_orderproduct_order_id_3d703383_fk_libreria_order_id` FOREIGN KEY (`order_id`) REFERENCES `libreria_order` (`id`),
   CONSTRAINT `libreria_orderproduct_chk_1` CHECK ((`quantity` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -492,7 +490,6 @@ CREATE TABLE `libreria_orderproduct` (
 
 LOCK TABLES `libreria_orderproduct` WRITE;
 /*!40000 ALTER TABLE `libreria_orderproduct` DISABLE KEYS */;
-INSERT INTO `libreria_orderproduct` VALUES (1,1,1,1),(2,8,1,1),(3,10,1,2),(4,1,2,1),(5,1,2,1),(6,1,2,2),(7,5,3,1),(8,5,3,1),(9,4,3,2);
 /*!40000 ALTER TABLE `libreria_orderproduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -511,13 +508,13 @@ CREATE TABLE `libreria_producto` (
   `origen` varchar(100) COLLATE utf8mb3_spanish2_ci NOT NULL,
   `unidad` double NOT NULL,
   `stock` int NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
+  `precio` decimal(10,1) NOT NULL,
   `publicado` tinyint(1) NOT NULL,
   `medida` varchar(50) COLLATE utf8mb3_spanish2_ci NOT NULL,
   `tipoproducto` varchar(20) COLLATE utf8mb3_spanish2_ci NOT NULL,
   `habilitado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -526,7 +523,7 @@ CREATE TABLE `libreria_producto` (
 
 LOCK TABLES `libreria_producto` WRITE;
 /*!40000 ALTER TABLE `libreria_producto` DISABLE KEYS */;
-INSERT INTO `libreria_producto` VALUES (1,'productos/Aguacate.jpg','Aguacate','NA','NA',1,979,12000.00,1,'KILO','frutas',1),(2,'productos/Maracuya.jpg','MARACUYA','NA','NA',1,985,12000.00,1,'KILO','frutas',1),(3,'productos/mango.jpg','Mango','maguitoss','na',2,10000,3400.00,1,'kilos','hortalizas',1);
+INSERT INTO `libreria_producto` VALUES (1,'productos/Aguacate_LUTxsf6.jpg','Aguacate','agucateriko','Yopal',1,100,1200.0,1,'unidad','frutas',1),(2,'productos/Maracuya_YIXg8Zp.jpg','Maracuya','Maracuya rika :v','casanare',2,100,2500.0,1,'bandejas','frutas',1),(3,'productos/Yuca.jpg','Yuca','yuca','boayca',4,100,6700.0,1,'bandeja','tuberculos',1),(4,'productos/Platano_Maduro.jpg','Platano','platano','yopal',3,100,7800.0,1,'unidad','hortalizas',1),(5,'productos/agricultores_maracuya2.jpeg','papa','papa','canare',50,10000,13000.0,1,'bolsa','verduras',1);
 /*!40000 ALTER TABLE `libreria_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -574,7 +571,7 @@ CREATE TABLE `libreria_registroactividad` (
   PRIMARY KEY (`id`),
   KEY `libreria_registroact_usuario_id_e332a7f9_fk_libreria_` (`usuario_id`),
   CONSTRAINT `libreria_registroact_usuario_id_e332a7f9_fk_libreria_` FOREIGN KEY (`usuario_id`) REFERENCES `libreria_customuser` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -583,7 +580,7 @@ CREATE TABLE `libreria_registroactividad` (
 
 LOCK TABLES `libreria_registroactividad` WRITE;
 /*!40000 ALTER TABLE `libreria_registroactividad` DISABLE KEYS */;
-INSERT INTO `libreria_registroactividad` VALUES (1,'2025-05-22 20:55:57.457978','Registro de producto','Se agregó un nuevo producto: Aguacate',1),(2,'2025-05-22 20:56:31.979816','Registro de producto','Se agregó un nuevo producto: MARACUYA',1),(3,'2025-05-23 17:38:16.586857','Registro de producto','Se agregó un nuevo producto: Mango',1);
+INSERT INTO `libreria_registroactividad` VALUES (1,'2025-05-29 22:37:35.091569','Registro de producto','Se agregó un nuevo producto: Aguacate',1),(2,'2025-05-29 22:38:28.967441','Registro de producto','Se agregó un nuevo producto: Maracuya',1),(3,'2025-05-29 22:39:24.471886','Registro de producto','Se agregó un nuevo producto: Yuca',1),(4,'2025-05-29 22:41:35.534950','Registro de producto','Se agregó un nuevo producto: Platano',1),(5,'2025-05-29 22:42:49.197310','Registro de producto','Se agregó un nuevo producto: papa',1);
 /*!40000 ALTER TABLE `libreria_registroactividad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -596,15 +593,20 @@ DROP TABLE IF EXISTS `libreria_resumencompra`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `libreria_resumencompra` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `total` decimal(10,2) NOT NULL,
-  `iva` decimal(10,2) NOT NULL,
-  `total_con_iva` decimal(10,2) NOT NULL,
+  `total` decimal(10,1) NOT NULL,
+  `iva` decimal(10,1) NOT NULL,
+  `total_con_iva` decimal(10,1) NOT NULL,
   `fecha_compra` datetime(6) NOT NULL,
+  `pagada` tinyint(1) NOT NULL,
+  `metodo_pago` varchar(20) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
+  `referencia_pago` varchar(8) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
+  `forma_entrega` varchar(20) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
+  `direccion_entrega` varchar(255) COLLATE utf8mb3_spanish2_ci DEFAULT NULL,
   `cliente_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `libreria_resumencomp_cliente_id_88907a3f_fk_libreria_` (`cliente_id`),
   CONSTRAINT `libreria_resumencomp_cliente_id_88907a3f_fk_libreria_` FOREIGN KEY (`cliente_id`) REFERENCES `libreria_customcliente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -613,7 +615,6 @@ CREATE TABLE `libreria_resumencompra` (
 
 LOCK TABLES `libreria_resumencompra` WRITE;
 /*!40000 ALTER TABLE `libreria_resumencompra` DISABLE KEYS */;
-INSERT INTO `libreria_resumencompra` VALUES (1,228000.00,43320.00,271320.00,'2025-05-22 20:57:55.478539',1),(2,36000.00,6840.00,42840.00,'2025-05-22 20:58:27.840095',1),(3,168000.00,31920.00,199920.00,'2025-05-22 21:09:38.491192',1);
 /*!40000 ALTER TABLE `libreria_resumencompra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -633,7 +634,7 @@ CREATE TABLE `libreria_resumencompra_orderproduct_set` (
   KEY `libreria_resumencomp_orderproduct_id_8f0ce075_fk_libreria_` (`orderproduct_id`),
   CONSTRAINT `libreria_resumencomp_orderproduct_id_8f0ce075_fk_libreria_` FOREIGN KEY (`orderproduct_id`) REFERENCES `libreria_orderproduct` (`id`),
   CONSTRAINT `libreria_resumencomp_resumencompra_id_952d761c_fk_libreria_` FOREIGN KEY (`resumencompra_id`) REFERENCES `libreria_resumencompra` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -642,7 +643,6 @@ CREATE TABLE `libreria_resumencompra_orderproduct_set` (
 
 LOCK TABLES `libreria_resumencompra_orderproduct_set` WRITE;
 /*!40000 ALTER TABLE `libreria_resumencompra_orderproduct_set` DISABLE KEYS */;
-INSERT INTO `libreria_resumencompra_orderproduct_set` VALUES (1,1,1),(2,1,2),(3,1,3),(4,2,4),(5,2,5),(6,2,6),(7,3,7),(8,3,8),(9,3,9);
 /*!40000 ALTER TABLE `libreria_resumencompra_orderproduct_set` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -655,4 +655,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-23 12:59:52
+-- Dump completed on 2025-05-29 17:43:23
