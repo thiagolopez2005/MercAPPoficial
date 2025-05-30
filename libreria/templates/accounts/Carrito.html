@@ -118,20 +118,22 @@
                         {% endfor %}
                     </ul>
                     <hr>
-                    <h4>Total: ${{ total }} COP</h4>
-                    <h4>IVA (19%): ${{ iva|floatformat:2 }} COP</h4>
-                    <h4>Total con IVA: ${{ total_con_iva|floatformat:2 }} COP</h4>
+                    <h5>Total: ${{ total }} COP</h5>
+                    <h5>IVA (19%): ${{ iva|floatformat:2 }} COP</h5>
+                    <h5>Total con IVA: ${{ total_con_iva|floatformat:2 }} COP</h5>
                     <form method="post" action="{% url 'finalizar_compra' %}">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <h5>Método de Pago y Entrega</h5>
+                            <h5 style="margin-top: 20px;">Método de Pago</h5>
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="metodo_pago" id="pago_neki"
                                     value="neki">
                                 <label class="form-check-label d-flex align-items-center" for="pago_neki">
-                                    <img src="{% static 'images/Bancoalamano.png' %}" alt="Neki"
-                                        style="width:32px; height:32px; margin-right:8px;">
-                                    Pago en Neki
+                                    <img src="{% static 'images/nequiclar.png' %}" alt="Neki" id="nequi-claro"
+                                        style="width:70px; height:26px; margin-right:8px;">
+                                     <img src="{% static 'images/nequiosc.png' %}" alt="Neki" id="nequi-oscuro"
+                                        style="width:70px; height:26px; margin-right:8px;display: none;">
+                                    Pago en Nequi
                                 </label>
                                 <input type="text" class="form-control mt-2" id="referencia_neki" name="referencia_neki"
                                     placeholder="Número de referencia de pago" style="display:none;">
@@ -140,22 +142,34 @@
                                 <input class="form-check-input" type="radio" name="metodo_pago" id="pago_efectivo"
                                     value="efectivo">
                                 <label class="form-check-label d-flex align-items-center" for="pago_efectivo">
-                                    <img src="{% static 'images/efectivo.png' %}" alt="Efectivo"
-                                        style="width:32px; height:32px; margin-right:8px;">
+                                    <img src="{% static 'images/efectivo.png' %}" alt="Efectivo" id="efectivo-claro"
+                                        style="width:50px; height:50px; margin-left: 8px; margin-right:13px;">
+                                    <img src="{% static 'images/efectivoscuro.png' %}" alt="Efectivo" id="efectivo-oscuro"
+                                        style="width:50px; height:50px; margin-left: 8px; margin-right:13px;display: none;">
                                     Pago en efectivo
                                 </label>
                             </div>
+                            <h5  style="margin-top: 20px;">Método de entrega</h5>
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="forma_entrega" id="sede_central"
                                     value="sede">
                                 <label class="form-check-label" for="sede_central">
-                                    Entrega en sede central
+                                    <img src="{% static 'images/localclar.png' %}" alt="Efectivo" id="local-claro"
+                                        style="width:50px; height:50px; margin-left: 4px; ">
+                                    <img src="{% static 'images/localosc.png' %}" alt="Efectivo" id="local-oscuro"
+                                        style="width:50px; height:50px; margin-left: 4px; display: none;">
+                                    Entrega en Coomproriente<br> 
+                                    (Puesto N° 198)<br>
                                 </label>
                             </div>
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="forma_entrega" id="domicilio"
                                     value="domicilio">
                                 <label class="form-check-label" for="domicilio">
+                                    <img src="{% static 'images/repartidorclar.png' %}" alt="Efectivo" id="domicilio-claro"
+                                        style="width:60px; height:50px; margin-left: 8px; margin-right:6px;">
+                                    <img src="{% static 'images/repartidorosc.png' %}" alt="Efectivo" id="domicilio-oscuro"
+                                        style="width:60px; height:50px; margin-left: 8px; margin-right:6px;display: none;">
                                     Entrega a domicilio
                                 </label>
                                 <input type="text" class="form-control mt-2" id="direccion_domicilio"
@@ -336,7 +350,17 @@
             });
         });
     </script>
+    
+     <div class="Ayuda" id="botonManual">
+        <img src="{% static 'images/signo.png' %}" alt="Botón Manual">
+    </div>
 
+       
+        <div class="manual-cliente" id="manualTexto">
+            <a href="{% static 'pdfs/MERCAPPManualCliente.pdf' %}" target="_blank" download>
+              Manual Cliente
+             </a>
+        </div>
 
     <footer class="footer">
         <div class="footer-section">
@@ -358,9 +382,9 @@
             <h4>Contactos</h4>
             <ul class="contact-info">
                 <li>📞 Teléfono: (57) 313-261-7684</li>
-                <li>✉️ Email: wonpeña@gmail.com</li>
-                <li>🏢 Km 0, Sogamoso - Duitama</li>
-                <li>🏪 (Corporiente Puesto N° 85-86)</li>
+                <li>✉️ Email: Njbor@gmail.com</li>
+                <li>🏢 Km 0, Tibasosa - Duitama</li>
+                <li>🏪 (Coomproriente Puesto N° 198)</li>
             </ul>
         </div>
 
@@ -399,6 +423,7 @@
     <script src="{% static 'js/carrito.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/sienna.js' %}"></script>
+    <script src="{% static 'js/manualcliente.js' %}"></script>
 
 </body>
 

@@ -71,6 +71,101 @@
 [data-asw-filter="light-contrast"] #logo-claro {
     display: block !important;
 }
+
+
+
+/*Carrito imagenes*/
+
+/*Nequi*/
+
+/* Oculta la imagen clara por defecto en modo oscuro */
+[data-asw-filter="dark-contrast"] #nequi-claro {
+    display: none !important;
+}
+
+/* Muestra la imagen oscura en modo oscuro */
+[data-asw-filter="dark-contrast"] #nequi-oscuro {
+    display: block !important;
+}
+
+/* Oculta la imagen oscura por defecto en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #nequi-oscuro {
+    display: none !important;
+}
+
+/* Muestra la imagen clara en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #nequi-claro {
+    display: block !important;
+}
+
+
+/*Efectivo*/
+
+/* Oculta la imagen clara por defecto en modo oscuro */
+[data-asw-filter="dark-contrast"] #efectivo-claro {
+    display: none !important;
+}
+
+/* Muestra la imagen oscura en modo oscuro */
+[data-asw-filter="dark-contrast"] #efectivo-oscuro {
+    display: block !important;
+}
+
+/* Oculta la imagen oscura por defecto en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #efectivo-oscuro {
+    display: none !important;
+}
+
+/* Muestra la imagen clara en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #efectivo-claro {
+    display: block !important;
+}
+
+
+/*Local*/
+
+/* Oculta la imagen clara por defecto en modo oscuro */
+[data-asw-filter="dark-contrast"] #local-claro {
+    display: none !important;
+}
+
+/* Muestra la imagen oscura en modo oscuro */
+[data-asw-filter="dark-contrast"] #local-oscuro {
+    display: block !important;
+}
+
+/* Oculta la imagen oscura por defecto en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #local-oscuro {
+    display: none !important;
+}
+
+/* Muestra la imagen clara en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #local-claro {
+    display: block !important;
+}
+
+/*Domicilio*/
+
+/* Oculta la imagen clara por defecto en modo oscuro */
+[data-asw-filter="dark-contrast"] #domicilio-claro {
+    display: none !important;
+}
+
+/* Muestra la imagen oscura en modo oscuro */
+[data-asw-filter="dark-contrast"] #domicilio-oscuro {
+    display: block !important;
+}
+
+/* Oculta la imagen oscura por defecto en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #domicilio-oscuro {
+    display: none !important;
+}
+
+/* Muestra la imagen clara en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #domicilio-claro {
+    display: block !important;
+}
+
 /* Estilos para el contenedor principal de las secciones (si quieres oscurecerlo) */
 [data-asw-filter="dark-contrast"] .sections-container {
     background-color: var(--dark-secondary) !important;
