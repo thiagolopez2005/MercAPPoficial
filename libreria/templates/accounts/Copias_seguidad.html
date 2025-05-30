@@ -163,13 +163,43 @@
         .btn-delete:hover {
             background-color: #c82333;
         }
+
+        .copia {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+            margin-top: 15px;
+        }
+
+        .copia:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .copia:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+        }
+
+        .copia:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
     </style>
     <div class="containercopias">
         <h1>Copias de Seguridad</h1>
         <p>Realiza una copia de seguridad de la base de datos para proteger tus datos importantes.</p>
         <form method="POST" action="{% url 'crear_copia_seguridad' %}">
             {% csrf_token %}
-            <button type="submit" class="btn">Crear Copia de Seguridad</button>
+            <button type="submit" class="copia">Crear Copia de Seguridad</button>
         </form>
         <div class="backup-list">
             <h2>Copias de Seguridad Disponibles</h2>
