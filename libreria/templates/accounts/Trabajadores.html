@@ -124,18 +124,16 @@
                                             </svg>
                                         </div>
                                     </a>
-                                        {% if proveedor.activo %}
-                                        <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}" class="d-inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="Inhabilitartrabaj">Inhabilitar</button>
-                                        </form>
+                                        {% if cuenta.is_active %}
+                                            <form method="post" action="{% url 'desactivar_cuenta' cuenta.id %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="Inhabilitartrabaj">Inhabilitar</button>
+                                            </form>
                                         {% else %}
-
-                                        <form method="post" action="{% url 'activar_cuenta' cuenta.id %}" class="d-inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="Habilitartrabaj">Habilitar</button>
-
-                                        </form>
+                                            <form method="post" action="{% url 'activar_cuenta' cuenta.id %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="Habilitartrabaj">Habilitar</button>
+                                            </form>
                                         {% endif %}
                                     </div>
                                 </td>
