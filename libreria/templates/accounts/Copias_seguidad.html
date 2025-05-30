@@ -73,126 +73,253 @@
 
             <style>
 
-        .btn-restore {
-            background-color: #ffc107;
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            color: white;
-        }
-        
-        .btn-restore:hover {
-            background-color: #e0a800;
-        }
-        .containercopias {
-            max-width: 800px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1, h2 {
-            color: #333;
-            text-align: center;
-        }
-        
-        p {
-            text-align: center;
-            color: #666;
-        }
-        
-        form {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        
-        .backup-list ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .backup-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f9f9f9;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-download, .btn-delete {
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            color: white;
-        }
-        
-        .btn-download {
-            background-color: #28a745;
-        }
-        
-        .btn-download:hover {
-            background-color: #218838;
-        }
-        
-        .btn-delete {
-            background-color: #dc3545;
-        }
-        
-        .btn-delete:hover {
-            background-color: #c82333;
-        }
+       .btn-restore {
+    background-color: #ffc107;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
 
-        .copia {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
-            margin-top: 15px;
-        }
+.btn-restore:hover {
+    background-color: #e0a800;
+}
 
-        .copia:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-        }
+.containercopias {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+}
 
-        .copia:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
-        }
+h1, h2 {
+    color: #333;
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+}
 
-        .copia:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-        }
+p {
+    text-align: center;
+    color: #666;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    line-height: 1.5;
+}
+
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: clamp(14px, 2.5vw, 16px);
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.backup-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.backup-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.backup-info {
+    flex: 1;
+    min-width: 200px;
+    word-break: break-word;
+}
+
+.backup-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-download, .btn-delete, .btn-restore {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+    transition: all 0.3s ease;
+}
+
+.btn-download {
+    background-color: #28a745;
+}
+
+.btn-download:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.copia {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+    margin-top: 15px;
+    width: 100%;
+    max-width: 250px;
+}
+
+.copia:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.copia:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+.copia:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Media Queries para diferentes tamaños de pantalla */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .containercopias {
+        margin: 10px;
+        padding: 15px;
+        width: calc(100% - 20px);
+    }
+    
+    .backup-list li {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 15px 10px;
+    }
+    
+    .backup-info {
+        margin-bottom: 10px;
+        min-width: auto;
+    }
+    
+    .backup-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .btn-download, .btn-delete, .btn-restore {
+        flex: 1;
+        min-width: 100px;
+        margin: 2px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .containercopias {
+        margin: 5px;
+        padding: 10px;
+        width: calc(100% - 10px);
+    }
+    
+    h1, h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .backup-list li {
+        padding: 10px;
+        margin: 8px 0;
+    }
+    
+    .backup-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .btn-download, .btn-delete, .btn-restore {
+        width: 100%;
+        min-width: auto;
+        margin: 2px 0;
+        padding: 10px;
+    }
+    
+    .btn, .copia {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 320px) {
+    .containercopias {
+        padding: 8px;
+    }
+    
+    h1, h2 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.85rem;
+    }
+    
+    .backup-list li {
+        padding: 8px;
+    }
+    
+    .btn-download, .btn-delete, .btn-restore {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
     </style>
     <div class="containercopias">
         <h1>Copias de Seguridad</h1>

@@ -232,6 +232,7 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     border-left: 4px solid var(--primary-color);
+    margin-left: 46px;
 }
 
 .top-bar::before {
@@ -741,7 +742,7 @@ h2:hover::after {
     transition: background-color 0.3s ease;
     position: relative; 
     top: -1vw; 
-    right: -3vw;
+    right: 0vw;
 }
 
 /* Modal Actions */
