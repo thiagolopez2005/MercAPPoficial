@@ -81,8 +81,8 @@
                     <a href="{% url 'register' %}" class="nuevo-trabajador">Nuevo Trabajador</a>
                 </div>
                 <div class="search-bar mt-3">
-                    <input type="text" id="search-input" class="form-control"
-                        placeholder="Buscar proveedor por nombre...">
+                <input type="text" id="search-input" placeholder="Buscar trabajador">
+                <i class="fa fa-search"></i>
                 </div>
 
                 <div class="users-table-container mt-4">
@@ -101,7 +101,7 @@
                         <tbody>
                             {% for cuenta in cuentas %}
                             <tr>
-                                <td>{{ cuenta.nombre }} {{ cuenta.apellido }}</td>
+                                <td class="provider-name">{{ cuenta.nombre }} {{ cuenta.apellido }}</td>
                                 <td>{{ cuenta.cec }}</td>
                                 <td>{{ cuenta.email }}</td>
                                 <td>{{ cuenta.role }}</td>
@@ -153,5 +153,7 @@
   
     </body>
     <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/filtros.js' %}"></script>
+
 </html>
 

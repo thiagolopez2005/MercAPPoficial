@@ -81,14 +81,14 @@
                     </td>
                 </tr>
             </table>
-            <div class="d-flex">
-                {% if user.role == 'admin' %}
+        <div class="d-flex">
+            {% if user.role == 'admin' %}
                 <a href="{% url 'validacion_compras' %}" class="btn btn-custom">Volver</a>
-                {% else %}
-                <a href="{% url 'carrito' %}" class="btn btn-custom">Volver</a>
-                {% endif %}
-                <a href="{% url 'generar_pdf' compra.id %}" class="btn btn-custom">Generar PDF</a>
-            </div>
+            {% else %}
+                <a href="{% url 'volver_a_productos' %}" class="btn btn-custom">Volver</a>
+            {% endif %}
+            <a href="{% url 'generar_pdf' compra.id %}" class="btn btn-custom">Generar PDF</a>
+        </div>
     </div>
 
     <style>

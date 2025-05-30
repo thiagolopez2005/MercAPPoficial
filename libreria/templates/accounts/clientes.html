@@ -93,7 +93,7 @@
                         <tbody>
                             {% for cliente in clientes %}
                                 <tr>
-                                    <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+                                    <td class="provider-name">{{ cliente.nombre }} {{ cliente.apellido }}</td>
                                     <td>{{ cliente.CC }}</td>
                                     <td>{{ cliente.email }}</td>
                                     <td>{{ cliente.telefono }}</td>
@@ -150,5 +150,6 @@
 </main>
 </div>
  <script src="{% static 'js/dashboard.js' %}"></script>
+ <script src="{% static 'js/filtros.js' %}"></script>
 </body>
 </html>

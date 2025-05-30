@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Empleado- MercApp</title>
-	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -14,10 +14,10 @@
         <aside class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
+                    <img src="{% static 'images/Admin.png' %}" alt="Perfil Admin">
                 </div>
-                <p>{{ request.user.username }}</p>
-                <p>Bienvenido a MercApp</p>
+                <h3>{{ request.user.nombre }}</h3>
+                <p>EMPLEADO</p>
             </div>
             <nav class="menu">
                 <ul>
@@ -38,9 +38,9 @@
             <header class="top-bar">
                 <h1>Panel de Control</h1>
                 <div class="user-menu">
-                    <i class="material-icons">notifications</i>
+
                     <i class="material-icons">power_settings_new</i>
-                    <span>{{ request.user.username }}</span>
+                    <span>{{ request.user.nombre }}</span>
                     <img src="{% static 'images/Empleado.png' %}"alt="Perfil Usuario">
                 </div>
             </header>
@@ -81,5 +81,24 @@
     <script src="{% static 'js/dashboard.js' %}"></script>
     
     <script src="{% static 'js/empleinve.js' %}"></script>
+                <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const searchInput = document.getElementById("search-input");
+                    const tableRows = document.querySelectorAll("#providers-table tbody tr");
+                
+                    searchInput.addEventListener("input", function () {
+                        const filter = searchInput.value.toLowerCase();
+                
+                        tableRows.forEach(row => {
+                            const providerName = row.querySelector(".provider-name").textContent.toLowerCase();
+                            if (providerName.includes(filter)) {
+                                row.style.display = ""; // Mostrar fila
+                            } else {
+                                row.style.display = "none"; // Ocultar fila
+                            }
+                        });
+                    });
+                });
+            </script>
 </body>
 </html> 

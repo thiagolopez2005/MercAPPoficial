@@ -289,7 +289,7 @@
               <h1>Catálogo de Productos</h1>
               <div class="search-actions">
                 <div class="search-bar">
-                  <input type="text" placeholder="Buscar productos...">
+                  <input type="text" id="search-producto" placeholder="Buscar productos...">
                   <button class="search-button">
                     <i class="material-icons">search</i>
                   </button>
@@ -424,7 +424,7 @@
                       {% else %}
                           <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                       {% endif %}
-                      <h3>{{ productos.nombre }}</h3>
+                      <h3 class="nombre-producto">{{ productos.nombre }}</h3>
                       <p>{{ productos.descripcion }}</p>
                       <p>Precio: ${{ productos.precio }}</p>
                       <div class="d-grid gap-2">
@@ -466,7 +466,7 @@
                     {% else %}
                         <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                     {% endif %}
-                    <h3>{{ productos.nombre }}</h3>
+                    <h3 class="nombre-producto">{{ productos.nombre }}</h3>
                     <p>{{ productos.descripcion }}</p>
                     <p>Precio: ${{ productos.precio }}</p>
                     <div class="d-grid gap-2">
@@ -508,7 +508,7 @@
                   {% else %}
                     <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                   {% endif %}
-                  <h3>{{ productos.nombre }}</h3>
+                  <h3 class="nombre-producto">{{ productos.nombre }}</h3>
                   <p>{{ productos.descripcion }}</p>
                   <p>Precio: ${{ productos.precio }}</p>
                   <div class="d-grid gap-2">
@@ -549,7 +549,7 @@
                         {% else %}
                             <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                         {% endif %}
-                        <h3>{{ productos.nombre }}</h3>
+                        <h3 class="nombre-producto">{{ productos.nombre }}</h3>
                         <p>{{ productos.descripcion }}</p>
                         <p>Precio: ${{ productos.precio }}</p>
                         <div class="d-grid gap-2">
@@ -703,6 +703,28 @@
 <div class="facturas-grid">
   {% include 'accounts/Modal_part_eliminar.html' %}
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-producto");
+    const productCards = document.querySelectorAll(".product-card");
+
+    searchInput.addEventListener("input", function () {
+        const filtro = searchInput.value.trim().toLowerCase();
+
+        productCards.forEach(card => {
+            const nombre = card.querySelector(".nombre-producto");
+            if (nombre) {
+                const texto = nombre.textContent.toLowerCase();
+                if (texto.includes(filtro)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        });
+    });
+});
+</script>
 </body>
 
 </html> 

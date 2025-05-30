@@ -162,7 +162,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)  # Indica si la orden está activa
-
+    pagada = models.BooleanField(default=False)
     def get_total_price(self):
         return sum(item.get_total_price() for item in self.orderproduct_set.all())
 
