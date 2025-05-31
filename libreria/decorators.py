@@ -94,3 +94,45 @@ def Rcontraseña(mensaje, redireccion_url):
             return response
         return _wrapped_view
     return decorator
+
+from functools import wraps
+from libreria.models import RegistroActividad, Producto
+
+def registrar_agregado_carrito(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, producto_id, *args, **kwargs):
+        response = view_func(request, producto_id, *args, **kwargs)
+        # Solo registrar si la acción fue exitosa y el usuario está autenticado
+        if request.user.is_authenticated and request.method == "POST" and response.status_code in (200, 302):
+            try:
+                producto = Producto.objects.get(id=producto_id)
+                cantidad = request.POST.get('cantidad', 1)
+                RegistroActividad.objects.create(
+                    usuario=request.user,
+                    accion="Agregado al carrito",
+                    detalle=f"Agregó {cantidad} unidad(es) de '{producto.nombre}' al carrito."
+                )
+            except Exception as e:
+                # Puedes loguear el error si lo deseas
+                pass
+        return response
+    return _wrapped_view
+
+from functools import wraps
+from django.contrib import messages
+
+def Base_datos(success_msg=None, error_msg=None):
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):  # <-- acepta *args, **kwargs
+            try:
+                response = view_func(request, *args, **kwargs)
+                if success_msg and getattr(response, 'status_code', 200) in (200, 302):
+                    messages.success(request, success_msg)
+                return response
+            except Exception as e:
+                if error_msg:
+                    messages.error(request, f"{error_msg}: {str(e)}")
+                raise
+        return _wrapped_view
+    return decorator

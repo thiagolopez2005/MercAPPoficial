@@ -4,14 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Restauración</title>
+    <style>
+        /* Pega aquí el CSS de arriba */
+    </style>
 </head>
 <body>
-    <h1>Confirmar Restauración</h1>
-    <p>¿Estás seguro de que deseas restaurar la base de datos desde el archivo <strong>{{ backup_file }}</strong>?</p>
-    <form method="POST" action="{% url 'restaurar_copia_seguridad' backup_id %}">
-        {% csrf_token %}
-        <button type="submit">Restaurar</button>
-        <a href="{% url 'copias_seguridad' %}">Cancelar</a>
-    </form>
+    <div class="contenedor-restauracion">
+        <h1>Confirmar Restauración</h1>
+        <h2 class="confirmar-texto">
+            ¿Estás seguro de que deseas restaurar la base de datos desde el archivo <strong>{{ backup_file }}</strong>?
+        </h2>
+        <form method="POST" action="{% url 'restaurar_copia_seguridad' backup_id %}">
+            {% csrf_token %}
+            <button type="submit">Restaurar</button>
+            <a href="{% url 'copias_seguridad' %}">Cancelar</a>
+        </form>
+    </div>
 </body>
+<style>/* Puedes poner esto en un archivo .css o dentro de <style> en el <head> */
+
+body {
+    background: #f6f6f6;
+    font-family: Arial, sans-serif;
+}
+
+.contenedor-restauracion {
+    background: #fff;
+    max-width: 400px;
+    margin: 60px auto 0 auto;
+    padding: 32px 28px 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.confirmar-texto {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+button[type="submit"] {
+    background: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 12px;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #219150;
+}
+
+a {
+    background: #e74c3c;
+    color: #fff !important;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+a:hover {
+    background: #c0392b;
+} </style>
 </html>

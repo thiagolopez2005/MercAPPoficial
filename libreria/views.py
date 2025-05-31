@@ -33,8 +33,9 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 # from xhtml2pdf import pisa
 from libreria.decorators import admin_required,Rcontraseña
-from libreria.decorators import verificar_rol_requerido
-
+from libreria.decorators import verificar_rol_requerido 
+from libreria.decorators import  registrar_agregado_carrito
+from libreria.decorators import Base_datos
 
 # ----------------------------------
 #---- REGISTRO PARA EL ADMINISTRADOR Y EMPLEADO
@@ -739,17 +740,20 @@ def actualizar_cantidad(request, order_product_id):
 
 from django.views.decorators.http import require_POST
 
-@login_required
+
 @require_POST
+@registrar_agregado_carrito
 def agregar_al_carrito(request, producto_id):
+    is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+
     if not request.user.is_authenticated:
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if is_ajax:
             return JsonResponse({'error': 'Debes iniciar sesión para agregar productos al carrito.'}, status=403)
         messages.error(request, 'Debes iniciar sesión para agregar productos al carrito.')
         return redirect('Productos')
 
     if hasattr(request.user, 'role') and request.user.role in ['emple', 'admin']:
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if is_ajax:
             return JsonResponse({'error': 'No tienes permisos para ingresar al carrito.'}, status=403)
         messages.error(request, 'No tienes permisos para ingresar al carrito.')
         return redirect('Productos')
@@ -765,7 +769,7 @@ def agregar_al_carrito(request, producto_id):
         cantidad = 1
 
     if cantidad > producto.stock:
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if is_ajax:
             return JsonResponse({'error': f"No hay suficiente stock para el producto '{producto.nombre}'."}, status=400)
         messages.error(request, f"No hay suficiente stock para el producto '{producto.nombre}'.")
         return redirect('Productos')
@@ -781,7 +785,7 @@ def agregar_al_carrito(request, producto_id):
         order_product = OrderProduct(order=order, product=producto, quantity=cantidad)
     order_product.save()
 
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    if is_ajax:
         return JsonResponse({'success': f"{producto.nombre} se agregó al carrito."})
     messages.success(request, f"{producto.nombre} se agregó al carrito.")
     return redirect('Productos')
@@ -952,6 +956,10 @@ def validacion_compras(request):
     compras = ResumenCompra.objects.prefetch_related('orderproduct_set__product').all()
     return render(request, 'accounts/validacion_compras.html', {'compras': compras})
 
+def validacion_compras_emple(request):
+    compras = ResumenCompra.objects.prefetch_related('orderproduct_set__product').all()
+    return render(request, 'accounts/ESTADO_COMPRA.html', {'compras': compras})
+
 
 
 from libreria.decorators import registrar_actividad_json
@@ -1072,6 +1080,7 @@ BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
 
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
+@Base_datos(success_msg="✅ Copia de seguridad creada correctamente.", error_msg="❌ Error al crear la copia de seguridad")
 def crear_copia_seguridad(request):
     if request.method == 'POST':
         if not os.path.exists(BACKUP_DIR):
@@ -1126,6 +1135,8 @@ def descargar_copia_seguridad(request, backup_id):
     
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
+@Base_datos(success_msg="✅ Copia de seguridad eliminada correctamente.", error_msg="❌ Error al eliminar la copia de seguridad")
+
 def eliminar_copia_seguridad(request, backup_id):
     try:
         backups = os.listdir(BACKUP_DIR)
@@ -1140,6 +1151,8 @@ import shutil
 
 
 @admin_required(login_url="/accounts/login/")
+@Base_datos(success_msg="✅ Copia de seguridad creada correctamente.", error_msg="❌ Error al crear la copia de seguridad")
+
 def restaurar_copia_seguridad(request, backup_id):
     try:
         # Obtén la lista de archivos en la carpeta de backups
