@@ -67,6 +67,9 @@
             <header class="top-bar">
                 <h1>Gestión Copias de Seguridad</h1>
                 <div class="user-menu">
+                     <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
+                        <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
+                    </button>
                     <i title="Cerrar Sesión" class="material-icons logout-icon">power_settings_new</i>
                 </div>
             </header>
@@ -352,5 +355,6 @@ form {
         </div>
     </div>
     <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/manualadministrador.js' %}"></script>
 </body>
 </html>
