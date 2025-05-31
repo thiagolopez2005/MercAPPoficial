@@ -232,6 +232,7 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     border-left: 4px solid var(--primary-color);
+    margin-left: 46px;
 }
 
 .top-bar::before {
@@ -741,7 +742,7 @@ h2:hover::after {
     transition: background-color 0.3s ease;
     position: relative; 
     top: -1vw; 
-    right: -3vw;
+    right: 0vw;
 }
 
 /* Modal Actions */
@@ -834,3 +835,33 @@ h2:hover::after {
                 padding: 30px 20px;
             }
         }
+
+    
+.boton-manual-administrador {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 6px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 66px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.boton-manual-administrador:hover {
+    background-color: rgba(46, 204, 113, 0.2);;
+}
+
+.boton-manual-administrador:active {
+    background-color: rgba(46, 204, 113, 0.2);;
+}
+
+.icono-manual {
+    width: 20px;
+    height: 20px;
+}

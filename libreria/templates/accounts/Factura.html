@@ -66,6 +66,9 @@
             <header class="top-bar">
                 <h1>Gestión de Recibos</h1>
                 <div class="user-menu">
+                    <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
+                        <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
+                    </button>
                     <i title="Cerrar Sesión" class="material-icons logout-icon">power_settings_new</i>
                 </div>
 
@@ -82,6 +85,7 @@
     border-radius: 10px;
     margin-bottom: 30px;
     padding: 20px; /* Añadido padding para mejorar la estética en móviles */
+    margin-left: 39px;
 }
 
 .facturas-header h1 {
@@ -260,6 +264,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    margin-left: 0px;
 }
 
 .search-bar {
@@ -488,5 +493,6 @@
             </div>
         <script src="{% static 'js/dashboard.js' %}"></script>
         <script src="{% static 'js/filtros.js' %}"></script>
+        <script src="{% static 'js/manualadministrador.js' %}"></script>
 </body>
 </html>
