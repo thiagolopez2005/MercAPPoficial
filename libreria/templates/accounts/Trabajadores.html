@@ -72,6 +72,9 @@
             <header class="top-bar">
                 <h1>Gestión de Trabajadores</h1>
                 <div class="user-menu">
+                    <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
+                        <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
+                    </button>
                     <i title="Cerrar Sesión" class="material-icons logout-icon">power_settings_new</i>
                 </div>
             </header>
@@ -108,9 +111,9 @@
                                 <td>{{ cuenta.email }}</td>
                                 <td>
                                     {% if cuenta.is_active %}
-                                    <span class="badge bg-success">Activo</span>
+                                    <span style="background-color: #28a745; color: white; border-radius: 12px; padding: 8px;">Activo</span>
                                     {% else %}
-                                    <span class="badge bg-danger">No Activo</span>
+                                    <span style="background-color: #dc2626; color: white; border-radius: 12px; padding: 8px;">No Activo</span>
                                     {% endif %}
                                 </td>
                                 <td>
@@ -153,6 +156,7 @@
     </body>
     <script src="{% static 'js/dashboard.js' %}"></script>
     <script src="{% static 'js/filtros.js' %}"></script>
+    <script src="{% static 'js/manualadministrador.js' %}"></script>
 
 </html>
 
