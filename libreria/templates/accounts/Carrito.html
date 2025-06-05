@@ -52,7 +52,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="nav-link">Hola, {{ user.username }}</span>
+                        <span class="nav-link">Hola, {{ user.nombre }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
@@ -180,7 +180,7 @@
                                 <div class="whatsapp-icon"></div>
                                 <h5>¡Recuerda!<br>
                                     comunicate con el administrador por medio<br>
-                                    de whatsapp para completar el pedido</h5>
+                                    de whatsapp para completar el pedido, al número 3234883455</h5>
                                </div>      
 
                                 <button type="submit" class="btn btn-success mt-3">Proceder al Pago</button>

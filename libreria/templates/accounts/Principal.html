@@ -65,10 +65,10 @@
                             <i class="fas fa-shopping-cart"></i><span id="cart-count"></span>
                         </a>
                     </li>
-                    {% if CustomUser.is_authenticated %}
-                        <pre>{{ CustomUser.username }}</pre>
+                    {% if user.is_authenticated %}
+                        
                     <li class="nav-item">
-                        <span class="nav-link">Hola, {{ user.username }}</span>
+                        <span class="nav-link">Hola, {{ user.nombre }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
