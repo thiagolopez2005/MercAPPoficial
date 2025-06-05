@@ -304,14 +304,12 @@ body {
   width: 45px; /* Ancho de la imagen de usuario */
   height: 45px; /* Altura de la imagen de usuario */
   border-radius: 50%; /* Hace la imagen circular */
-  border: 3px solid var(--primary-color); /* Borde de la imagen */
   transition: all 0.3s ease; /* Transición suave */
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Sombra de caja */
 }
 
 .user-menu img:hover {
   transform: scale(1.1); /* Escala la imagen al pasar el ratón */
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); /* Sombra de caja al pasar el ratón */
 }
 
 /* Títulos mejorados */
@@ -1998,14 +1996,44 @@ padding: 7px 8px;
 }
 
 .boton-manual-administrador:hover {
-    background-color: rgba(46, 204, 113, 0.2);;
+    background-color: rgb(46, 204, 112);
 }
 
 .boton-manual-administrador:active {
-    background-color: rgba(46, 204, 113, 0.2);;
+    background-color: rgb(46, 204, 112);
 }
 
 .icono-manual {
+    width: 20px;
+    height: 20px;
+}
+
+/*Accesibilidad*/
+
+.Accesibilidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 6px;
+    background-color: #0781c4;
+    color: white;
+    border: none;
+    border-radius: 66px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.Accesibilidad:hover {
+    background-color: #0781c4;
+}
+
+.Accesibilidad:active {
+    background-color: #0781c4;
+}
+
+.icono-accesibilidad {
     width: 20px;
     height: 20px;
 }
