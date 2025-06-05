@@ -427,5 +427,22 @@
       </a>
     </form>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.querySelector('.reset-form').addEventListener('submit', function(e) {
+    const emailInput = this.querySelector('input[name="email"]');
+    if (emailInput) {
+        const email = emailInput.value.trim();
+        if (!email.includes('@') || !email.endsWith('.com')) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Correo inválido',
+                text: 'El correo debe contener "@" y terminar en ".com".'
+            });
+        }
+    }
+});
+</script>
 </body>
 </html>

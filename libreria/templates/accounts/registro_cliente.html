@@ -72,5 +72,53 @@
     </section>
     </div>
     <script src="{% static 'js/Formulario.js' %}"></script>
+    <script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault(); // SIEMPRE detenemos el envío automático
+    const form = this;
+    const emailInput = form.querySelector('input[name="email"]');
+    const ccInput = form.querySelector('input[name="CC"]');
+
+    // Validación de correo
+    if (emailInput) {
+        const email = emailInput.value.trim();
+        if (!email.includes('@') || !email.endsWith('.com')) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Correo inválido',
+                text: 'El correo debe contener "@" y terminar en ".com".'
+            });
+            return;
+        }
+    }
+
+    // Validación de CC (AJAX)
+    if (ccInput) {
+        const cc = ccInput.value.trim();
+        fetch(`/validar_cc/?cc=${encodeURIComponent(cc)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.existe) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Usuario ya registrado',
+                        text: `El usuario con CC ${cc} ya está registrado.`
+                    });
+                } else {
+                    form.submit(); // Solo aquí se envía el formulario
+                }
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo validar el usuario. Intenta de nuevo.'
+                });
+            });
+    } else {
+        form.submit(); // Si no hay campo CC, igual enviamos
+    }
+});
+</script>
 </body>
 </html>
