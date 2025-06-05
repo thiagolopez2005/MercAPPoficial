@@ -68,7 +68,7 @@ class Producto(models.Model):
     origen = models.CharField(max_length=100)
     unidad = models.FloatField()
     stock = models.IntegerField()
-    precio = models.DecimalField(max_digits=10, decimal_places=1)
+    precio = models.DecimalField(max_digits=10, decimal_places=0)
     publicado = models.BooleanField(default=True)
     medida = models.CharField(max_length=50)
     tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')  # Nuevo campo

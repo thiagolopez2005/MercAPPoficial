@@ -52,7 +52,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="nav-link">Hola, {{ user.username }}</span>
+                        <span class="nav-link">Hola, {{ user.nombre }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
@@ -76,7 +76,7 @@
                     {% for item in order.orderproduct_set.all %}
                     <div class="cart-item d-flex align-items-center mb-3 p-3 border rounded">
                         <img src="{{ item.product.imagen.url }}" alt="{{ item.product.nombre }}" class="cart-item-image"
-                            style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
+                            style="width: 150px; height: 100px; object-fit: cover; margin-right: 15px;">
                         <div class="cart-item-details flex-grow-1">
                             <h4>{{ item.product.nombre }}</h4>
                             <p>{{ item.product.descripcion }}</p>
@@ -180,7 +180,7 @@
                                 <div class="whatsapp-icon"></div>
                                 <h5>¡Recuerda!<br>
                                     comunicate con el administrador por medio<br>
-                                    de whatsapp para completar el pedido</h5>
+                                    de whatsapp para completar el pedido al número 3234188256</h5>
                                </div>      
 
                                 <button type="submit" class="btn btn-success mt-3">Proceder al Pago</button>

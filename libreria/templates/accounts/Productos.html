@@ -60,7 +60,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="nav-link">Hola, {{ user.username }}</span>
+                        <span class="nav-link">Hola, {{ user.nombre }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
@@ -110,7 +110,6 @@
                 {% endfor %}
             </div>
             <div class="mt-4">
-                <a href="{% url 'productos2' %}" class="btn btn-primary">Volver a Gestión de Imágenes</a>
             </div>
             {% endblock %}
         </main>
@@ -163,6 +162,33 @@ document.querySelectorAll('.add-to-cart-form').forEach(form => {
         .finally(() => {
             submitBtn.disabled = false;
         });
+    });
+});
+
+// Puedes agregar este script al final de tu archivo Productos.html o en un archivo JS externo
+
+document.querySelectorAll('.quantity-control').forEach(control => {
+    const minusBtn = control.querySelector('.minus-btn');
+    const plusBtn = control.querySelector('.plus-btn');
+    const input = control.querySelector('.quantity-input');
+
+    minusBtn.addEventListener('click', () => {
+        let value = parseInt(input.value, 10) || 1;
+        if (value > 1) {
+            input.value = value - 1;
+        }
+    });
+
+    plusBtn.addEventListener('click', () => {
+        let value = parseInt(input.value, 10) || 1;
+        input.value = value + 1;
+    });
+
+    // Opcional: evitar que el usuario escriba valores menores a 1 manualmente
+    input.addEventListener('input', () => {
+        if (input.value < 1) {
+            input.value = 1;
+        }
     });
 });
 </script>

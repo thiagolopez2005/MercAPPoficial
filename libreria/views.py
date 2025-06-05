@@ -171,6 +171,12 @@ def register_cliente_view(request):
         form = CustomClienteCreationForm()
     return render(request, 'accounts/registro_cliente1.html', {'form': form})
 
+
+def validar_cc(request):
+    cc = request.GET.get('cc') or request.GET.get('CC')
+    existe = CustomCliente.objects.filter(CC=cc).exists()
+    return JsonResponse({'existe': existe})
+
 # vista tabla de los datos del cliente
 
 def listar_clientes(request):
@@ -408,30 +414,46 @@ def eliminar_cuenta(request, id):
 def productos2(request):
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES)
+        nombre = request.POST.get('nombre')
+        # Validar si ya existe un producto con ese nombre (ignorando mayúsculas/minúsculas)
+        if Producto.objects.filter(nombre__iexact=nombre).exists():
+            messages.error(request, "Este producto ya está creado, si desea edítelo.")
+            # Recarga la página con el formulario y el mensaje de error, NO crea el producto
+            frutas = Producto.objects.filter(tipoproducto='frutas')
+            verduras = Producto.objects.filter(tipoproducto='verduras')
+            tuberculos = Producto.objects.filter(tipoproducto='tuberculos')
+            hortalizas = Producto.objects.filter(tipoproducto='hortalizas')
+            context = {
+                'form': form,
+                'frutas': frutas,
+                'verduras': verduras,
+                'tuberculos': tuberculos,
+                'hortalizas': hortalizas,
+                'productos': Producto.objects.all(),
+            }
+            return render(request, 'accounts/productos2.html', context)
         if form.is_valid():
-            producto = form.save()  # Guarda el producto y obtiene la instancia
-            # Registrar la actividad
+            producto = form.save()
             RegistroActividad.objects.create(
-                usuario=request.user,  # Usuario que realiza el registro
+                usuario=request.user,
                 accion="Registro de producto",
                 detalle=f"Se agregó un nuevo producto: {producto.nombre}"
             )
+            messages.success(request, "¡Producto creado exitosamente!")
             return redirect('productos2')
     else:
         form = ProductoForm()
-    # Filtrar productos por categoría
     frutas = Producto.objects.filter(tipoproducto='frutas')
     verduras = Producto.objects.filter(tipoproducto='verduras')
     tuberculos = Producto.objects.filter(tipoproducto='tuberculos')
     hortalizas = Producto.objects.filter(tipoproducto='hortalizas')
-    # Combina todos los datos en un solo diccionario
     context = {
         'form': form,
         'frutas': frutas,
         'verduras': verduras,
         'tuberculos': tuberculos,
         'hortalizas': hortalizas,
-        'productos': Producto.objects.all(),  # Recupera todos los productos
+        'productos': Producto.objects.all(),
     }
     return render(request, 'accounts/productos2.html', context)
 
