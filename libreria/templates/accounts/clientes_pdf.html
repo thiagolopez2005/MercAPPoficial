@@ -1,0 +1,46 @@
+<!-- filepath: libreria/templates/accounts/clientes_pdf.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th, td { border: 1px solid #b2dfdb; padding: 8px 4px; text-align: left; }
+        th { background: #26c281; color: #fff; font-weight: bold; }
+        tr:nth-child(even) { background: #eafaf1; }
+        tr:nth-child(odd) { background: #fff; }
+    </style>
+</head>
+<body>
+        <div class="establecimiento-info" style="text-align:center; margin-bottom: 10px;">
+        <div style="font-weight:bold;">
+            NIT: 123456789-0<br>
+            Nombre del Establecimiento: MERCAPP<br>
+            Teléfono del Propietario: 3224880905
+        </div>
+    </div>
+    <h2 style="text-align:center;">Clientes Registrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre completo</th>
+                <th>CC</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Correo de Recuperación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+                <td>{{ cliente.CC }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

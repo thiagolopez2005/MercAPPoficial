@@ -935,7 +935,50 @@ def detalle_compra(request, compra_id):
         return render(request, 'accounts/detalle_compra.html', context)
     else:
         messages.error(request, "No tienes permisos para acceder a esta página.")
+
         return redirect('error_403')
+
+from django.template.loader import get_template
+
+@verificar_rol_requerido('admin')
+@admin_required(login_url="/accounts/login/")
+def exportar_proveedores_pdf(request):
+    proveedores = Proveedor.objects.all()
+    template = get_template('accounts/proveedores_pdf.html')
+    html = template.render({'proveedores': proveedores})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="proveedores.pdf"'
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response
+
+@verificar_rol_requerido('admin')
+@admin_required(login_url="/accounts/login/")
+def exportar_clientes_pdf(request):
+    clientes = CustomCliente.objects.all()
+    template = get_template('accounts/clientes_pdf.html')
+    html = template.render({'clientes': clientes})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="clientes.pdf"'
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response
+
+@verificar_rol_requerido('admin')
+@admin_required(login_url="/accounts/login/")
+def exportar_inventario_pdf(request):
+    productos = Producto.objects.all()
+    template = get_template('accounts/inventario_pdf.html')
+    html = template.render({'productos': productos})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="inventario.pdf"'
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response
+
 
 @login_required
 def generar_pdf(request, compra_id):

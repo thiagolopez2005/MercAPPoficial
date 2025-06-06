@@ -154,21 +154,49 @@
                 <input type="text" id="search-input" placeholder="Buscar producto">
                 <i class="fa fa-search"></i>
                 </div>
+                <a href="{% url 'exportar_inventario_pdf' %}" class="btn btn-success" target="_blank">Exportar Inventario a PDF</a>
                 <div id="form-container">
                     <form class="route-form">
                         <table class="table table-bordered" id="inventoryTable">
-                            <thead>
-                                <tr>
-                                    <th>Nombre del Producto</th>
-                                    <th>Descripción del producto</th>
-                                    <th>Medida</th>
-                                    <th>stock</th>
-                                    <th>Tipo de Medida</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
+ <thead>
+    <tr>
+        <th>Nombre del Producto</th>
+        <th>Descripción del producto</th>
+        <th>Medida</th>
+        <th>
+            Stock<br>
+            <select id="stockFilter">
+                <option value="">Todos</option>
+                <option value="bajo">Bajo (&le;10)</option>
+                <option value="medio">Medio (&le;50)</option>
+                <option value="alto">Alto (&le;100)</option>
+            </select>
+        </th>
+        <th>
+            Tipo de Medida<br>
+            <select id="medidaFilter">
+                <option value="">Todas</option>
+                <option value="bandeja">Bandeja</option>
+                <option value="bolsa">Bolsa</option>
+                <option value="bulto">Bulto</option>
+                <!-- Agrega más opciones según tus tipos -->
+            </select>
+        </th>
+        <th>
+            Estado<br>
+            <select id="estadoFilter">
+                <option value="">Todos</option>
+                <option value="habilitado">Habilitado</option>
+                <option value="inhabilitado">Inhabilitado</option>
+            </select>
+        </th>
+        <th>Opciones</th>
+        <th>
+            <button type="button" id="btnFiltrar" style="padding:4px 12px;">Filtrar</button>
+        </th>
+    </tr>
+</thead>
+
                             <tbody>
                                 {% for producto in productos %}
                                 <tr>
@@ -232,9 +260,53 @@
                 
         </main>
 
+
+
+
     <script src="{% static 'js/dashboard.js' %}"></script>
     <script src="{% static 'js/inventario.js' %}"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const stockFilter = document.getElementById('stockFilter');
+    const medidaFilter = document.getElementById('medidaFilter');
+    const estadoFilter = document.getElementById('estadoFilter');
+    const btnFiltrar = document.getElementById('btnFiltrar');
+    const table = document.getElementById('inventoryTable');
+    const rows = table.querySelectorAll('tbody tr');
 
+    function filtrarTabla() {
+        rows.forEach(row => {
+            const medida = row.children[2].textContent.trim().toLowerCase();
+            const stock = parseInt(row.children[3].textContent.trim());
+            const estado = row.children[5].textContent.trim().toLowerCase();
+
+            let mostrar = true;
+
+            // Filtrar por medida
+            if (medidaFilter.value && medida !== medidaFilter.value) {
+                mostrar = false;
+            }
+
+            // Filtrar por stock
+            if (stockFilter.value) {
+                if (stockFilter.value === 'bajo' && stock > 10) mostrar = false;
+                if (stockFilter.value === 'medio' && (stock <= 10 || stock > 50)) mostrar = false;
+                if (stockFilter.value === 'alto' && (stock <= 50 || stock > 100)) mostrar = false;
+            }
+
+            // Filtrar por estado
+            if (estadoFilter.value) {
+                if (estadoFilter.value === 'habilitado' && !estado.includes('habilitado')) mostrar = false;
+                if (estadoFilter.value === 'inhabilitado' && !estado.includes('inhabilitado')) mostrar = false;
+            }
+
+            row.style.display = mostrar ? '' : 'none';
+        });
+    }
+
+    btnFiltrar.addEventListener('click', filtrarTabla);
+});
+</script>
 </body>
 </html>

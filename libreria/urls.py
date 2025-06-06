@@ -102,5 +102,6 @@ urlpatterns = [
     path('generar_pdf/<int:compra_id>/', views.generar_pdf, name='generar_pdf'),
     path('error_403/', views.error_403, name='error_403'),# Agrega esta línea en tu urls.py
     path('volver-a-productos/', views.volver_a_productos, name='volver_a_productos'),
-
+    path('proveedores/pdf/', views.exportar_proveedores_pdf, name='exportar_proveedores_pdf'),
+    path('inventario/pdf/', views.exportar_inventario_pdf, name='exportar_inventario_pdf'),
 ]
