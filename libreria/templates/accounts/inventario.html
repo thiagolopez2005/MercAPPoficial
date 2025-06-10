@@ -76,6 +76,40 @@
     .btn-cancelar:hover {
         background-color: #747474;
     }
+
+#btnFiltrar {
+    padding: 4px 12px;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+#btnFiltrar::after {
+    content: "→";
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Efectos hover para mejor interacción */
+#btnFiltrar:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#btnFiltrar:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
 </style>
 <!DOCTYPE html>
 <html lang="es">
@@ -85,6 +119,7 @@
     <title>Panel de Inventario</title>
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
 	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom3.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -143,7 +178,17 @@
         <main class="main-content">
             <header class="top-bar">
                 <h1>Gestión de Inventario</h1>
+            
                 <div class="user-menu">
+                     <div id="accesibilidad-container">
+                    <button title="Accesibilidad" class="Accesibilidad">
+                        <img src="{% static 'images/accesibilidad.png' %}" class="icono-accesibilidad">
+                    </button>
+                    </div>
+
+                     <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
+                        <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
+                    </button>
                     <i title="Cerrar Sesión" class="material-icons logout-icon">power_settings_new</i>
                 </div>
             </header>
@@ -154,7 +199,28 @@
                 <input type="text" id="search-input" placeholder="Buscar producto">
                 <i class="fa fa-search"></i>
                 </div>
-                <a href="{% url 'exportar_inventario_pdf' %}" class="btn btn-success" target="_blank">Exportar Inventario a PDF</a>
+
+               <button class="download-btn pixel-corners" onclick="window.open('{% url 'exportar_inventario_pdf' %}', '_blank');">
+                    <div class="button-content">
+                        <div class="svg-container">
+                            <svg
+                                class="download-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479 6.908l-4-4h3v-4h2v4h3l-4 4z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <div class="text-container">
+                            <div class="text">Exportar Inventario a PDF</div>
+                        </div>
+                    </div>
+                </button>
+
                 <div id="form-container">
                     <form class="route-form">
                         <table class="table table-bordered" id="inventoryTable">
@@ -265,6 +331,8 @@
 
     <script src="{% static 'js/dashboard.js' %}"></script>
     <script src="{% static 'js/inventario.js' %}"></script>
+    <script src="{% static 'js/siennadmin.js' %}"></script>
+     <script src="{% static 'js/manualadministrador.js' %}"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
