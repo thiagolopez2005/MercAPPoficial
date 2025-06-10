@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return n
     };
     let i = n([
-        { label: "Fuente Legible", key: "readable-font", icon: "local_parking" },
         { label: "Resaltar Enlaces", key: "highlight-links", icon: "link" },
         { label: "Resaltar Título", key: "highlight-title", icon: "title" }
     ]),
@@ -60,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
     ], "asw-filter"),
     l = n([
         { label: "Cursor Grande", key: "big-cursor", icon: "mouse" },
-        { label: "Detener Animaciones", key: "stop-animations", icon: "motion_photos_off" },
         { label: "Guia de Lectura", key: "readable-guide", icon: "local_library" }
     ], "asw-tools");
 
@@ -80,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
         #accesibilidad-container .asw-menu-btn { bottom: 20px; background: ${options.buttonColor}; box-shadow: 0 5px 15px 0 rgb(37 44 97 / 15%), 0 2px 4px 0 rgb(93 100 148 / 20%); border-radius: 50%; align-items: center; justify-content: center; transform: translateY(0); width: 50px; height: 50px; display: flex; fill: ${options.buttonIconColor} !important; cursor: pointer; top: 85.1%; }
         #accesibilidad-container .asw-menu-btn svg { width: 30px; height: 30px; min-height: 30px; min-width: 30px; max-width: 30px; max-height: 30px; background: 0 0 !important; }
         #accesibilidad-container .asw-menu-btn:hover { transform: scale(1.05); }
-        #accesibilidad-container .asw-menu { display: none; top: 20px; border-radius: 8px; box-shadow: -1px 0 20px -14px #000; opacity: 1; overflow: hidden; background: ${options.menuBackgroundColor}; width: 500px; line-height: 1; font-size: 14px; height: calc(100vh - 40px - 75px); letter-spacing: .015em; color: ${options.menuTextColor}; left: 5%; }
+        #accesibilidad-container .asw-menu { display: none; top: 111px; border-radius: 8px; box-shadow: -1px 0 20px -14px #000; opacity: 1; overflow: hidden; background: ${options.menuBackgroundColor}; width: 500px; line-height: 1; font-size: 14px; height: calc(100vh - 40px - 75px); letter-spacing: .015em; color: ${options.menuTextColor}; left: 61%; }
         #accesibilidad-container .asw-btn, #accesibilidad-container .asw-footer a { font-size: 14px !important; }
         #accesibilidad-container .asw-menu-header { display: flex; align-items: center; justify-content: space-between; background:rgb(0, 0, 0); color: #fff; padding-left: 12px; font-weight: 600; }
         #accesibilidad-container .asw-menu-header > div { display: flex; }
@@ -250,9 +248,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, document.addEventListener("mousemove", window.onScrollReadableGuide, !1), document.body.appendChild(o)
             }
         } else i && (i.remove(), document.removeEventListener("mousemove", window.onScrollReadableGuide));
-        t.states["stop-animations"] && (s += `\nbody * {${d("none !important", "transition")}${d("forwards !important", "animation-fill-mode")}${d("1 !important", " animation-iteration-count")}${d(".01s !important", "animation-duration")}\n}`),t.states["big-cursor"] && (s += "\nbody * {cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 512 512'%3E%3Cpath  d='M429.742 319.31L82.49 0l-.231 471.744 105.375-100.826 61.89 141.083 96.559-42.358-61.89-141.083 145.549-9.25zM306.563 454.222l-41.62 18.259-67.066-152.879-85.589 81.894.164-333.193 245.264 225.529-118.219 7.512 67.066 152.878z' xmlns='http://www.w3.org/2000/svg'/%3E%3C/svg%3E\") ,default !important;\n}"), t.states["readable-font"] && (s += '\n@font-face {font-family: OpenDyslexic3;src: url("https://website-widgets.pages.dev/fonts/OpenDyslexic3-Regular.woff") format("woff"), url("https://website-widgets.pages.dev/fonts/OpenDyslexic3-Regular.ttf") format("truetype");\n}'), c(s, "asw-content-style")
-        t.states["readable-font"] && (s += '\n@font-face {font-family: OpenDyslexic3;src: url("https://website-widgets.pages.dev/fonts/OpenDyslexic3-Regular.woff") format("woff"), url("https://website-widgets.pages.dev/fonts/OpenDyslexic3-Regular.ttf") format("truetype");\n}'), c(s, "asw-content-style")
-    
+
+        if (t.states["stop-animations"]) {
+    s += `\nbody * {${d("none !important", "transition")}${d("forwards !important", "animation-fill-mode")}${d("1 !important", " animation-iteration-count")}${d(".01s !important", "animation-duration")}\n}`;
+        }
+        if (t.states["big-cursor"]) {
+            s += "\nbody * {cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 512 512'%3E%3Cpath  d='M429.742 319.31L82.49 0l-.231 471.744 105.375-100.826 61.89 141.083 96.559-42.358-61.89-141.083 145.549-9.25zM306.563 454.222l-41.62 18.259-67.066-152.879-85.589 81.894.164-333.193 245.264 225.529-118.219 7.512 67.066 152.878z' xmlns='http://www.w3.org/2000/svg'/%3E%3C/svg%3E\") ,default !important;\n}";
+        }
+
+        c(s, "asw-content-style");
     }
     function f(s) {
         s.preventDefault();
