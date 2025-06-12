@@ -206,6 +206,12 @@
     border: 2px solid #ffffff !important;
 }
 
+[data-asw-filter="dark-contrast"] select:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
 [data-asw-filter="dark-contrast"] download-btn pixel-corners {
     background-color: #ff0021 !important;
     color: #ffffff !important;

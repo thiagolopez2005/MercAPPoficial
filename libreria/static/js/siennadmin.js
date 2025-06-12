@@ -99,9 +99,25 @@ document.addEventListener("DOMContentLoaded", function() {
         #accesibilidad-container .asw-adjust-font > div { display: flex; justify-content: space-between; margin-top: 20px; align-items: center; font-size: 16px; font-weight: 700; }
         #accesibilidad-container .asw-adjust-font div[role=button] { background:rgb(0, 0, 0); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; }
         #accesibilidad-container .asw-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: none; }
+
+        /* --- MEJORAS RESPONSIVE --- */
+        @media only screen and (max-width: 900px) {
+            #accesibilidad-container .asw-menu { width: 90vw; left: 5vw; }
+            #accesibilidad-container .asw-card { margin: 0 5vw 20px; }
+        }
         @media only screen and (max-width: 560px) {
-            #accesibilidad-container .asw-menu { width: calc(100vw - 20px); left: 10px; }
-            #accesibilidad-container .asw-btn { width: calc(50% - 8px); }
+            #accesibilidad-container .asw-menu { width: 98vw; left: 1vw; top: 0; height: 100vh; border-radius: 0; font-size: 13px; }
+            #accesibilidad-container .asw-menu-header { font-size: 16px; padding: 10px 5px 10px 10px; }
+            #accesibilidad-container .asw-card { margin: 0 2vw 15px; }
+            #accesibilidad-container .asw-btn { width: 100%; min-width: 0; height: 60px; flex-direction: row; justify-content: flex-start; padding: 10px; font-size: 13px !important; }
+            #accesibilidad-container .asw-btn .material-icons { margin-bottom: 0; margin-right: 10px; }
+            #accesibilidad-container .asw-items { flex-direction: column; gap: 8px; }
+            #accesibilidad-container .asw-footer { font-size: 12px; padding: 10px; }
+            #accesibilidad-container .asw-adjust-font > div { font-size: 14px; }
+        }
+        @media only screen and (max-width: 400px) {
+            #accesibilidad-container .asw-menu { font-size: 12px; }
+            #accesibilidad-container .asw-btn { font-size: 12px !important; }
         }
     </style>
     <div class="asw-widget">
