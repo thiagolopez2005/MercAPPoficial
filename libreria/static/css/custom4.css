@@ -1,0 +1,181 @@
+/* ====== FILTROS DE ACCESIBILIDAD - GESTIÓN DE CLIENTES ====== */
+
+/* MODO CONTRASTE CLARO */
+[data-asw-filter="light-contrast"] .container {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .sidebar {
+    background-color: #f8f9fa !important;
+    border-right: 1px solid #dee2e6 !important;
+}
+
+[data-asw-filter="light-contrast"] .profile {
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .menu ul li a {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .menu ul li a:hover {
+    background-color: #e9ecef !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .main-content {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .top-bar {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .users-dashboard {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .search-bar input {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .table {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .table-header {
+    background-color: #f8f9fa !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .table th,
+[data-asw-filter="light-contrast"] .table td {
+    border: 1px solid #000000 !important;
+    color: #000000 !important;
+}
+
+
+
+/* MODO CONTRASTE OSCURO */
+[data-asw-filter="dark-contrast"] .container {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .sidebar {
+    background-color: #1a1a1a !important;
+    border-right: 1px solid #333333 !important;
+}
+
+[data-asw-filter="dark-contrast"] .logout-icon {
+  color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .menu ul li a {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .menu ul li a:hover {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .main-content {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .top-bar {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #333333 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .users-dashboard {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-bar input {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-bar input::placeholder {
+    color: #cccccc !important;
+}
+
+[data-asw-filter="dark-contrast"] .table {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .table-header {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .table th,
+[data-asw-filter="dark-contrast"] .table td {
+    border: 1px solid #ffffff !important;
+    color: #ffffff !important;
+    background-color: #000000 !important;
+}
+
+
+[data-asw-filter="dark-contrast"] .pencil-icon {
+    fill: #ffffff !important;
+}
+
+
+/* BOTONES DE ACCESIBILIDAD */
+[data-asw-filter="light-contrast"] .Accesibilidad,
+[data-asw-filter="light-contrast"] .boton-manual-administrador {
+    background-color: #ffffff !important;
+    border: 2px solid #000000 !important;
+}
+
+[data-asw-filter="dark-contrast"] .Accesibilidad,
+[data-asw-filter="dark-contrast"] .boton-manual-administrador {
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
+
+/* ESTADO DE FILA VACÍA */
+[data-asw-filter="light-contrast"] .text-center {
+    color: #000000 !important;
+}
+
+[data-asw-filter="dark-contrast"] .text-center {
+    color: #ffffff !important;
+}
+
+
+
+/* BADGES DE ESTADO */
+[data-asw-filter="light-contrast"] .badge {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+[data-asw-filter="dark-contrast"] .badge {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
