@@ -51,7 +51,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),
     path('editar_producto/<int:producto_id>/', views.editar_producto, name='editar_producto'),
-
+    path('agregar_medida/', views.agregar_medida, name='agregar_medida'),
     path('subir_imagen/', views.subir_imagen, name='subir_imagen'),
     path('quitar_publicidad/<int:productoId>/', views.quitar_publicidad, name='quitar_publicidad'),
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
@@ -104,4 +104,6 @@ urlpatterns = [
     path('volver-a-productos/', views.volver_a_productos, name='volver_a_productos'),
     path('proveedores/pdf/', views.exportar_proveedores_pdf, name='exportar_proveedores_pdf'),
     path('inventario/pdf/', views.exportar_inventario_pdf, name='exportar_inventario_pdf'),
+    path('exportar_trabajadores_pdf/', views.exportar_trabajadores_pdf, name='exportar_trabajadores_pdf'),
+    path('exportar_clientes_pdf/', views.exportar_clientes_pdf, name='exportar_clientes_pdf'),
 ]

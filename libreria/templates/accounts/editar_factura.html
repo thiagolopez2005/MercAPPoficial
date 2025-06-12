@@ -99,8 +99,16 @@
         </div>
     
         <form method="post" enctype="multipart/form-data">
-            <input type="hidden" name="csrfmiddlewaretoken" value="jpH84FNBFPUilju4lRLGLgH6OfvhS9ZIDI82t8chQCI2lvFsPMvOKNIDEaCUERBz">
-    
+            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="...">
+                    <label for="proveedor">Proveedor:</label>
+            <select name="proveedor" id="proveedor" required>
+
+                <option value="">Seleccione un proveedor</option>
+                {% for proveedor in proveedores %}
+                    <option value="{{ proveedor.id }}">{{ proveedor.nombre }} {{ proveedor.apellido }}</option>
+                {% endfor %}
+            </select>
             <div class="mt-2">
                 <label for="id_imagen">Imagen Actual de la Factura:</label>
             

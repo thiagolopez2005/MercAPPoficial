@@ -1,0 +1,38 @@
+<!-- filepath: libreria/templates/accounts/trabajadores_pdf.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabajadores</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #333; padding: 6px; font-size: 12px; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+    <h2>Listado de Trabajadores</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre Completo</th>
+                <th>CC</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cuenta in cuentas %}
+            <tr>
+                <td>{{ cuenta.nombre }} {{ cuenta.apellido }}</td>
+                <td>{{ cuenta.cec }}</td>
+                <td>{{ cuenta.email }}</td>
+                <td>{{ cuenta.role }}</td>
+                <td>{{ cuenta.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -176,11 +176,11 @@
             Tipo de Medida<br>
             <select id="medidaFilter">
                 <option value="">Todas</option>
-                <option value="bandeja">Bandeja</option>
-                <option value="bolsa">Bolsa</option>
-                <option value="bulto">Bulto</option>
-                <!-- Agrega más opciones según tus tipos -->
+                {% for medida in medidas %}
+                    <option value="{{ medida.id }}">{{ medida.nombre }}</option>
+                {% endfor %}
             </select>
+
         </th>
         <th>
             Estado<br>
@@ -204,7 +204,7 @@
                                     <td>{{ producto.descripcion }}</td>
                                     <td>{{ producto.unidad }}</td>
                                     <td>{{ producto.stock }}</td>
-                                    <td>{{ producto.medida }}</td>
+                                    <td data-medida-id="{{ producto.medida.id }}">{{ producto.medida.nombre }}</td>
 
           
                                 <td>
@@ -274,19 +274,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnFiltrar = document.getElementById('btnFiltrar');
     const table = document.getElementById('inventoryTable');
     const rows = table.querySelectorAll('tbody tr');
-
     function filtrarTabla() {
         rows.forEach(row => {
-            const medida = row.children[2].textContent.trim().toLowerCase();
+            const medidaId = row.children[4].getAttribute('data-medida-id');
             const stock = parseInt(row.children[3].textContent.trim());
             const estado = row.children[5].textContent.trim().toLowerCase();
 
             let mostrar = true;
 
             // Filtrar por medida
-            if (medidaFilter.value && medida !== medidaFilter.value) {
+            if (medidaFilter.value && medidaId !== medidaFilter.value) {
                 mostrar = false;
-            }
+            }       
 
             // Filtrar por stock
             if (stockFilter.value) {

@@ -418,6 +418,13 @@
                                 {% for factura in facturas %}
                                     <div class="factura-card" onclick="mostrarModal('{{ factura.numero_factura }}')">
                                         <h5>Factura #{{ factura.numero_factura }}</h5>
+                                        <p><strong>Proveedor:</strong>
+                                            {% if factura.proveedor %}
+                                                {{ factura.proveedor.nombre }} {{ factura.proveedor.apellido }}
+                                            {% else %}
+                                                <span class="text-muted">Sin proveedor</span>
+                                            {% endif %}
+                                        </p>
                                         <p><strong>Descripción:</strong> {{ factura.descripcion|truncatechars:50 }}</p>
                                         <p><strong>Fecha:</strong> {{ factura.fecha_publicacion|date:"d/m/Y H:i" }}</p>
                                         <p>

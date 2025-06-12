@@ -76,9 +76,10 @@
             <section class="users-dashboard">
                 <div class="section-header d-flex justify-content-between align-items-center">
                     <h2>PROVEEDORES REGISTRADOS</h2>
+                    <a href="{% url 'exportar_proveedores_pdf' %}" class="btn btn-success" target="_blank">Exportar Proveedores a PDF</a>
+
                     <a href="{% url 'registrar_proveedor' %}" class="nuevo-proveedor">Nuevo Proveedor</a>
                 </div>
-            <a href="{% url 'exportar_proveedores_pdf' %}" class="btn btn-success" target="_blank">Exportar a PDF</a>
                 <div class="search-bar mt-3">
                     <input type="text" id="search-input" class="form-control" placeholder="Buscar proveedor por nombre...">
                 </div>

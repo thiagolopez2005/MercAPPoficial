@@ -222,8 +222,8 @@ def home(request):
 
 def inventario(request):
     productos = Producto.objects.all() #AQUI VISUALIZA LOS PORDUCTOS GUARDADOS EN EL HMTL PORDUCTOS2
-    return render(request, 'accounts/inventario.html', {'productos': productos})
-
+    medidas = Producto.objects.values_list('medida', flat=True).distinct()
+    return render(request, 'accounts/inventario.html', {'productos': productos, 'medidas': medidas})
 def Principal(request):
     return render(request, 'accounts/Principal.html')
 
@@ -423,13 +423,16 @@ def productos2(request):
             verduras = Producto.objects.filter(tipoproducto='verduras')
             tuberculos = Producto.objects.filter(tipoproducto='tuberculos')
             hortalizas = Producto.objects.filter(tipoproducto='hortalizas')
+            medidas = Medida.objects.all()
             context = {
                 'form': form,
+            
                 'frutas': frutas,
                 'verduras': verduras,
                 'tuberculos': tuberculos,
                 'hortalizas': hortalizas,
                 'productos': Producto.objects.all(),
+                'medidas': medidas,
             }
             return render(request, 'accounts/productos2.html', context)
         if form.is_valid():
@@ -456,7 +459,20 @@ def productos2(request):
         'productos': Producto.objects.all(),
     }
     return render(request, 'accounts/productos2.html', context)
+from django.views.decorators.csrf import csrf_exempt
+from .models import Medida
+import json
 
+@csrf_exempt
+def agregar_medida(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        nombre = data.get("nombre", "").strip()
+        if not nombre:
+            return JsonResponse({"error": "El nombre es obligatorio"}, status=400)
+        medida, created = Medida.objects.get_or_create(nombre=nombre)
+        return JsonResponse({"id": medida.id, "nombre": medida.nombre})
+    return JsonResponse({"error": "Método no permitido"}, status=405)
 
 def productos(request):
     imagenes_publicadas = Producto.objects.filter(publicado=True)
@@ -473,6 +489,9 @@ def agregar_producto(request):
         origen = request.POST.get('origen')
         unidad = request.POST.get('unidad')
         precio = request.POST.get('precio')
+        # Validar si ya existe un producto con ese nombre (ignorando mayúsculas/minúsculas)
+        if Producto.objects.filter(nombre__iexact=nombre).exists():
+            return JsonResponse({'error': 'Ya existe un producto con ese nombre.'}, status=400)
         if imagen and descripcion and origen and unidad and precio and nombre:
             producto = Producto.objects.create(
                 imagen=imagen,
@@ -574,7 +593,6 @@ def editar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES, instance=producto)
-
         if form.is_valid():
             print("Formulario válido. Guardando cambios...")
             form.save()
@@ -583,7 +601,8 @@ def editar_producto(request, producto_id):
             print("Errores en el formulario:", form.errors)
     else:
         form = ProductoForm(instance=producto)
-    return render(request, 'accounts/editar_producto.html', {'form': form})
+    medidas = Medida.objects.all()
+    return render(request, 'accounts/editar_producto.html', {'form': form, 'medidas': medidas})
 
 
 
@@ -642,42 +661,51 @@ def inhabilitar_producto(request, producto_id):
 # --------------------------------------------
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
-
 def crear_factura(request):
+    proveedores = Proveedor.objects.filter(activo=True)
     if request.method == 'POST':
         form = FacturaForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            factura = form.save(commit=False)
+            proveedor_id = request.POST.get('proveedor')
+            if proveedor_id:
+                factura.proveedor = Proveedor.objects.get(id=proveedor_id)
+            factura.save()
             return redirect('factura')
     else:
         form = FacturaForm()
-    return render(request, 'accounts/crear_factura.html', {'form': form})
+    return render(request, 'accounts/crear_factura.html', {'form': form, 'proveedores': proveedores})
+
 @admin_required(login_url="/accounts/login/")
 
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
 def factura(request):
     # Obtén todas las facturas registradas
-    facturas = Factura.objects.all()
+    facturas = Factura.objects.select_related('proveedor').all()
     return render(request, 'accounts/Factura.html', {'facturas': facturas})
 
 @verificar_rol_requerido('admin')
 @admin_required(login_url="/accounts/login/")
-
 def editar_factura(request, numero_factura):
-    # Obtén la factura correspondiente al número
     factura = get_object_or_404(Factura, numero_factura=numero_factura)
-
+    proveedores = Proveedor.objects.filter(activo=True)
     if request.method == 'POST':
         form = FacturaForm(request.POST, request.FILES, instance=factura)
         if form.is_valid():
-            form.save()
-            return redirect('factura')  # Redirige a la lista de facturas
+            factura = form.save(commit=False)
+            proveedor_id = request.POST.get('proveedor')
+            if proveedor_id:
+                factura.proveedor = Proveedor.objects.get(id=proveedor_id)
+            factura.save()
+            return redirect('factura')
     else:
         form = FacturaForm(instance=factura)
-
-    return render(request, 'accounts/editar_factura.html', {'form': form, 'factura': factura})
-
+    return render(request, 'accounts/editar_factura.html', {
+        'form': form,
+        'factura': factura,
+        'proveedores': proveedores
+    })
 def inhabilitar_factura(request, numero_factura):
     factura = get_object_or_404(Factura, numero_factura=numero_factura)
     factura.habilitada = False
@@ -1029,27 +1057,7 @@ def validacion_compras_emple(request):
 
 from libreria.decorators import registrar_actividad_json
 
-@registrar_actividad_json(
-    accion="Marcar compra como pagada",
-    detalle_func=lambda request, compra_id: f"La compra del cliente '{ResumenCompra.objects.get(id=compra_id).cliente.nombre}' fue marcada como pagada."
-)
-@login_required
-def marcar_pagada(request, compra_id):
-    compra = get_object_or_404(ResumenCompra, id=compra_id)
-    compra.pagada = True
-    compra.save()
-    return JsonResponse({'success': True, 'message': 'La compra se marcó como pagada.'})
 
-@registrar_actividad_json(
-    accion="Marcar compra como no pagada",
-    detalle_func=lambda request, compra_id: f"La compra del cliente '{ResumenCompra.objects.get(id=compra_id).cliente.nombre}' fue marcada como NO pagada."
-)
-@login_required
-def marcar_no_pagada(request, compra_id):
-    compra = get_object_or_404(ResumenCompra, id=compra_id)
-    compra.pagada = False
-    compra.save()
-    return JsonResponse({'success': True, 'message': 'La compra se marcó como no pagada.'})
 
 # ---------------------------------
 # VISTA PARA LA RECUPERACION DE CONTRASEÑA
@@ -1284,3 +1292,95 @@ def confirmar_restauracion(request, backup_id):
     except (IndexError, FileNotFoundError):
         messages.error(request, "❌ Copia de seguridad no encontrada.")
         return redirect('copias_seguridad')
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+@registrar_actividad_json(
+    accion="Marcar compra como pagada",
+    detalle_func=lambda request, compra_id: f"La compra del cliente '{ResumenCompra.objects.get(id=compra_id).cliente.nombre}' fue marcada como pagada."
+)
+@login_required
+def marcar_pagada(request, compra_id):
+    compra = get_object_or_404(ResumenCompra, id=compra_id)
+    compra.pagada = True
+    compra.save()
+
+    # --- ENVÍO DE CORREO AL CLIENTE ---
+    cliente_email = compra.cliente.email
+    cliente_nombre = f"{compra.cliente.nombre} {compra.cliente.apellido}"
+    admin_phone = "3234188256"
+
+    # Mensaje según forma de entrega
+    if compra.forma_entrega == "sede":
+        entrega_msg = "Por favor, recoge tu producto en la sede."
+    elif compra.forma_entrega == "domicilio":
+        entrega_msg = "Su producto será enviado a su domicilio en el lapso de 1 semana, por favor comuniquese con el administrador,para más informacion 3234188256"
+    else:
+        entrega_msg = "Por favor, comuníquese con el administrador para más información."
+
+    subject = "Confirmación de Pago - MercApp"
+    message = (
+        f"Hola {cliente_nombre},\n\n"
+        "Su pago ha sido recibido correctamente.\n"
+        f"{entrega_msg}\n\n"
+        f"Por favor, comuníquese con el administrador al número {admin_phone} para más información.\n\n"
+        "Gracias por su compra.\nMercApp"
+    )
+
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [cliente_email],
+        fail_silently=True
+    )
+
+    return JsonResponse({'success': True, 'message': 'La compra se marcó como pagada.'})
+
+@registrar_actividad_json(
+    accion="Marcar compra como no pagada",
+    detalle_func=lambda request, compra_id: f"La compra del cliente '{ResumenCompra.objects.get(id=compra_id).cliente.nombre}' fue marcada como NO pagada."
+)
+@login_required
+def marcar_no_pagada(request, compra_id):
+    compra = get_object_or_404(ResumenCompra, id=compra_id)
+    compra.pagada = False
+    compra.save()
+
+    # --- ENVÍO DE CORREO AL CLIENTE ---
+    cliente_email = compra.cliente.email
+    cliente_nombre = f"{compra.cliente.nombre} {compra.cliente.apellido}"
+    admin_phone = "3234188256"
+
+    subject = "Estado de Pago - MercApp"
+    message = (
+        f"Hola {cliente_nombre},\n\n"
+        "Su pago aún no ha sido recibido o validado.\n"
+        f"Por favor, comuníquese con el administrador al número 3234188256 para más información.\n\n"
+        "Gracias por su compra.\nMercApp"
+    )
+
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [cliente_email],
+        fail_silently=True
+    )
+
+    return JsonResponse({'success': True, 'message': 'La compra se marcó como no pagada.'})
+from django.template.loader import get_template
+
+@verificar_rol_requerido('admin')
+@admin_required(login_url="/accounts/login/")
+def exportar_trabajadores_pdf(request):
+    cuentas = CustomUser.objects.all()
+    template = get_template('accounts/trabajadores_pdf.html')
+    html = template.render({'cuentas': cuentas})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="trabajadores.pdf"'
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response

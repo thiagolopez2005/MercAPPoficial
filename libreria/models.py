@@ -54,6 +54,12 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
         return self.cec
 
 # --------------------- Bakend del productos.hmtl ---------------------
+class Medida(models.Model):
+    nombre = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.nombre
+    
 class Producto(models.Model):
     TIPOS_PRODUCTO_CHOICES = [
         ('frutas', 'Frutas'),
@@ -70,7 +76,7 @@ class Producto(models.Model):
     stock = models.IntegerField()
     precio = models.DecimalField(max_digits=10, decimal_places=0)
     publicado = models.BooleanField(default=True)
-    medida = models.CharField(max_length=50)
+    medida = models.ForeignKey(Medida, on_delete=models.PROTECT)
     tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')  # Nuevo campo
     habilitado = models.BooleanField(default=True) 
 
@@ -106,22 +112,10 @@ class CustomCliente(AbstractUser):
     def __str__(self):
         return self.CC
 
-# ----------------------------- Bakend creacion dE FACTURAS   ---------------------
-from django.db import models
-from django.utils import timezone
 
-class Factura(models.Model):
-    imagen = models.ImageField(upload_to='facturas/', null=True, blank=True)
-    descripcion = models.TextField()
-    numero_factura = models.AutoField(primary_key=True)  # Auto-incrementable
-    fecha_publicacion = models.DateTimeField(default=timezone.now)
-    habilitada = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"Factura #{self.numero_factura} - {self.descripcion[:50]}"
     
 #------------------ PROVEEDORES-------------------------
-from django.db import models
+from django.db import models 
 
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=100)
@@ -132,6 +126,19 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+# ----------------------------- Bakend creacion dE FACTURAS   ---------------------
+from django.db import models
+from django.utils import timezone
+
+class Factura(models.Model):
+    imagen = models.ImageField(upload_to='facturas/', null=True, blank=True)
+    descripcion = models.TextField()
+    numero_factura = models.AutoField(primary_key=True)  # Auto-incrementable
+    fecha_publicacion = models.DateTimeField(default=timezone.now)
+    habilitada = models.BooleanField(default=True)    
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return f"Factura #{self.numero_factura} - {self.descripcion[:50]}"
     
 # --------backend de registro de actividad---
 

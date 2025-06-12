@@ -216,9 +216,16 @@
   </div>
 
   <!-- Campo para la medida -->
-  <div class="mb-3">
-    <label for="id_medida" class="form-label">Medida</label>
-    <input type="text" name="medida" id="id_medida" class="form-control" maxlength="50" value="{{ form.medida.value|default_if_none:'' }}" required>
+<div class="mb-3">
+  <label for="id_medida" class="form-label">Medida</label>
+  <select name="medida" id="id_medida" class="form-select" required>
+    {% for medida in medidas %}
+      <option value="{{ medida.id }}"
+        {% if form.medida.value == medida.id|stringformat:"s" %}selected{% endif %}>
+        {{ medida.nombre }}
+      </option>
+    {% endfor %}
+  </select>
 </div>
       
           <!-- Botón para guardar cambios -->
