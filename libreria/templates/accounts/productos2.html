@@ -8,6 +8,7 @@
 	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
   <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/custom2.css' %}" rel="stylesheet">
 </head>
 <body>
   <div class="container">
@@ -66,6 +67,13 @@
           <header class="top-bar">
               <h1>Gestión productos</h1>
               <div class="user-menu">
+
+                 <div id="accesibilidad-container">
+                    <button title="Accesibilidad" class="Accesibilidad">
+                        <img src="{% static 'images/accesibilidad.png' %}" class="icono-accesibilidad">
+                    </button>
+                    </div>
+
                   <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
                         <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
                     </button>
@@ -883,6 +891,7 @@ function agregarNuevaMedida() {
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/siennadmin.js' %}"></script>
 {% if messages %}
 <script>
   {% for message in messages %}

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const defaultOptions = {
-        buttonColor: '##2596be',
+        buttonColor: '#2596be',
         buttonIconColor: '#ffffff',
         highlightColor: '#2596be',
         menuBackgroundColor: '#ffffff',
@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return n
     };
     let i = n([
-        { label: "Fuente Legible", key: "readable-font", icon: "local_parking" },
         { label: "Resaltar Enlaces", key: "highlight-links", icon: "link" },
         { label: "Resaltar Título", key: "highlight-title", icon: "title" }
     ]),
@@ -60,53 +59,53 @@ document.addEventListener("DOMContentLoaded", function() {
     ], "asw-filter"),
     l = n([
         { label: "Cursor Grande", key: "big-cursor", icon: "mouse" },
-        { label: "Detener Animaciones", key: "stop-animations", icon: "motion_photos_off" },
         { label: "Guia de Lectura", key: "readable-guide", icon: "local_library" }
     ], "asw-tools");
+
+    // --- INICIO MODIFICACIÓN ---
+    // Solo dentro del contenedor de accesibilidad
+    const accesibilidadContainer = document.getElementById("accesibilidad-container");
+    if (!accesibilidadContainer) return;
+
+    // Encapsula los estilos usando el id del contenedor
     var r = document.createElement("div");
     r.innerHTML = `
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&text=${a.toString()}" rel="stylesheet">
     <style>
-        .asw-menu, .asw-menu-btn { position: fixed; left: 20px; transition: .3s; z-index: 500000; }
-        .asw-widget { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font-weight: 400; -webkit-font-smoothing: antialiased; }
-        .asw-widget * { box-sizing: border-box; }
-        .asw-menu-btn { bottom: 20px; background: ${options.buttonColor}; box-shadow: 0 5px 15px 0 rgb(37 44 97 / 15%), 0 2px 4px 0 rgb(93 100 148 / 20%); border-radius: 50%; align-items: center; justify-content: center; transform: translateY(0); width: 50px; height: 50px; display: flex; fill: ${options.buttonIconColor} !important; cursor: pointer; top: 85.1%; }
-        .asw-menu-btn svg { width: 30px; height: 30px; min-height: 30px; min-width: 30px; max-width: 30px; max-height: 30px; background: 0 0 !important; }
-        .asw-menu-btn:hover { transform: scale(1.05); }
-        .asw-menu { display: none; top: 20px; border-radius: 8px; box-shadow: -1px 0 20px -14px #000; opacity: 1; overflow: hidden; background: ${options.menuBackgroundColor}; width: 500px; line-height: 1; font-size: 14px; height: calc(100vh - 40px - 75px); letter-spacing: .015em; color: ${options.menuTextColor}; left: 5%; }
-        .asw-btn, .asw-footer a { font-size: 14px !important; }
-        .asw-menu-header { display: flex; align-items: center; justify-content: space-between; background:rgb(0, 0, 0); color: #fff; padding-left: 12px; font-weight: 600; }
-        .asw-menu-header > div { display: flex; }
-        .asw-menu-header div[role=button] { padding: 12px; cursor: pointer; }
-        .asw-menu-header div[role=button]:hover, .asw-minus:hover, .asw-plus:hover { opacity: .8; }
-        .asw-items { display: flex; gap: 10px; padding: 0; list-style: none; flex-wrap: wrap; justify-content: space-between; }
-        .asw-btn { width: 140px; height: 120px; border-radius: 8px; padding: 15px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: #333; background:rgb(255, 255, 255); border: 3px solid #2596be; transition: background-color .3s; cursor: pointer; }
-        .asw-btn .material-icons { margin-bottom: 16px; }
-        .asw-btn:hover { border-color: ${options.highlightColor}; }
-        .asw-btn.asw-selected { background: ${options.highlightColor}; color: #fff; border-color: ${options.highlightColor}; }
-        .asw-footer { position: absolute; bottom: 0; left: 0; right: 0; background: #0334b1; padding: 16px; text-align: center; color: #fff; }
-        .asw-footer a { text-decoration: underline; color: #fff; background: 0 0 !important; }
-        .asw-menu-content { overflow: scroll; max-height: calc(100% - 80px); }
-        .asw-card { margin: 0 15px 30px; }
-        .asw-card-title { font-size: 18px; padding: 15px 0; }
-        .asw-adjust-font { background:rgb(255, 255, 255); border: 3px solid padding: 20px 25px; margin-bottom: 16px; }
-        .asw-adjust-font .label { display: flex; align-items: center; }
-        .asw-adjust-font > div { display: flex; justify-content: space-between; margin-top: 20px; align-items: center; font-size: 16px; font-weight: 700; }
-        .asw-adjust-font div[role=button] { background:rgb(0, 0, 0); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; }
-        .asw-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: none; }
+        #accesibilidad-container .asw-menu, 
+        #accesibilidad-container .asw-menu-btn { position: fixed; left: 20px; transition: .3s; z-index: 500000; }
+        #accesibilidad-container .asw-widget { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; font-weight: 400; -webkit-font-smoothing: antialiased; }
+        #accesibilidad-container .asw-widget * { box-sizing: border-box; }
+        #accesibilidad-container .asw-menu-btn { bottom: 20px; background: ${options.buttonColor}; box-shadow: 0 5px 15px 0 rgb(37 44 97 / 15%), 0 2px 4px 0 rgb(93 100 148 / 20%); border-radius: 50%; align-items: center; justify-content: center; transform: translateY(0); width: 50px; height: 50px; display: flex; fill: ${options.buttonIconColor} !important; cursor: pointer; top: 85.1%; }
+        #accesibilidad-container .asw-menu-btn svg { width: 30px; height: 30px; min-height: 30px; min-width: 30px; max-width: 30px; max-height: 30px; background: 0 0 !important; }
+        #accesibilidad-container .asw-menu-btn:hover { transform: scale(1.05); }
+        #accesibilidad-container .asw-menu { display: none; top: 111px; border-radius: 8px; box-shadow: -1px 0 20px -14px #000; opacity: 1; overflow: hidden; background: ${options.menuBackgroundColor}; width: 500px; line-height: 1; font-size: 14px; height: calc(100vh - 40px - 75px); letter-spacing: .015em; color: ${options.menuTextColor}; left: 61%; }
+        #accesibilidad-container .asw-btn, #accesibilidad-container .asw-footer a { font-size: 14px !important; }
+        #accesibilidad-container .asw-menu-header { display: flex; align-items: center; justify-content: space-between; background:rgb(0, 0, 0); color: #fff; padding-left: 12px; font-weight: 600; }
+        #accesibilidad-container .asw-menu-header > div { display: flex; }
+        #accesibilidad-container .asw-menu-header div[role=button] { padding: 12px; cursor: pointer; }
+        #accesibilidad-container .asw-menu-header div[role=button]:hover, #accesibilidad-container .asw-minus:hover, #accesibilidad-container .asw-plus:hover { opacity: .8; }
+        #accesibilidad-container .asw-items { display: flex; gap: 10px; padding: 0; list-style: none; flex-wrap: wrap; justify-content: space-between; }
+        #accesibilidad-container .asw-btn { width: 140px; height: 120px; border-radius: 8px; padding: 15px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: #333; background:rgb(255, 255, 255); border: 3px solid #2596be; transition: background-color .3s; cursor: pointer; }
+        #accesibilidad-container .asw-btn .material-icons { margin-bottom: 16px; }
+        #accesibilidad-container .asw-btn:hover { border-color: ${options.highlightColor}; }
+        #accesibilidad-container .asw-btn.asw-selected { background: ${options.highlightColor}; color: #fff; border-color: ${options.highlightColor}; }
+        #accesibilidad-container .asw-footer { position: absolute; bottom: 0; left: 0; right: 0; background: #0334b1; padding: 16px; text-align: center; color: #fff; }
+        #accesibilidad-container .asw-footer a { text-decoration: underline; color: #fff; background: 0 0 !important; }
+        #accesibilidad-container .asw-menu-content { overflow: scroll; max-height: calc(100% - 80px); }
+        #accesibilidad-container .asw-card { margin: 0 15px 30px; }
+        #accesibilidad-container .asw-card-title { font-size: 18px; padding: 15px 0; }
+        #accesibilidad-container .asw-adjust-font { background:rgb(255, 255, 255); border: 3px solid padding: 20px 25px; margin-bottom: 16px; }
+        #accesibilidad-container .asw-adjust-font .label { display: flex; align-items: center; }
+        #accesibilidad-container .asw-adjust-font > div { display: flex; justify-content: space-between; margin-top: 20px; align-items: center; font-size: 16px; font-weight: 700; }
+        #accesibilidad-container .asw-adjust-font div[role=button] { background:rgb(0, 0, 0); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; }
+        #accesibilidad-container .asw-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: none; }
         @media only screen and (max-width: 560px) {
-            .asw-menu { width: calc(100vw - 20px); left: 10px; }
-            .asw-btn { width: calc(50% - 8px); }
+            #accesibilidad-container .asw-menu { width: calc(100vw - 20px); left: 10px; }
+            #accesibilidad-container .asw-btn { width: calc(50% - 8px); }
         }
     </style>
     <div class="asw-widget">
-        <div class="asw-menu-btn" title="Open Accessibility Menu" role="button" aria-expanded="false" style="display: none;">
-            <svg xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px;min-height:34px;min-width:34px;max-width:34px;max-height:34px;" viewBox="0 0 24 24" width="34px" height="34px">
-                <path d="M0 0h24v24H0V0z" fill="none"/>
-                <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
-            </svg>
-        </div>
-        <div class="asw-menu">
+        <div class="asw-menu" style="display:none;">
             <div class="asw-menu-header">Accesibilidad
                 <div>
                     <div role="button" class="asw-menu-reset" title="Restablecer Configuración">
@@ -151,14 +150,54 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <div class="asw-overlay"></div>
     </div>`;
-    const c = function(t, e) {
+
+    // Agrega el widget SOLO dentro del contenedor
+    accesibilidadContainer.appendChild(r);
+
+    // Referencias internas
+    let m = r.querySelector(".asw-menu"),
+        g = r.querySelector(".asw-overlay");
+
+    // Usa el botón personalizado para abrir/cerrar el menú
+    const customAccessibilityButton = accesibilidadContainer.querySelector(".Accesibilidad");
+    if (customAccessibilityButton) {
+        customAccessibilityButton.addEventListener("click", function() {
+            m.style.display = (m.style.display === "block") ? "none" : "block";
+            g.style.display = m.style.display;
+        }, false);
+    }
+
+    m.querySelector(".asw-menu-close").addEventListener("click", function() {
+        m.style.display = "none", g.style.display = m.style.display
+    }, !1), g.addEventListener("click", function() {
+        m.style.display = "none", g.style.display = m.style.display
+    }, !1), m.querySelector(".asw-menu-reset").addEventListener("click", function() {
+        t.states = {}, p(), u(), h(void 0, 1), m.querySelectorAll(".asw-btn").forEach(function(t) {
+            t.classList.remove("asw-selected"), t.setAttribute("aria-pressed", "false")
+        }), m.querySelectorAll(".asw-amount").forEach(function(t) {
+            t.innerHTML = "Normal"
+        }), e()
+    }, !1), m.querySelectorAll(".asw-btn").forEach(function(t) {
+        t.addEventListener("click", f, !1)
+    }), m.querySelectorAll(".asw-adjust-font div[role='button']").forEach(function(t) {
+        t.addEventListener("click", function(t) {
+            h(t), e()
+        }, !1)
+    });
+
+    // --- FIN MODIFICACIÓN ---
+
+    // Funciones auxiliares (sin cambios, pero encapsulan el efecto solo en el contenedor)
+    function c(t, e) {
         let s = document.getElementById(e || "") || document.createElement("style");
         s.innerHTML = t, s.id || (s.id = e, document.head.appendChild(s))
-    }, d = function(t, e) {
+    }
+    function d(t, e) {
         let s = "", a = ["-o-", "-ms-", "-moz-", "-webkit", ""];
         for (var n = a.length; n--;) s += a[n] + (e || "filter") + ":" + t + ";";
         return s
-    }, p = function(t) {
+    }
+    function p(t) {
         let e = "";
         if (t) {
             if ("dark-contrast" == t || "light-contrast" == t) {
@@ -178,7 +217,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         c(e, "asw-filter-style"), t ? document.documentElement.setAttribute("data-asw-filter", t) : document.documentElement.removeAttribute("data-asw-filter", t)
-    }, u = function() {
+    }
+    function u() {
+        
         let e = [{
             id: "highlight-title",
             childrenSelector: ["h1", "h2", "h3", "h4", "h5", "h6"],
@@ -207,19 +248,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 }, document.addEventListener("mousemove", window.onScrollReadableGuide, !1), document.body.appendChild(o)
             }
         } else i && (i.remove(), document.removeEventListener("mousemove", window.onScrollReadableGuide));
-        t.states["stop-animations"] && (s += `\nbody * {${d("none !important", "transition")}${d("forwards !important", "animation-fill-mode")}${d("1 !important", " animation-iteration-count")}${d(".01s !important", "animation-duration")}\n}`),
-       
 
-        t.states["readable-font"] && (s += '\n@font-face {font-family: OpenDyslexic3;src: url("https://website-widgets.pages.dev/fonts/OpenDyslexic3-Regular.woff") format("woff"), url("https://website-widgets.pages.dev/fonts/OpenDyslexic3-Regular.ttf") format("truetype");\n}'), c(s, "asw-content-style")
-    };
-    var f = function(s) {
+        if (t.states["stop-animations"]) {
+    s += `\nbody * {${d("none !important", "transition")}${d("forwards !important", "animation-fill-mode")}${d("1 !important", " animation-iteration-count")}${d(".01s !important", "animation-duration")}\n}`;
+        }
+        if (t.states["big-cursor"]) {
+            s += "\nbody * {cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 512 512'%3E%3Cpath  d='M429.742 319.31L82.49 0l-.231 471.744 105.375-100.826 61.89 141.083 96.559-42.358-61.89-141.083 145.549-9.25zM306.563 454.222l-41.62 18.259-67.066-152.879-85.589 81.894.164-333.193 245.264 225.529-118.219 7.512 67.066 152.878z' xmlns='http://www.w3.org/2000/svg'/%3E%3C/svg%3E\") ,default !important;\n}";
+        }
+
+        c(s, "asw-content-style");
+    }
+    function f(s) {
         s.preventDefault();
         let a = s.currentTarget, n = a.dataset.key;
-        a.classList.contains("asw-filter") ? (document.querySelectorAll(".asw-filter").forEach((function(t) {
+        a.classList.contains("asw-filter") ? (m.querySelectorAll(".asw-filter").forEach((function(t) {
             t.classList.remove("asw-selected"), t.setAttribute("aria-pressed", "false")
         })), t.states.contrast = t.states.contrast !== n && n, t.states.contrast && (a.classList.add("asw-selected"), a.setAttribute("aria-pressed", "true")), p(t.states.contrast)) : (t.states[n] = !t.states[n], a.classList.toggle("asw-selected", t.states[n]), a.setAttribute("aria-pressed", t.states[n] ? "true" : "false"), u()), e()
-    };
-    const h = function(e, s) {
+    }
+    function h(e, s) {
         let a = !1;
         !s && e && (a = e.currentTarget, s = parseFloat(t.states.fontSize) || 1, a.classList.contains("asw-minus") ? s -= .1 : s += .1, s = Math.max(s, .1), s = Math.min(s, 2), s = parseFloat(s.toFixed(2))), document.querySelectorAll("h1,h2,h3,h4,h5,h6,p,a,dl,dt,li,ol,th,td,span").forEach((function(t) {
             if (!t.classList.contains("material-icons")) {
@@ -229,40 +275,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 t.style["font-size"] = a + "px"
             }
         }));
-        let n = "Normal"; // Cambiado de "Default" a "Normal"
+        let n = "Normal";
         1 !== s && (s > 1 ? n = "+" : s < 1 && (n = "-"), n += parseInt(100 * s) + "%"), a && (a.parentElement.querySelector(".asw-amount").innerHTML = n), t.states.fontSize = s
-    };
-    let m = r.querySelector(".asw-menu"), g = r.querySelector(".asw-overlay");
-
-    // INICIO DE LA MODIFICACIÓN
-    // Encuentra tu botón de accesibilidad personalizado
-    const customAccessibilityButton = document.querySelector(".Accesibilidad");
-
-    // Agrega un escuchador de eventos a tu botón personalizado
-    if (customAccessibilityButton) {
-        customAccessibilityButton.addEventListener("click", function() {
-            m.style.display = (m.style.display === "block") ? "none" : "block";
-            g.style.display = m.style.display;
-        }, false);
     }
-    // FIN DE LA MODIFICACIÓN
 
-    m.querySelector(".asw-menu-close").addEventListener("click", function() {
-        m.style.display = "none", g.style.display = m.style.display
-    }, !1), g.addEventListener("click", function() {
-        m.style.display = "none", g.style.display = m.style.display
-    }, !1), m.querySelector(".asw-menu-reset").addEventListener("click", function() {
-        t.states = {}, p(), u(), h(void 0, 1), document.querySelectorAll(".asw-btn").forEach(function(t) {
-            t.classList.remove("asw-selected"), t.setAttribute("aria-pressed", "false")
-        }), document.querySelectorAll(".asw-amount").forEach(function(t) {
-            t.innerHTML = "Normal" // Cambiado de "Default" a "Normal"
-        }), e()
-    }, !1), m.querySelectorAll(".asw-btn").forEach(function(t) {
-        t.addEventListener("click", f, !1)
-    }), m.querySelectorAll(".asw-adjust-font div[role='button']").forEach(function(t) {
-        t.addEventListener("click", function(t) {
-            h(t), e()
-        }, !1)
-    }), document.body.appendChild(r), s && (u(), 1 !== t.states.fontSize && h(null, t.states.fontSize), t.states.contrast && p(t.states.contrast))
-
+    // Inicializa si hay estado guardado
+    if (s) {
+        u();
+        1 !== t.states.fontSize && h(null, t.states.fontSize);
+        t.states.contrast && p(t.states.contrast)
+    }
 });
