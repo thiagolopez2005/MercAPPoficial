@@ -8,6 +8,7 @@
 
     <title>Trabajadores</title>
 	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom6.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -159,6 +160,12 @@
             <header class="top-bar">
                 <h1>Gestión de Trabajadores</h1>
                 <div class="user-menu">
+                    <div id="accesibilidad-container">
+                    <button title="Accesibilidad" class="Accesibilidad">
+                        <img src="{% static 'images/accesibilidad.png' %}" class="icono-accesibilidad">
+                    </button>
+                    </div>
+
                     <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
                         <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
                     </button>
@@ -300,7 +307,7 @@
         estadoFilter.addEventListener("change", filtrar);
     });
 </script>
-
+    <script src="{% static 'js/siennadmin.js' %}"></script>     
     <script src="{% static 'js/dashboard.js' %}"></script>
     <script src="{% static 'js/filtros.js' %}"></script>
     <script src="{% static 'js/manualadministrador.js' %}"></script>

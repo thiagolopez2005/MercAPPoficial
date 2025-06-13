@@ -197,14 +197,7 @@
     color: #ffffff !important;
 }
 
-[data-asw-filter="dark-contrast"] .dashboard-content {
-    background-color: #121212 !important;
-    color: #ffffff !important;
-}
 
-[data-asw-filter="dark-contrast"] .timeline {
-    background-color: #121212 !important;
-}
 
 [data-asw-filter="dark-contrast"] .timeline h2 {
     color: #ffffff !important;
@@ -292,6 +285,47 @@
 [data-asw-filter="dark-contrast"] .boton-manual-administrador {
     background-color: #1e1e1e !important;
     border: 2px solid #ffffff !important;
+}
+
+/* MODO CONTRASTE OSCURO */
+[data-asw-filter="dark-contrast"] {
+    /* Contenedor principal */
+    .container {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border-right: 2px solid #ffffff !important;
+    }
+
+    /* Contenido principal */
+    .main-content {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+
+    /* Barra superior */
+    .top-bar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #ffffff !important;
+    }
+
+    .top-bar h1 {
+        color: #ffffff !important;
+        font-weight: bold !important;
+    }
+
+    /* Dashboard de usuarios */
+    .users-dashboard {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
 }
 
 /* TRANSICIONES SUAVES */

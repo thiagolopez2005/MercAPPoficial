@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soporte de pagos</title>
 	<link href="{% static 'css/Factura.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom7.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -66,10 +67,19 @@
             <header class="top-bar">
                 <h1>Gestión de Recibos</h1>
                 <div class="user-menu">
+
+                    <div id="accesibilidad-container">
+                    <button title="Accesibilidad" class="Accesibilidad">
+                        <img src="{% static 'images/accesibilidad.png' %}" class="icono-accesibilidad">
+                    </button>
+                   </div>
+
                     <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
                         <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
                     </button>
+                    
                     <i title="Cerrar Sesión" class="material-icons logout-icon">power_settings_new</i>
+
                 </div>
 
                  
@@ -499,6 +509,7 @@
                 </main>
             </div>
         <script src="{% static 'js/dashboard.js' %}"></script>
+        <script src="{% static 'js/siennadmin.js' %}"></script>
         <script src="{% static 'js/filtros.js' %}"></script>
         <script src="{% static 'js/manualadministrador.js' %}"></script>
 </body>
