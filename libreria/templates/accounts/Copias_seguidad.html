@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copias de Seguridad</title>
 	<link href="{% static 'css/interno.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom9.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -67,6 +68,13 @@
             <header class="top-bar">
                 <h1>Gestión Copias de Seguridad</h1>
                 <div class="user-menu">
+
+                    <div id="accesibilidad-container">
+                    <button title="Accesibilidad" class="Accesibilidad">
+                        <img src="{% static 'images/accesibilidad.png' %}" class="icono-accesibilidad">
+                    </button>
+                   </div>
+
                      <button title="Manual Administrador" class="boton-manual-administrador" onclick="descargarManual()">
                         <img src="{% static 'images/signo.png' %}" alt="Icono Manual" class="icono-manual">
                     </button>
@@ -348,6 +356,7 @@ form {
         </div>
     </div>
     <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/siennadmin.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'js/manualadministrador.js' %}"></script>
 

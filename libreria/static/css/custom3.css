@@ -222,6 +222,33 @@
     color: #ffffff !important;
 }
 
+[data-asw-filter="dark-contrast"] {
+    /* Contenedor principal */
+    .container {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border-right: 2px solid #ffffff !important;
+    }
+    /* Barra superior */
+    .top-bar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #ffffff !important;
+    }
+
+    .top-bar h1 {
+        color: #ffffff !important;
+        font-weight: bold !important;
+    }
+}
+
 
 /* MODO NORMAL (sin filtros) - Mantiene los estilos originales */
 body:not([data-asw-filter]) .container {

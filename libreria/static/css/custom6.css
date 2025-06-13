@@ -1,0 +1,273 @@
+/* MODO CLARO (light-contrast) */
+[data-asw-filter="light-contrast"] .container {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .sidebar {
+    background-color: #f8f9fa !important;
+    border-right: 1px solid #e9ecef !important;
+}
+
+[data-asw-filter="light-contrast"] .profile {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .profile h3 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .profile p {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .menu ul li a {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+[data-asw-filter="light-contrast"] .menu ul li a:hover {
+    background-color: #e9ecef !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .main-content {
+    background-color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .top-bar {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #e9ecef !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .top-bar h1 {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .users-dashboard {
+    background-color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .section-header h2 {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .search-bar {
+    background-color: #f8f9fa !important;
+}
+
+[data-asw-filter="light-contrast"] .search-bar input {
+    background-color: #ffffff !important;
+    border: 1px solid #e9ecef !important;
+    color: #495057 !important;
+}
+
+[data-asw-filter="light-contrast"] #estado-filter {
+    background-color: #ffffff !important;
+    border: 2px solid #e9ecef !important;
+    color: #495057 !important;
+}
+
+[data-asw-filter="light-contrast"] .table {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .table-header {
+    background-color: #f8f9fa !important;
+    color: #495057 !important;
+}
+
+[data-asw-filter="light-contrast"] .table thead th {
+    background-color: #f8f9fa !important;
+    color: #495057 !important;
+    border-bottom: 2px solid #e9ecef !important;
+}
+
+[data-asw-filter="light-contrast"] .table tbody td {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border-bottom: 1px solid #e9ecef !important;
+}
+
+[data-asw-filter="light-contrast"] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa !important;
+}
+
+[data-asw-filter="light-contrast"] .provider-name {
+    color: #333333 !important;
+    font-weight: 500 !important;
+}
+
+[data-asw-filter="light-contrast"] .text-center {
+    color: #6c757d !important;
+}
+
+
+
+/* MODO OSCURO (dark-contrast) */
+[data-asw-filter="dark-contrast"] .container {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .sidebar {
+    background-color: #1e1e1e !important;
+    border-right: 1px solid #333333 !important;
+}
+
+[data-asw-filter="dark-contrast"] .profile {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .profile h3 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .profile p {
+    color: #b0b0b0 !important;
+}
+
+[data-asw-filter="dark-contrast"] .menu ul li a {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+[data-asw-filter="dark-contrast"] .menu ul li a:hover {
+    background-color: #333333 !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="dark-contrast"] .main-content {
+    background-color: #121212 !important;
+}
+
+[data-asw-filter="dark-contrast"] .top-bar {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #333333 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .top-bar h1 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .users-dashboard {
+    background-color: #121212 !important;
+}
+
+[data-asw-filter="dark-contrast"] .section-header h2 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-bar input {
+    background-color: #2d2d2d !important;
+    border: 1px solid #444444 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-bar input::placeholder {
+    color: #888888 !important;
+}
+
+[data-asw-filter="dark-contrast"] #estado-filter {
+    background-color: #2d2d2d !important;
+    border: 2px solid #444444 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] {
+  & #estado-filter {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+  }
+}
+
+
+[data-asw-filter="dark-contrast"] #estado-filter option {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .table {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] 
+  & .table th {
+    border: 1px solid #ffffff !important;
+    color: #ffffff !important;
+    background-color: #1a1a1a !important;
+    font-weight: bold !important;
+  }
+
+[data-asw-filter="dark-contrast"] .table-header {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .table thead th {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #444444 !important;
+}
+
+[data-asw-filter="dark-contrast"] .table tbody td {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #333333 !important;
+}
+
+[data-asw-filter="dark-contrast"] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #2d2d2d !important;
+}
+
+[data-asw-filter="dark-contrast"] .provider-name {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+[data-asw-filter="dark-contrast"] .text-center {
+    color: #b0b0b0 !important;
+}
+
+
+
+/* Estilos para los badges de estado */
+[data-asw-filter="dark-contrast"] .badge {
+    border: 1px solid #444444 !important;
+}
+
+/* Iconos en modo oscuro */
+
+[data-asw-filter="dark-contrast"] .logout-icon {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .logout-icon:hover {
+    color: #ffffff !important;
+}
+
+
+
+/* Scrollbars en modo oscuro */
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar-track {
+    background: #1e1e1e !important;
+}
+
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar-thumb {
+    background: #444444 !important;
+    border-radius: 4px !important;
+}
+
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar-thumb:hover {
+    background: #555555 !important;
+}

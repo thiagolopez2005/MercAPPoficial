@@ -32,7 +32,7 @@
     }
 
     .top-bar h1 {
-        color: #000000 !important;
+        color: #ffffff !important;
         font-weight: bold !important;
     }
 
@@ -128,7 +128,7 @@
 
     /* Solo texto y títulos */
     h1, h2, h3, h4, h5, h6 {
-        color: #000000 !important;
+        color: #ffffff !important;
         font-weight: bold !important;
     }
 }

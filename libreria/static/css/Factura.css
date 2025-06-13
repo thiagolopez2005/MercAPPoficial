@@ -305,14 +305,13 @@ body {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: 3px solid var(--primary-color);
     transition: all 0.3s ease;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .user-menu img:hover {
     transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+
 }
 
 /* Títulos mejorados */
@@ -862,6 +861,36 @@ h2:hover::after {
 }
 
 .icono-manual {
+    width: 20px;
+    height: 20px;
+}
+
+/*Accesibilidad*/
+
+.Accesibilidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 6px;
+    background-color: #0781c4;
+    color: white;
+    border: none;
+    border-radius: 66px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.Accesibilidad:hover {
+    background-color: #0781c4;
+}
+
+.Accesibilidad:active {
+    background-color: #0781c4;
+}
+
+.icono-accesibilidad {
     width: 20px;
     height: 20px;
 }

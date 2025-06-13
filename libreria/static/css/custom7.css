@@ -1,0 +1,467 @@
+/* MODO CLARO (light-contrast) */
+[data-asw-filter="light-contrast"] .container {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .sidebar {
+    background-color: #f8f9fa !important;
+    border-right: 1px solid #e9ecef !important;
+}
+
+[data-asw-filter="light-contrast"] .profile {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .profile h3 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .profile p {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .menu ul li a {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+[data-asw-filter="light-contrast"] .menu ul li a:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .main-content {
+    background-color: #d6d6d6 !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .top-bar {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #e9ecef !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .top-bar h1 {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .facturas-header {
+    background-color: #f8f9fa !important;
+    border: 1px solid #e9ecef !important;
+}
+
+[data-asw-filter="light-contrast"] .facturas-header h1 {
+    color: #28a745 !important;
+}
+
+[data-asw-filter="light-contrast"] .search-bar input {
+    background-color: #ffffff !important;
+    border: 1px solid #e9ecef !important;
+    color: #495057 !important;
+}
+
+[data-asw-filter="light-contrast"] .search-bar input::placeholder {
+    color: #6c757d !important;
+}
+
+[data-asw-filter="light-contrast"] .search-icon {
+    color: #6c757d !important;
+}
+
+[data-asw-filter="light-contrast"] .facturas-grid {
+    background-color: transparent !important;
+}
+
+[data-asw-filter="light-contrast"] .factura-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e9ecef !important;
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .factura-card h5 {
+    color: #28a745 !important;
+}
+
+[data-asw-filter="light-contrast"] .factura-card p {
+    color: #495057 !important;
+}
+
+[data-asw-filter="light-contrast"] .factura-card strong {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .text-muted {
+    color: #6c757d !important;
+}
+
+[data-asw-filter="light-contrast"] .modal-factura {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-asw-filter="light-contrast"] .modal-contenido {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #e9ecef !important;
+}
+
+[data-asw-filter="light-contrast"] .modal-contenido h3 {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .modal-contenido p {
+    color: #495057 !important;
+}
+
+[data-asw-filter="light-contrast"] .modal-contenido strong {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .cerrar {
+    color: #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .cerrar:hover {
+    color: #000000 !important;
+}
+
+[data-asw-filter="light-contrast"] .factura-vacia {
+    background-color: #f8f9fa !important;
+    border: 1px solid #e9ecef !important;
+    color: #6c757d !important;
+}
+
+
+/* Botón de éxito */
+[data-asw-filter="light-contrast"] .btn-success:not(:has(img)) {
+    background-color: #28a745 !important;
+    border: 1px solid #28a745 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-success:not(:has(img)):hover {
+    background-color: #218838 !important;
+    border-color: #218838 !important;
+    color: #ffffff !important;
+}
+
+/* Botón de peligro */
+[data-asw-filter="light-contrast"] .btn-danger:not(:has(img)) {
+    background-color: #dc3545 !important;
+    border: 1px solid #dc3545 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-danger:not(:has(img)):hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+    color: #ffffff !important;
+}
+
+/* Botón de advertencia */
+[data-asw-filter="light-contrast"] .btn-warning:not(:has(img)) {
+    background-color: #ffc107 !important;
+    border: 1px solid #ffc107 !important;
+    color: #212529 !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-warning:not(:has(img)):hover {
+    background-color: #e0a800 !important;
+    border-color: #d39e00 !important;
+    color: #212529 !important;
+}
+
+/* Botón de información */
+[data-asw-filter="light-contrast"] .btn-info:not(:has(img)) {
+    background-color: #17a2b8 !important;
+    border: 1px solid #17a2b8 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-info:not(:has(img)):hover {
+    background-color: #138496 !important;
+    border-color: #117a8b !important;
+    color: #ffffff !important;
+}
+
+/* Botón outline */
+[data-asw-filter="light-contrast"] .btn-outline-primary:not(:has(img)) {
+    background-color: transparent !important;
+    border: 1px solid #007bff !important;
+    color: #007bff !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-outline-primary:not(:has(img)):hover {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-outline-secondary:not(:has(img)) {
+    background-color: transparent !important;
+    border: 1px solid #6c757d !important;
+    color: #6c757d !important;
+}
+
+[data-asw-filter="light-contrast"] .btn-outline-secondary:not(:has(img)):hover {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #ffffff !important;
+}
+
+/* Protección adicional para botones con imágenes */
+[data-asw-filter="light-contrast"] button:has(img),
+[data-asw-filter="light-contrast"] .btn:has(img),
+[data-asw-filter="light-contrast"] .image-button,
+[data-asw-filter="light-contrast"] button[type="image"],
+[data-asw-filter="light-contrast"] input[type="image"] {
+    background-color: unset !important;
+    border: unset !important;
+    color: unset !important;
+}
+
+/* Asegurar que las imágenes dentro de elementos mantengan su apariencia */
+[data-asw-filter="light-contrast"] img,
+[data-asw-filter="light-contrast"] .imagen-factura,
+[data-asw-filter="light-contrast"] .imagen-factura * {
+    background-color: unset !important;
+    border-color: unset !important;
+    color: unset !important;
+}
+
+/* MODO OSCURO (dark-contrast) */
+[data-asw-filter="dark-contrast"] .container {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .sidebar {
+    background-color: #1e1e1e !important;
+    border-right: 1px solid #333333 !important;
+}
+
+[data-asw-filter="dark-contrast"] .profile {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .profile h3 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .profile p {
+    color: #b0b0b0 !important;
+}
+
+[data-asw-filter="dark-contrast"] .menu ul li a {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+[data-asw-filter="dark-contrast"] .menu ul li a:hover {
+    background-color: #333333 !important;
+    color: #000000 !important;
+}
+
+/* MODO CONTRASTE OSCURO */
+[data-asw-filter="dark-contrast"] {
+    /* Contenedor principal */
+    .container {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border-right: 2px solid #ffffff !important;
+    }
+
+    /* Contenido principal */
+    .main-content {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+
+    /* Barra superior */
+    .top-bar {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #ffffff !important;
+    }
+
+    .top-bar h1 {
+        color: #ffffff !important;
+        font-weight: bold !important;
+    }
+
+    /* Dashboard de usuarios */
+    .users-dashboard {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+}
+
+[data-asw-filter="dark-contrast"] .main-content {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .top-bar {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #333333 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .top-bar h1 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .facturas-header {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333333 !important;
+}
+
+[data-asw-filter="dark-contrast"] .facturas-header h1 {
+    color: #28a745 !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-bar input {
+    background-color: #2d2d2d !important;
+    border: 1px solid #444444 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-bar input::placeholder {
+    color: #888888 !important;
+}
+
+[data-asw-filter="dark-contrast"] .search-icon {
+    color: #b0b0b0 !important;
+}
+
+[data-asw-filter="dark-contrast"] .facturas-grid {
+    background-color: transparent !important;
+}
+
+[data-asw-filter="dark-contrast"] .factura-card {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333333 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .factura-card:hover {
+    background-color: #2d2d2d !important;
+    border-color: #444444 !important;
+}
+
+[data-asw-filter="dark-contrast"] .factura-card h5 {
+    color: #28a745 !important;
+}
+
+[data-asw-filter="dark-contrast"] .factura-card p {
+    color: #b0b0b0 !important;
+}
+
+[data-asw-filter="dark-contrast"] .factura-card strong {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .text-muted {
+    color: #888888 !important;
+}
+
+[data-asw-filter="dark-contrast"] .modal-factura {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-asw-filter="dark-contrast"] .modal-contenido {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border: 1px solid #333333 !important;
+}
+
+[data-asw-filter="dark-contrast"] .modal-contenido h3 {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .modal-contenido p {
+    color: #b0b0b0 !important;
+}
+
+[data-asw-filter="dark-contrast"] .modal-contenido strong {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .cerrar {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .cerrar:hover {
+    color: #dc3545 !important;
+}
+
+[data-asw-filter="dark-contrast"] .factura-vacia {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333333 !important;
+    color: #888888 !important;
+}
+
+/* Iconos en modo oscuro */
+
+[data-asw-filter="dark-contrast"] .logout-icon {
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .logout-icon:hover {
+    color: #ffffff !important;
+}
+
+/* Estados de factura */
+[data-asw-filter="dark-contrast"] .estado.activa {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="dark-contrast"] .estado.inactiva {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .estado.activa {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+}
+
+[data-asw-filter="light-contrast"] .estado.inactiva {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+/* Imágenes en las tarjetas */
+[data-asw-filter="dark-contrast"] .imagen-factura img {
+    border: 1px solid #333333 !important;
+}
+
+[data-asw-filter="light-contrast"] .imagen-factura img {
+    border: 1px solid #e9ecef !important;
+}
+
+/* Scrollbars en modo oscuro */
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar-track {
+    background: #1e1e1e !important;
+}
+
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar-thumb {
+    background: #444444 !important;
+    border-radius: 4px !important;
+}
+
+[data-asw-filter="dark-contrast"] ::-webkit-scrollbar-thumb:hover {
+    background: #555555 !important;
+}
