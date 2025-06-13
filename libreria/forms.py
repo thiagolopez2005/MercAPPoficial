@@ -44,12 +44,10 @@ from .models import Factura
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
-        fields = ['imagen', 'descripcion', 'fecha_publicacion']
-        def __init__(self, *args, **kwargs):
-            super(FacturaForm, self).__init__(*args, **kwargs)
-            self.fields['descripcion'].widget.attrs.update({'class': 'form-control'})
-            self.fields['fecha_publicacion'].widget.attrs.update({'class': 'form-control'})
-            self.fields['imagen'].widget.attrs.update({'class': 'form-control'})
+        fields = ['imagen', 'descripcion', 'proveedor', 'habilitada']  # NO incluyas 'fecha_publicacion'
+        widgets = {
+            'descripcion': forms.Textarea(attrs={'rows': 4}),
+        }
 
 # ------------------ PROVEEDORES-------------------------
 from django import forms

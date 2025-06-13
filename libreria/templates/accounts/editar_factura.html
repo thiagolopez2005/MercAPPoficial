@@ -97,45 +97,54 @@
         <div class="card-header bg-warning text-dark text-center mb-3">
             <h2 class="mb-0">Editar Factura #</h2>
         </div>
-    
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="csrfmiddlewaretoken" value="...">
-                    <label for="proveedor">Proveedor:</label>
-            <select name="proveedor" id="proveedor" required>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form.errors %}
+        <div style="color: red; margin-bottom: 10px;">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+    <label for="proveedor">Proveedor:</label>
+    <select name="proveedor" id="proveedor" required>
+        <option value="">Seleccione un proveedor</option>
+        {% for proveedor in proveedores %}
+            <option value="{{ proveedor.id }}"
+                {% if factura.proveedor.id == proveedor.id %}selected{% endif %}>
+                {{ proveedor.nombre }} {{ proveedor.apellido }}
+            </option>
+        {% endfor %}
+    </select>
 
-                <option value="">Seleccione un proveedor</option>
-                {% for proveedor in proveedores %}
-                    <option value="{{ proveedor.id }}">{{ proveedor.nombre }} {{ proveedor.apellido }}</option>
-                {% endfor %}
-            </select>
-            <div class="mt-2">
-                <label for="id_imagen">Imagen Actual de la Factura:</label>
-            
-                <a href="/media/facturas/estanque_pixel_art.png">facturas/estanque_pixel_art.png</a>
-                <img src="/media/facturas/estanque_pixel_art.png" alt="Imagen actual" style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; border: 1px solid #ddd;">
-            </div>
-            
+    <div class="mt-2">
+        <label for="id_imagen">Imagen Actual de la Factura:</label>
+        {% if factura.imagen and factura.imagen.url %}
+            <a href="{{ factura.imagen.url }}">{{ factura.imagen.name }}</a>
+            <img src="{{ factura.imagen.url }}" alt="Imagen actual" style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; border: 1px solid #ddd;">
+        {% else %}
+            <span>No hay imagen</span>
+        {% endif %}
+    </div>
 
-            <div style=" margin-top: 10px; margin-bottom: 10px;">
-                <label for="imagen-clear_id">Limpiar</label>
-                <input type="checkbox" name="imagen-clear" id="imagen-clear_id">
-            </div>
-            
-            
-            <label>Modificar:</label>
-            <div class="form-text" style="margin-top: 5px;">
-                Formatos aceptados: JPG, PNG, PDF. Dejar en blanco para mantener la imagen actual.</div>
-            <input type="file" name="imagen" accept="image/*" id="id_imagen" style="margin-top: 10px;">
-    
-            <label for="id_descripcion">Descripción:</label>
-            <textarea name="descripcion" cols="40" rows="10" required="" id="id_descripcion" style="height: 122px;">dsdwdwsd</textarea>
-            
-    
-            <button type="submit">Actualizar Factura</button>
-            <a href="/Factura/" class="cancelar-btn" style="width: 340px;">Cancelar</a>
-                
-            </form>
+
+
+    <label>Modificar:</label>
+    <div class="form-text" style="margin-top: 5px;">
+        Formatos aceptados: JPG, PNG, PDF. Dejar en blanco para mantener la imagen actual.
+    </div>
+    {{ form.imagen }}
+
+    <label for="id_descripcion">Descripción:</label>
+    {{ form.descripcion }}
+        <!-- Fecha de publicación solo lectura -->
+    <div class="mt-2">
+        <label>Fecha de publicación:</label>
+        <input type="text" value="{{ factura.fecha_publicacion|date:'d/m/Y H:i' }}" readonly class="form-control" style="background:#f5f5f5;">
+    </div>
+
+    <button type="submit">Actualizar Factura</button>
+    <a href="{% url 'factura' %}" class="cancelar-btn" style="width: 340px;">Cancelar</a>
+</form>
+
         </div>
     </body>
 </html>

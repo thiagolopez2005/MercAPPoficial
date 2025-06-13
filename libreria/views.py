@@ -697,6 +697,10 @@ def editar_factura(request, numero_factura):
             proveedor_id = request.POST.get('proveedor')
             if proveedor_id:
                 factura.proveedor = Proveedor.objects.get(id=proveedor_id)
+            # Manejar limpiar imagen
+            if 'imagen-clear' in request.POST:
+                factura.imagen.delete(save=False)
+                factura.imagen = None
             factura.save()
             return redirect('factura')
     else:
