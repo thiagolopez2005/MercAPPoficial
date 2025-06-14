@@ -866,6 +866,28 @@ def eliminar_producto_carrito(request, order_product_id):
 # --------------------------------------------------
 # VISTA PARA LA GENERACION DE VALIDACION DE COMPRAS DESDE EL CARRITO
 # ---------------------------------------------
+def enviar_correo_no_pagada(compra):
+    cliente_email = compra.cliente.email
+    cliente_nombre = f"{compra.cliente.nombre} {compra.cliente.apellido}"
+    admin_phone = "3044027125"
+
+    subject = "Estado de Pago - MercApp"
+    message = (
+        f"Hola {cliente_nombre},\n\n"
+        "Su pago aún no ha sido recibido o validado.\n"
+        f"Por favor, comuníquese con el administrador al número {admin_phone} para más información.\n\n"
+        "Gracias por su compra.\nMercApp"
+    )
+
+    from django.core.mail import send_mail
+    from django.conf import settings
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [cliente_email],
+        fail_silently=True
+    )
 
 @login_required
 def finalizar_compra(request):
@@ -900,7 +922,7 @@ def finalizar_compra(request):
             forma_entrega=forma_entrega,
             direccion_entrega=direccion_entrega
         )
-
+        enviar_correo_no_pagada(compra)
         # Verificar el stock antes de finalizar la compra
         for order_product in order.orderproduct_set.all():
             producto = order_product.product
@@ -1313,13 +1335,13 @@ def marcar_pagada(request, compra_id):
     # --- ENVÍO DE CORREO AL CLIENTE ---
     cliente_email = compra.cliente.email
     cliente_nombre = f"{compra.cliente.nombre} {compra.cliente.apellido}"
-    admin_phone = "3234188256"
+    admin_phone = "3044027125"
 
     # Mensaje según forma de entrega
     if compra.forma_entrega == "sede":
         entrega_msg = "Por favor, recoge tu producto en la sede."
     elif compra.forma_entrega == "domicilio":
-        entrega_msg = "Su producto será enviado a su domicilio en el lapso de 1 semana, por favor comuniquese con el administrador,para más informacion 3234188256"
+        entrega_msg = "Su producto será enviado a su domicilio en el lapso de 1 semana."
     else:
         entrega_msg = "Por favor, comuníquese con el administrador para más información."
 
@@ -1355,13 +1377,12 @@ def marcar_no_pagada(request, compra_id):
     # --- ENVÍO DE CORREO AL CLIENTE ---
     cliente_email = compra.cliente.email
     cliente_nombre = f"{compra.cliente.nombre} {compra.cliente.apellido}"
-    admin_phone = "3234188256"
 
     subject = "Estado de Pago - MercApp"
     message = (
         f"Hola {cliente_nombre},\n\n"
         "Su pago aún no ha sido recibido o validado.\n"
-        f"Por favor, comuníquese con el administrador al número 3234188256 para más información.\n\n"
+        f"Por favor, comuníquese con el administrador al número 3044027125 para más información.\n\n"
         "Gracias por su compra.\nMercApp"
     )
 
