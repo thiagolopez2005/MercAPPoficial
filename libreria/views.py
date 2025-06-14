@@ -222,7 +222,7 @@ def home(request):
 
 def inventario(request):
     productos = Producto.objects.all() #AQUI VISUALIZA LOS PORDUCTOS GUARDADOS EN EL HMTL PORDUCTOS2
-    medidas = Producto.objects.values_list('medida', flat=True).distinct()
+    medidas = Medida.objects.all()
     return render(request, 'accounts/inventario.html', {'productos': productos, 'medidas': medidas})
 def Principal(request):
     return render(request, 'accounts/Principal.html')

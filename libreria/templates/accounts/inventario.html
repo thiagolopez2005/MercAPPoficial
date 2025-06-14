@@ -371,9 +371,9 @@
         <th>
             Tipo de Medida<br>
             <select id="medidaFilter">
-                <option value="">Todas</option>
+                <option value="">Todas las medidas</option>
                 {% for medida in medidas %}
-                    <option value="{{ medida.id }}">{{ medida.nombre }}</option>
+                    <option value="{{ medida.id }}-{{ medida.nombre|default_if_none:"" }}">{{ medida.id }}-{{ medida.nombre|default_if_none:"" }}</option>
                 {% endfor %}
             </select>
 
@@ -400,9 +400,7 @@
                                     <td>{{ producto.descripcion }}</td>
                                     <td>{{ producto.unidad }}</td>
                                     <td>{{ producto.stock }}</td>
-                                    <td data-medida-id="{{ producto.medida.id }}">{{ producto.medida.nombre }}</td>
-
-          
+                                    <td>{{ producto.medida.id }}-{{ producto.medida.nombre }}</td>
                                 <td>
                                     {% if producto.habilitado %}
                                     <span class="badge bg-success">Habilitado</span>
@@ -467,35 +465,38 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const stockFilter = document.getElementById('stockFilter');
-    const medidaFilter = document.getElementById('medidaFilter');
     const estadoFilter = document.getElementById('estadoFilter');
     const btnFiltrar = document.getElementById('btnFiltrar');
-    const table = document.getElementById('inventoryTable');
-    const rows = table.querySelectorAll('tbody tr');
-    function filtrarTabla() {
-        rows.forEach(row => {
-            const medidaId = row.children[4].getAttribute('data-medida-id');
-            const stock = parseInt(row.children[3].textContent.trim());
-            const estado = row.children[5].textContent.trim().toLowerCase();
+    const medidaFilter = document.getElementById('medidaFilter');
+    const rows = document.querySelectorAll('#inventoryTable tbody tr');
 
+    function filtrarTabla() {
+        const medidaSeleccionada = medidaFilter.value;
+        const stockSeleccionado = stockFilter.value;
+        const estadoSeleccionado = estadoFilter.value;
+
+        rows.forEach(row => {
             let mostrar = true;
 
-            // Filtrar por medida
-            if (medidaFilter.value && medidaId !== medidaFilter.value) {
+            // Filtrar por tipo de medida
+            const medidaTexto = row.children[4].textContent.trim();
+            if (medidaSeleccionada && medidaTexto !== medidaSeleccionada) {
                 mostrar = false;
-            }       
+            }
 
             // Filtrar por stock
-            if (stockFilter.value) {
-                if (stockFilter.value === 'bajo' && stock > 10) mostrar = false;
-                if (stockFilter.value === 'medio' && (stock <= 10 || stock > 50)) mostrar = false;
-                if (stockFilter.value === 'alto' && (stock <= 50 || stock > 100)) mostrar = false;
+            const stock = parseInt(row.children[3].textContent.trim());
+            if (stockSeleccionado) {
+                if (stockSeleccionado === 'bajo' && stock > 10) mostrar = false;
+                if (stockSeleccionado === 'medio' && (stock <= 10 || stock > 50)) mostrar = false;
+                if (stockSeleccionado === 'alto' && (stock <= 50 || stock > 100)) mostrar = false;
             }
 
             // Filtrar por estado
-            if (estadoFilter.value) {
-                if (estadoFilter.value === 'habilitado' && !estado.includes('habilitado')) mostrar = false;
-                if (estadoFilter.value === 'inhabilitado' && !estado.includes('inhabilitado')) mostrar = false;
+            const estado = row.children[5].textContent.trim().toLowerCase();
+            if (estadoSeleccionado) {
+                if (estadoSeleccionado === 'habilitado' && !estado.includes('habilitado')) mostrar = false;
+                if (estadoSeleccionado === 'inhabilitado' && !estado.includes('inhabilitado')) mostrar = false;
             }
 
             row.style.display = mostrar ? '' : 'none';
