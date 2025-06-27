@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
-# Define una clase CustomUser que hereda de AbstractUser, permitiendo extender el modelo de usuario por defecto
 class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'role' (rol del usuario)
     # Cada opción es una tupla con el valor a almacenar y la etiqueta legible
     ROLE_CHOICES = (
@@ -18,7 +17,7 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
     # Define que el campo que se usará como identificador principal (username) es el correo electrónico
     USERNAME_FIELD = 'cec'
     # Campos requeridos adicionales para crear un usuario; en este caso, se requiere el 'username'
-    REQUIRED_FIELDS = ['Nombre']  # Se requiere el nombre de usuario
+    REQUIRED_FIELDS = ['nombre']  # Se requiere el nombre de usuario
 
     telefono = models.CharField(
         max_length=10,
@@ -47,6 +46,7 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
     status =models.CharField(max_length=20, default=' No activo')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    username = models.CharField(max_length=150, blank=True, null=True, unique=False)  # <-- OPCIONAL
 
     # Método especial que define la representación en forma de cadena del objeto
     # Aquí se devuelve el correo electrónico del usuario
@@ -203,4 +203,4 @@ class ResumenCompra(models.Model):
 
     def __str__(self):
         return f'Compra de {self.cliente.CC} - {self.fecha_compra}'
-    
+

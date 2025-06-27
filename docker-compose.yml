@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mysql:8
+    ports:
+      - "5432:3306"  # Expones el puerto 3306 de MySQL en el 5432 de tu máquina
+    volumes:
+      - mysql_data:/var/lib/mysql  # Volumen de datos correcto para MySQL
+    environment:
+      MYSQL_DATABASE: mercapp
+      MYSQL_USER: mercapp
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword  # Necesario para iniciar MySQL
+    networks:
+      - mercapp_network  # Conecta este servicio a la red personalizada
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - mercapp_network  # Asegúrate que esté bien indentado
+
+volumes:
+  mysql_data:
+
+# --- Definiciones Globales ---
+networks:
+  mercapp_network:
+    driver: bridge

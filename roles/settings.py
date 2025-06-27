@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^b)5wesc#zu0(qiaq8d-)n3(n2=t0@0mkijt4&_vco86ybo8zi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] 
 
 
 # Application definition
@@ -79,11 +79,10 @@ WSGI_APPLICATION = 'roles.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        #'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'mercapp',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'USER': 'mercapp',
+        'PASSWORD': 'password',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }

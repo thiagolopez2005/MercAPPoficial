@@ -8,7 +8,7 @@ charset-normalizer==3.4.1
 cryptography==44.0.2
 cssselect2==0.8.0
 distlib==0.3.9
-Django==5.2
+Django==4.2.23
 filelock==3.17.0
 html5lib==1.1
 idna==3.10
