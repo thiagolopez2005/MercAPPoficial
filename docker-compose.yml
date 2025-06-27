@@ -2,7 +2,7 @@ services:
   db:
     image: mysql:8
     ports:
-      - "3306:3306"  # Expones el puerto 3306 de MySQL en el 5432 de tu máquina
+      - "3307:3306"  # Expones el puerto 3306 de MySQL en el 5432 de tu máquina
     volumes:
       - mysql_data:/var/lib/mysql  # Volumen de datos correcto para MySQL
     environment:
