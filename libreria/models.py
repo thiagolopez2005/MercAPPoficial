@@ -1,65 +1,79 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
 
-class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'role' (rol del usuario)
-    # Cada opción es una tupla con el valor a almacenar y la etiqueta legible
+# --------------------- MANAGER PARA CustomUser ---------------------
+class CustomUserManager(BaseUserManager):
+    def create_user(self, cec, email, password=None, **extra_fields):
+        if not cec:
+            raise ValueError('El campo CEC es obligatorio')
+        if not email:
+            raise ValueError('El campo Email es obligatorio')
+        email = self.normalize_email(email)
+        user = self.model(cec=cec, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, cec, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if not extra_fields.get('is_staff'):
+            raise ValueError('El superusuario debe tener is_staff=True.')
+        if not extra_fields.get('is_superuser'):
+            raise ValueError('El superusuario debe tener is_superuser=True.')
+
+        return self.create_user(cec, email, password, **extra_fields)
+
+# --------------------- USUARIO ADMIN Y EMPLEADO ---------------------
+class CustomUser(AbstractUser):
     ROLE_CHOICES = (
         ('admin', 'Administrador'),
         ('emple', 'Empleado'),
     )
-    # Campo para almacenar el rol del usuario, utiliza CharField con un máximo de 10 caracteres,
-    # y se limita a las opciones definidas en ROLE_CHOICES. El valor por defecto es 'user'
+
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
-
-    # Campo para almacenar el correo electrónico, se marca como único para que no se repitan
     email = models.EmailField(unique=True)
+    cec = models.CharField(max_length=10, blank=False, null=False, unique=True)
+    nombre = models.CharField(max_length=250)
+    apellido = models.CharField(max_length=250)
+    telefono = models.CharField(max_length=10, blank=True, null=True)
+    status = models.CharField(max_length=20, default='No activo')
+    username = models.CharField(max_length=150, blank=True, null=True, unique=False)
 
-    # Define que el campo que se usará como identificador principal (username) es el correo electrónico
     USERNAME_FIELD = 'cec'
-    # Campos requeridos adicionales para crear un usuario; en este caso, se requiere el 'username'
-    REQUIRED_FIELDS = ['nombre']  # Se requiere el nombre de usuario
+    REQUIRED_FIELDS = ['nombre', 'email']
 
-    telefono = models.CharField(
-        max_length=10,
-        blank=True,
-        null=True,
-    )
+    objects = CustomUserManager()
 
-    cec = models.CharField(
-        max_length=10,
-        blank=False,
-        null=False,
-        unique=True
-    )
-
-    nombre = models.CharField(
-        max_length=250,
-        blank=False,
-        null=False,
-        )
-    
-    apellido = models.CharField(
-        max_length=250,
-        blank=False,
-        null=False,)
-    
-    status =models.CharField(max_length=20, default=' No activo')
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    username = models.CharField(max_length=150, blank=True, null=True, unique=False)  # <-- OPCIONAL
-
-    # Método especial que define la representación en forma de cadena del objeto
-    # Aquí se devuelve el correo electrónico del usuario
     def __str__(self):
         return self.cec
 
-# --------------------- Bakend del productos.hmtl ---------------------
+# --------------------- CLIENTE SIN AUTENTICACIÓN ADMIN ---------------------
+class CustomCliente(models.Model):
+    ROLE_CHOICES = (
+        ('user', 'Usuario'),
+    )
+    roleCliente = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
+    email = models.EmailField(unique=True)
+    telefono = models.CharField(max_length=10, blank=True, null=True)
+    CC = models.CharField(max_length=10, unique=True)
+    nombre = models.CharField(max_length=250)
+    apellido = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.CC
+
+# --------------------- MEDIDA Y PRODUCTO ---------------------
 class Medida(models.Model):
     nombre = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.nombre
-    
+
 class Producto(models.Model):
     TIPOS_PRODUCTO_CHOICES = [
         ('frutas', 'Frutas'),
@@ -77,46 +91,13 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=0)
     publicado = models.BooleanField(default=True)
     medida = models.ForeignKey(Medida, on_delete=models.PROTECT)
-    tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')  # Nuevo campo
-    habilitado = models.BooleanField(default=True) 
+    tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')
+    habilitado = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nombre
 
-# --------------------- Bakend creacion de cliente   ---------------------
-class CustomCliente(AbstractUser):  
-    ROLE_CHOICES = (
-        ('user', 'Usuario'),
-    )
-    roleCliente = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
-    email = models.EmailField(unique=True)
-    USERNAME_FIELD = 'CC'  # Campo utilizado para la autenticación
-    REQUIRED_FIELDS = ['username']  
-    telefono = models.CharField(max_length=10, blank=True, null=True)
-    CC = models.CharField(max_length=10, blank=False, null=False, unique=True)
-    nombre = models.CharField(max_length=250, blank=False, null=False)
-    apellido = models.CharField(max_length=250, blank=False, null=False)
-
-    # Agregar related_name para evitar conflictos
-    groups = models.ManyToManyField(
-        Group,
-        related_name="customcliente_groups",  # Cambia el nombre de la relación inversa
-        blank=True
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name="customcliente_user_permissions",  # Cambia el nombre de la relación inversa
-        blank=True
-    )
-
-    def __str__(self):
-        return self.CC
-
-
-    
-#------------------ PROVEEDORES-------------------------
-from django.db import models 
-
+# --------------------- PROVEEDOR ---------------------
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
@@ -126,25 +107,20 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
-# ----------------------------- Bakend creacion dE FACTURAS   ---------------------
-from django.db import models
-from django.utils import timezone
 
+# --------------------- FACTURA ---------------------
 class Factura(models.Model):
     imagen = models.ImageField(upload_to='facturas/', null=True, blank=True)
     descripcion = models.TextField()
-    numero_factura = models.AutoField(primary_key=True)  # Auto-incrementable
+    numero_factura = models.AutoField(primary_key=True)
     fecha_publicacion = models.DateTimeField(default=timezone.now)
-    habilitada = models.BooleanField(default=True)    
+    habilitada = models.BooleanField(default=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return f"Factura #{self.numero_factura} - {self.descripcion[:50]}"
-    
-# --------backend de registro de actividad---
 
-from django.conf import settings  # Importa settings para usar AUTH_USER_MODEL
-from django.utils.timezone import now
-
+# --------------------- REGISTRO DE ACTIVIDAD ---------------------
 class RegistroActividad(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -156,46 +132,38 @@ class RegistroActividad(models.Model):
 
     def __str__(self):
         return f"{self.timestamp.strftime('%Y-%m-%d %H:%M:%S')} - {self.usuario.nombre if self.usuario else 'Sistema'} - {self.accion}"
-    
-# --AGREGAR PRODUCTO EN EL CARRITO
-from django.contrib.auth.models import User
-from django.conf import settings
-from django.conf import settings
-from django.db import models
 
-
+# --------------------- PEDIDO Y CARRITO ---------------------
 class Order(models.Model):
-    user = models.ForeignKey('CustomCliente', on_delete=models.CASCADE)  # Cambiado a CustomCliente
+    user = models.ForeignKey(CustomCliente, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)  # Indica si la orden está activa
+    is_active = models.BooleanField(default=True)
     pagada = models.BooleanField(default=False)
+
     def get_total_price(self):
         return sum(item.get_total_price() for item in self.orderproduct_set.all())
 
     def __str__(self):
         return f"Orden #{self.id} - Usuario: {self.user.CC} - Activa: {self.is_active}"
-    
+
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.PROTECT)  # Cambia a PROTECT o SET_NULL
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
     product = models.ForeignKey(Producto, on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(default=1)
 
     def get_total_price(self):
         return self.product.precio * self.quantity
-    
-# ------ BAKEND PARA EL REGISTRO DE LA VALIDACION DE COMPRAS // COMPRAS // PAGOS
-from django.db import models
-from django.conf import settings
 
+# --------------------- RESUMEN DE COMPRA ---------------------
 class ResumenCompra(models.Model):
-    cliente = models.ForeignKey('CustomCliente', on_delete=models.CASCADE)  # Cambiado a CustomCliente
+    cliente = models.ForeignKey(CustomCliente, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=10, decimal_places=1)
     iva = models.DecimalField(max_digits=10, decimal_places=1)
     total_con_iva = models.DecimalField(max_digits=10, decimal_places=1)
     fecha_compra = models.DateTimeField(auto_now_add=True)
-    orderproduct_set = models.ManyToManyField(OrderProduct)  # Relación con OrderProduct
-    pagada = models.BooleanField(default=False)  # <-- Agrega este campo
+    orderproduct_set = models.ManyToManyField(OrderProduct)
+    pagada = models.BooleanField(default=False)
     metodo_pago = models.CharField(max_length=20, blank=True, null=True)
     referencia_pago = models.CharField(max_length=8, blank=True, null=True)
     forma_entrega = models.CharField(max_length=20, blank=True, null=True)
@@ -203,4 +171,3 @@ class ResumenCompra(models.Model):
 
     def __str__(self):
         return f'Compra de {self.cliente.CC} - {self.fecha_compra}'
-
