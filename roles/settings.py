@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-^b)5wesc#zu0(qiaq8d-)n3(n2=t0@0mkijt4&_vco86ybo8zi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*'] 
-
+ALLOWED_HOSTS = ['mercapp.artisandev.site', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -171,3 +170,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend predeterminado de Django
 ]
 MYSQL_PATH = r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe"
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://mercapp.artisandev.site',
+]
