@@ -6,4 +6,5 @@ echo "Esperando a que MySQL esté disponible en db:3306..."
 /wait-for-it.sh db:3306 --timeout=60 --strict -- echo "MySQL está listo."
 
 # Ejecuta el comando original (ej. runserver)
-/usr/local/bin/python "$@"
+exec "$@"
+
