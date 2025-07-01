@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,6 +88,10 @@ DATABASES = {
     }
 }
 
+STATIC_URL = '/static/'
+
+# Establece la ruta donde se almacenarán los archivos estáticos recolectados
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # o cualquier otra ruta absoluta válida
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -170,6 +176,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend predeterminado de Django
 ]
 MYSQL_PATH = r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe"
+
 
 CSRF_TRUSTED_ORIGINS = [
     'https://mercapp.artisandev.site',

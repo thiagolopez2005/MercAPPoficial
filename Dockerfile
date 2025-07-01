@@ -1,23 +1,23 @@
-# Usa una imagen base adecuada
 FROM python:3.11-slim
 
-# Instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
     gcc \
     default-libmysqlclient-dev \
     pkg-config \
     build-essential \
+    netcat-openbsd \
     && apt-get clean
 
-# Crea el directorio de trabajo
 WORKDIR /app
 
-# Copia tu código y requirements
 COPY . /app
+COPY wait-for-it.sh /wait-for-it.sh
+COPY entrypoint.sh /entrypoint.sh
 
-# Instala dependencias de Python
+RUN chmod +x /wait-for-it.sh /entrypoint.sh
+
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Comando por defecto
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
