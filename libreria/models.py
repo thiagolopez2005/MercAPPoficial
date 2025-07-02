@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
     email = models.EmailField(unique=True)
-    cec = models.CharField(max_length=10, blank=False, null=False, unique=True)
+    cec = models.CharField(max_length=10, unique=True)
     nombre = models.CharField(max_length=250)
     apellido = models.CharField(max_length=250)
     telefono = models.CharField(max_length=10, blank=True, null=True)
@@ -57,12 +57,15 @@ class CustomCliente(models.Model):
     ROLE_CHOICES = (
         ('user', 'Usuario'),
     )
+
     roleCliente = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=10, blank=True, null=True)
-    CC = models.CharField(max_length=10, unique=True)
+    CC = models.CharField(max_length=10, unique=True)  # campo principal de identificación
     nombre = models.CharField(max_length=250)
     apellido = models.CharField(max_length=250)
+
+    # NOTA IMPORTANTE: Este modelo NO usa username. Para consultas utiliza CC o email.
 
     def __str__(self):
         return self.CC
