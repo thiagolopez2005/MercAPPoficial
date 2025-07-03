@@ -81,8 +81,8 @@ def login_view(request):
         cec = request.POST.get('cec')  #AQUI EN INGRESARA POR SU CC
         password = request.POST.get('password')
         role = request.POST.get('role')
-        user = authenticate(request, username=cec, password=password)
-        
+        user = authenticate(request, CC=cec, password=password)
+
         if user is not None:
             if user.role != role:
                 error_message = 'El rol seleccionado no coincide con el de tu cuenta.'
