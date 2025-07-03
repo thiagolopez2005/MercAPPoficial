@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'libreria'
+    'libreria',
+]
+
+AUTH_USER_MODEL = 'libreria.CustomUser'  # ✅ SOLO CustomUser
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # ✅ SOLO el backend predeterminado para el admin
 ]
 
 MIDDLEWARE = [

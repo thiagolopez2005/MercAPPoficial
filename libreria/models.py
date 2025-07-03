@@ -35,7 +35,7 @@ class CustomUser(AbstractUser):
         ('emple', 'Empleado'),
     )
 
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='emple')
     email = models.EmailField(unique=True)
     cec = models.CharField(max_length=10, unique=True)
     nombre = models.CharField(max_length=250)
