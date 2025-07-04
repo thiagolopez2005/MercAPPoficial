@@ -53,19 +53,21 @@ class CustomUser(AbstractUser):
         return self.cec
 
 # --------------------- CLIENTE SIN AUTENTICACIÓN ADMIN ---------------------
-class CustomCliente(models.Model):
+class CustomCliente(AbstractUser):
     ROLE_CHOICES = (
         ('user', 'Usuario'),
     )
-
     roleCliente = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=10, blank=True, null=True)
-    CC = models.CharField(max_length=10, unique=True)  # campo principal de identificación
-    nombre = models.CharField(max_length=250)
-    apellido = models.CharField(max_length=250)
+    CC = models.CharField(max_length=10, blank=False, null=False, unique=True)  # Usa 'cc' en minúsculas
+    nombre = models.CharField(max_length=250, blank=False, null=False)
+    apellido = models.CharField(max_length=250, blank=False, null=False)
 
-    # NOTA IMPORTANTE: Este modelo NO usa username. Para consultas utiliza CC o email.
+    USERNAME_FIELD = 'username'  # Usa el campo username de AbstractUser
+    REQUIRED_FIELDS = ['CC', 'email', 'nombre', 'apellido']
+
+    # NOTA IMPORTANTE: Este modelo SI usa username. Para consultas utiliza CC o email.
 
     def __str__(self):
         return self.CC
