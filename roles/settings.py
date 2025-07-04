@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +27,7 @@ SECRET_KEY = 'django-insecure-^b)5wesc#zu0(qiaq8d-)n3(n2=t0@0mkijt4&_vco86ybo8zi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['mercapp.artisandev.site', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -37,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'libreria'
+    'libreria',
+]
+
+AUTH_USER_MODEL = 'libreria.CustomUser'  # ✅ SOLO CustomUser
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # ✅ SOLO el backend predeterminado para el admin
 ]
 
 MIDDLEWARE = [
@@ -79,15 +86,18 @@ WSGI_APPLICATION = 'roles.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        #'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'mercapp',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'USER': 'mercapp',
+        'PASSWORD': 'password',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }
 
+STATIC_URL = '/static/'
+
+# Establece la ruta donde se almacenarán los archivos estáticos recolectados
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # o cualquier otra ruta absoluta válida
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -172,3 +182,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend predeterminado de Django
 ]
 MYSQL_PATH = r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe"
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://mercapp.artisandev.site',
+]

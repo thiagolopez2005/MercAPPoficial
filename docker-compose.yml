@@ -1,0 +1,65 @@
+services:
+  db:
+    image: mysql:8
+    ports:
+      - "3307:3306"  # Expones el puerto 3306 de MySQL en el 5432 de tu máquina
+    volumes:
+      - mercapp_mysql_data:/var/lib/mysql  # Volumen de datos correcto para MySQL
+    environment:
+      MYSQL_DATABASE: mercapp
+      MYSQL_USER: mercapp
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword  # Necesario para iniciar MySQL
+    networks:
+      - mercapp_network  # Conecta este servicio a la red personalizada
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s # Cada cuanto pregunta
+      timeout: 5s # Cuanto debe esperar por la respuesta
+      retries: 5 # Cuantos intentos debe hacer
+      
+  web:
+    build: .
+    image: mercapp_web
+    container_name: mercapp_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+      # Monta un "volumen nombrado" para los archivos estáticos.
+      - mercapp_static_volume:/app/staticfiles
+      - mercapp_media_volume:/app/media
+    ports:
+      - "8012:8000"
+    depends_on:
+      - db
+    networks:
+      - mercapp_network  # Asegúrate que esté bien indentado
+
+  # --- Servicio Opcional: phpMyAdmin ---
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: mercapp_phpmyadmin_gui
+    environment:
+      PMA_HOST: db # Points to the database service
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8024:80" # El puerto asigando por el Instructor
+    networks:
+      - mercapp_network
+    depends_on:
+      db:
+        condition: service_healthy
+
+# Definimos los volumenes de persistencia de datos
+volumes:
+  mercapp_mysql_data: # Este estaba bien
+  mercapp_static_volume:
+  mercapp_media_volume:
+
+# --- Definiciones Globales ---
+networks:
+  mercapp_network:
+    name: mercapp_network
+    driver: bridge
+
