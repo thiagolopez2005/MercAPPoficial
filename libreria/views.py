@@ -31,7 +31,7 @@ from decimal import Decimal
 from .models import Producto, Order, OrderProduct,ResumenCompra, CustomCliente,RegistroActividad
 from django.http import HttpResponse
 from django.template.loader import get_template
-# from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 from libreria.decorators import admin_required,Rcontraseña
 from libreria.decorators import verificar_rol_requerido 
 from libreria.decorators import  registrar_agregado_carrito
