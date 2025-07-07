@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
@@ -44,6 +44,18 @@ class CustomUser(AbstractUser):
     status = models.CharField(max_length=20, default='No activo')
     username = models.CharField(max_length=150, blank=True, null=True, unique=False)
 
+    # 👇 Agregado para evitar conflictos
+    groups = models.ManyToManyField(
+        Group,
+        related_name='customuser_set',
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='customuser_permissions',
+        blank=True
+    )
+
     USERNAME_FIELD = 'cec'
     REQUIRED_FIELDS = ['nombre', 'email']
 
@@ -60,14 +72,24 @@ class CustomCliente(AbstractUser):
     roleCliente = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=10, blank=True, null=True)
-    CC = models.CharField(max_length=10, blank=False, null=False, unique=True)  # Usa 'cc' en minúsculas
+    CC = models.CharField(max_length=10, blank=False, null=False, unique=True)
     nombre = models.CharField(max_length=250, blank=False, null=False)
     apellido = models.CharField(max_length=250, blank=False, null=False)
 
-    USERNAME_FIELD = 'username'  # Usa el campo username de AbstractUser
-    REQUIRED_FIELDS = ['CC', 'email', 'nombre', 'apellido']
+    # 👇 Agregado para evitar conflictos
+    groups = models.ManyToManyField(
+        Group,
+        related_name='customcliente_set',
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='customcliente_permissions',
+        blank=True
+    )
 
-    # NOTA IMPORTANTE: Este modelo SI usa username. Para consultas utiliza CC o email.
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['CC', 'email', 'nombre', 'apellido']
 
     def __str__(self):
         return self.CC
