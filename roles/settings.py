@@ -178,7 +178,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'libreria.backends.CustomClienteBackend',  # Backend personalizado
     'django.contrib.auth.backends.ModelBackend',  # Backend predeterminado de Django
 ]
 MYSQL_PATH = r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysql.exe"
